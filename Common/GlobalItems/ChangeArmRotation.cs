@@ -1,0 +1,23 @@
+﻿using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace UniverseOfSwordsMod.Common.GlobalItems
+{
+    public class ChangeArmRotation : GlobalItem
+    {
+        public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
+        {
+            if ((item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed) && !item.noMelee && !item.noUseGraphic && item.useStyle == ItemUseStyleID.Swing)
+            {
+                float rotation = player.itemRotation - MathHelper.PiOver2 - MathHelper.PiOver4;
+                if (player.direction == -1)
+                {
+                    rotation -= MathHelper.PiOver4 * 2;
+                }
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
+            }
+        }
+    }
+}

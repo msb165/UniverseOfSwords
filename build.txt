@@ -1,0 +1,8 @@
+author = Gnom
+version = 1.0
+displayName = Universe Of Swords
+homepage = http://forums.terraria.org/index.php?threads/universe-of-swords.51861/#post-1142121
+hideCode = false
+hideResources = false
+includeSource = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*

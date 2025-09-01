@@ -1,0 +1,28 @@
+using System;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace UniverseOfSwordsMod.Content.Items.Weapons
+{
+    public class Extase : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 64;
+            Item.height = 64;			
+			Item.scale = 1.0F;
+            Item.rare = 4; 			
+            Item.useStyle = 1;             
+            Item.useTime = 25;
+            Item.useAnimation = 25;           
+            Item.damage = 15;
+            Item.knockBack = 4.0F;
+            Item.UseSound = SoundID.Item1;
+            Item.value = Item.sellPrice(silver: 60);			
+            Item.autoReuse = true; 
+            Item.DamageType = DamageClass.Melee;
+	    }
+    }
+}

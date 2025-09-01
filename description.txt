@@ -1,0 +1,446 @@
+Universe of Swords Mod adds tons of melee class weapons, which mainly consist of swords. More information on my homepage.
+
+Version history:
+---------------------------------------
+2.8.2:
+
+Updated for the newest version of tModLoader
+
+---------------------------------------
+2.8.1:
+
+Updated for the newest version of tModLoader
+
+---------------------------------------
+2.8:
+
+Finally new update after months of inactivity! Update itself isn't too huge, just a few sprites and new weapons.
+Sorry about the delay and I hope you'll enjoy this rather small update. Anyway, here's the list of changes.
+ 
+Added new items:
+
+-Added new ore! Dark Ore is a rare ore that spawns after killing Plantera and is used to make strong items.
+-Calculator Sword
+-Nature Sword
+-Dran Wings (Two versions of them)
+
+Resprites (Credit goes to the great mutater and Horrior for SOTU resprite):
+
+-Sword of the Universe (Rainbow variant)
+-All rune blades (Including the True one)
+-Dragrael
+-Ice Breaker
+-Barbarian Sword
+-True Gem Sword
+-All Wood Sword
+-Doomsday
+-Musket Bullet Sword
+-Ancient Katana
+-Gnom Blade
+-All gem swords (Except Amber)
+-Saphira
+-Paladin Sword
+-Orcrist
+
+---------------------------------------
+2.7:
+
+Added new swords:
+
+-Sol Blade
+
+Other changes:
+
+-Balanced some of the swords
+-Removed some of the swords
+-Temporarily removed Nazgul
+
+Resprites:
+
+-Amethyst Sword
+-Emerald Sword
+-Sapphire Sword
+-Ruby Sword
+-Topaz Sword
+-Diamond Sword
+-True Gem Sword
+-Machine
+-The Stinger
+-The Eater
+-The Brain
+-Uriziel
+
+---------------------------------------
+2.6:
+
+Added new swords:
+
+-Daedric Sword
+-Crimson/Corrupt Crystallus
+-Poison Crystallus
+-Molten Shard
+-Venom Shard
+-Frozen Shard
+-Nightlight
+-Mechanical Soul
+-The Nightmare Amalgamation
+-Stone Shortsword
+-Ectoplasmic Ripper
+-True Terrablade
+-Scarlet Flare Greatsword
+-Smolder Blade
+
+Added new potions:
+
+-Skooma (Can be obtained through Travelling Merchant or crafted in hardmode)
+-Nord Mead
+-Lesser Melee Power Potion
+
+New tools:
+
+-Damascus Pickaxe
+-Damascus Hamaxe
+
+Resprites:
+
+-Crystal Excalibur
+-Ancient Katana
+-Death Sword
+-The Force
+-Master Sword
+-Ice Sword
+-Sand Sword
+-Martian Saucer Core
+
+---------------------------------------
+2.5:
+
+Added new swords:
+
+-Sword of the Multiverse (The most powerful sword in this mod)
+-Red Flare Longsword
+-Ice Blade
+-Fire Blade
+-Poison Blade
+-Dark Blade
+-The Witch King's Daughter
+-9th and final form of Sword of the Universe
+
+Added new NPC:
+
+-Nazgul (Spawns at night during Hardmode)
+
+New material:
+
+-Scarlet Flare Core (Can't be used to make anything yet)
+
+Resprites:
+
+-FreezeFire Claw
+-Crystal Sword
+
+---------------------------------------
+2.4:
+
+Added new swords:
+
+-Crystallus
+-Star Maelstrom
+-Extase
+-Magic Mirror Blade
+-Blades of Balance
+-Greatsword of the Cosmos
+-Heisenberg's Flask
+-Cluster BOOMer
+-Ultra Machine
+
+Resprites:
+
+-Ice Rune Blade
+-Blood Rune Blade
+-Fire Rune Blade
+-Shadow Rune Blade
+-Cursed Rune Blade
+-Ichor Rune Blade
+-True Rune Blade
+-Innos Wrath
+-Claw of Beliar
+-Dragon's Death
+-Edge Lord
+-Sticky Glowstick Sword
+-Paladin Sword
+
+Added new acessory:
+
+-Halo of Horrors
+
+Other changes:
+
+-Prism Sword shoots actual Last Prism projectile
+-Added five new forms for Sword of the Universe
+-Added dusts to some swords
+
+---------------------------------------
+2.3:
+
+Added new swords: (Credits go to HORRIOR and mutater)
+
+-Saphira
+-Human Buzz Saw
+-Wither Bane
+-The Master of Coin
+-Force Blade
+-Executioner
+-Phantom Scimitar
+-FreezeFire Claw
+-Sword of The Universe V3
+
+Added new armor sets: (Credits go to mutater)
+
+-Red Damascus set
+-Blue Damascus set
+-Green Damascus set
+
+Resprites (Credits go to mutater)
+
+-Copper/Silver/Gold Coin Swords
+-Longclaw
+-The Force
+-Narsil
+-Wooden Arrow Sword
+
+Balance changes:
+
+-Reduced crafting materials for Legendary Warrior's Gauntlet
+-Reduced damage of some swords
+-Sword of The Universe now has third form
+-Removed Jungle Mother 
+-Plantera now drops Executioner instead of Jungle Mother
+
+---------------------------------------
+2.2:
+
+-Fixed Dracula Sword drop problem
+
+---------------------------------------
+2.1: Small fixes update
+
+Added new swords: (Credits for swords go to mutater)
+
+-Fire Rune Blade
+-Ice Rune Blade
+-Blood Rune Blade
+-Ichor Rune Blade
+-Cursed Rune Blade
+-Shadow Rune Blade
+-True Rune Blade
+
+Other changes:
+
+-Removed Inferno poition effect from Legendary Warrior's Gauntlet
+-Removed swing speed effect from Legendary Warrior's Gauntlet
+-Legendary Warrior's Gauntlet now has 20% increased endurance effect
+
+---------------------------------------
+2.0: !!!Big update!!!
+
+Added new swords: (Credits for creation of new swords go to mutater and HORRIOR!)
+
+-Vugar Mutater
+-Molotov Sword
+-Sword of the Emperor
+-Bow Sword
+-Double Bladed Lightsaber
+-Blowpipe Sword
+-Feather Duster
+-Grenade Blade
+-Sticky Grenade Blade
+-Bouncy Grenade Blade
+-Buzz Kill
+-Buzz Kill Future Mode
+-Thunder Oath Sword
+-Fire Rune Blade
+-Revenant Bag
+-Deus Excalibur
+-Box of Grenades
+
+Items resprites: (Credits for resprites go to mutater!)
+
+-Cthulhu Judge
+-True Gem Sword
+-All Wood Sword
+-Gnom Blade
+-Dracula Sword
+-Machine
+-Crystal Vile Sword
+-PEKKA Sword
+-Star Destroyer
+-Dragrael
+-Orichalcon
+
+Added new spawnable ore and items made from it:
+
+-Damascus Ore
+-Damascus Bar
+-Damascus Helmet
+-Damacus Breastplate
+-Damascus Leggings
+
+Other changes:
+
+-Sword Matter and Upgrade Matter now have animations!
+-Sword Matter max stack increased from only 999 to 9999!
+-Removed Stick and Spectre Slayer
+
+---------------------------------------
+1.9:
+
+Added new swords:  !!!(Credits go to HORRIOR for creating all of the new swords)!!!
+
+-Sword of the Universe (Presenting to you, the most powerful sword in this mod!)
+-Sword of the Universe V2 (It's the same thing as Sword of the Universe but just different looks, choose which design you like the most)
+-Horrormageddon
+-True Horrormageddon
+
+Added new accessory:
+
+-Legendary Warrior's Gauntlet
+
+Even more resprites:  !!!(Credits go to mutater)!!!
+
+-Hero Sword (Also changed the name from Hero Sword to Restored Hero Sword)
+-Cthulhu Judge
+-Crystal Vile Sword
+
+---------------------------------------
+1.8:
+
+Added new swords:
+
+-Longclaw
+-Super Inflation (Credits for this sword go to HORRIOR)
+-Edge Lord (Credits for this sword go to HORRIOR) 
+-Ocean Roar
+-Star Destroyer
+-Poison Sword
+-Venom Sword
+
+More resprites (Credits go to mutater) :
+
+-Sword Matter
+-Upgrade Matter
+-Lunar Orb
+-True Gem Sword
+-Stone Sword
+-Gel Blade
+-Barbarian Sword
+-Fireball
+-Shadowbeam Sword
+-Blizzard Rage
+-Inflation (Credits for resprite go to HORRIOR)
+-Ice (Resprite was done by me)
+
+Other changes:
+
+-All Scythe weapons are now removed
+-Fixed Prism Sword (Now it's overpowered) 
+-Fixed Glacial Cracker (Now it's overpowered)
+
+---------------------------------------
+1.7: About the time, new update is here!
+
+Resprites for some swords and items:
+
+-Orichalcon (Sprite done by me)
+-Dirt Sword
+-Wooden Scythe
+-Cthulhu Judge
+-Wraith Blade
+-Orcrist
+-Ice Breaker
+-Mega Magic Sword
+-Power of the Galactic
+-Narsil (Resprite done by me)
+-Alpha Excalibur
+-Omega Excalibur
+!!!(Credits for the resprites go to Ca595 and mutater)!!!
+
+New swords added:   !!!(Shoutout to HORRIOR for creating following swords: Inflation, Cosmo Storm, Glacial Cracker and Prism Sword)!!!
+
+-Ice
+-Dawn
+-Copper Coin Sword
+-Silver Coin Sword
+-Gold Coin Sword
+-Inflation
+-Cosmo Storm
+-Glacial Cracker
+-Prism Sword
+
+Other changes:
+
+-Removed Harpy Sword
+-Harpies now drop sword named Dawn
+-Changed recipe for biome swords
+-Blizzard Rage now shoots projectiles like Blizzard Staff
+
+---------------------------------------
+1.6: Added new swords:
+-Dragon's Death
+-Kokiri Sword
+-Biggoron Sword
+-Orc War Sword
+
+Changes:
+-Fixed Doomsday drop problem on expert
+-Removed "Upgraded" swords
+-Removed Glass Sword, Cursed Hammer, Guide (As a weapon), Enchanted Sword, Crimson Axe, Solar Sword, Stardust Sword, Vortex Sword, Nebula Sword
+-Changed sprite for Beliar Claw
+-Reduced damage for some swords
+-Some swords now require more Sword Matter and other ingredients to craft 
+
+---------------------------------------
+1.5: Added new swords:
+-Ice Breaker
+-Destructor
+-Apocalypse
+-Crystal Dart Sword
+-Cursed Dart Sword
+-Ichor Dart Sword
+-Rusty Sword
+-Magnet Sword
+-Flame Sword
+
+Changes:
+-Gnom Blade shoots different projectile now
+-Fixed Magic Sword sound
+-Fixed cursor problem when shooting multiple projectiles from swords
+
+---------------------------------------
+1.4: Changes:
+-Now works with new TML version!
+-Uriziel buffed and added recipe for it
+-New crafting item: Sword Shard
+
+---------------------------------------
+1.3: Changes:
+-Fixed orichalcon crafting recipe
+-Removed swords: Vortex sword, Solar sword, Nebula sword and Stardust sword
+-Dracula sword now shoots three projectiles, Dragrael shoots now two projectiles 
+
+---------------------------------------
+1.2: Added new weapons:
+-Onyx Blade
+-Uriziel
+-The Swarm
+-The Stinger
+-Star Sword
+-Power of the Galactic
+-Harpy Sword
+-The Sky Power
+
+Changes:
+-Gnom Blade shoots multiple projectiles at once now
+
+---------------------------------------
+1.1: Forum added!
