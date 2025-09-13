@@ -3,6 +3,7 @@ Tiles: {
 	DamascusBarTile.MapEntry: Damascus Bar Tile
 	DamascusOreTile.MapEntry: Damascus Ore Tile
 	HaloOfHorrors.MapEntry: Halo Of Horrors
+	BlackBarTile.MapEntry: Black Bar Tile
 }
 
 Buffs: {
@@ -33,12 +34,17 @@ Buffs: {
 
 	MeleeBooster1: {
 		DisplayName: Melee Damage Booster
-		Description: 10% increased melee damage
+		Description: 15% increased melee damage
 	}
 
 	MeleeBooster2: {
 		DisplayName: Melee Speed Booster
 		Description: 10% increased melee speed
+	}
+
+	TrueSlow: {
+		DisplayName: True Slow
+		Description: Mods.UniverseOfSwordsMod.Buffs.TrueSlow.Description
 	}
 }
 
@@ -824,7 +830,7 @@ Items: {
 	}
 
 	MasterSword: {
-		DisplayName: Master Sword
+		DisplayName: Master Blade
 		Tooltip: ""
 	}
 
@@ -1099,7 +1105,7 @@ Items: {
 	}
 
 	Sharkron: {
-		DisplayName: Sharkron
+		DisplayName: Crathmore Aquaticus
 		Tooltip: ""
 	}
 
@@ -1294,7 +1300,11 @@ Items: {
 
 	TheMasterOfCoin: {
 		DisplayName: The Master Of Coin
-		Tooltip: ""
+		Tooltip:
+			'''
+			Has a chance of spawning a gold portal uppon killing an enemy
+			Inflicts Midas
+			'''
 	}
 
 	TheNightmareAmalgamation: {
@@ -1471,6 +1481,16 @@ Items: {
 		DisplayName: Melee Bonus2
 		Tooltip: ""
 	}
+
+	BigCrunch: {
+		DisplayName: Big Crunch
+		Tooltip: ""
+	}
+
+	BlackBar: {
+		DisplayName: Black Bar
+		Tooltip: ""
+	}
 }
 
 Projectiles: {
@@ -1544,9 +1564,9 @@ Projectiles: {
 	GenericSlash.DisplayName: Generic Slash
 	GolemLaser.DisplayName: Golem Laser
 	UnholyTrident.DisplayName: Unholy Trident
-	AlphaExcaliburEnergy.DisplayName: Alpha Excalibur Energy
-	MaelstormEnergy.DisplayName: Maelstorm Energy
-	OmegaExcaliburEnergy.DisplayName: Omega Excalibur Energy
+	AlphaExcaliburEnergy.DisplayName: Alpha Excalibur
+	MaelstormEnergy.DisplayName: Maelstorm
+	OmegaExcaliburEnergy.DisplayName: Omega Excalibur
 	MaelstormStar.DisplayName: Maelstorm Star
 	GnomeEnergy1.DisplayName: Gnome Energy1
 	GnomeEnergy2.DisplayName: Gnome Energy2
@@ -1570,4 +1590,31 @@ Projectiles: {
 	FlamesBlast.DisplayName: Flames Blast
 	FlamesBolt.DisplayName: Flames Bolt
 	Note.DisplayName: Note
+	GemBolt.DisplayName: Gem Bolt
+	GemPulse.DisplayName: Gem Pulse
+	MightBolt.DisplayName: Might Bolt
+	StarDestroyerEnergy.DisplayName: Star
+	MagicProj.DisplayName: Magic Proj
+	NightmareBlast.DisplayName: Nightmare Blast
+	SuperBeam.DisplayName: Super Beam
+	SharkronTornado.DisplayName: Sharkron Tornado
+	Stinger.DisplayName: Stinger
+	AquaticusProj.DisplayName: Aquaticus
+	BlueCloud1.DisplayName: Blue Cloud
+	DraculaProj.DisplayName: Dracula
+	SOTUGreenBolt.DisplayName: Green Bolt
+	BuzzFutureEnergy.DisplayName: Buzz Future Energy
+	CyanBolt.DisplayName: Cyan Bolt
+}
+
+Configs: {
+	UniverseConfig: {
+		DisplayName: Universe Config
+		Headers.Misc: Misc
+
+		enableHoldStyle: {
+			Label: Custom hold animation for swords
+			Tooltip: ""
+		}
+	}
 }

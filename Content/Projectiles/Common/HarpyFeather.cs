@@ -33,9 +33,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            //Projectile.velocity.X += Projectile.ai[0];
             Projectile.velocity.Y += Projectile.ai[1];
-            Projectile.ai[0] *= 1.0125f;
             Projectile.ai[1] *= 1.0125f;
             Projectile.ai[2]++;
             if (Projectile.ai[2] > 30f)

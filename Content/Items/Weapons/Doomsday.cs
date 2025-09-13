@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -11,7 +13,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         { 
             Item.width = 66;
             Item.height = 70; 
-			Item.scale = 1f;
+			Item.scale = 1.125f;
             Item.rare = ItemRarityID.Yellow;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 20;   
@@ -19,16 +21,22 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 100; 
             Item.knockBack = 10f;
             Item.UseSound = SoundID.Item45;
-            Item.value = 470000;		
-            Item.shoot = ProjectileID.InfernoFriendlyBlast;
-            Item.shootSpeed = 10;			
+            Item.value = Item.sellPrice(gold: 4, silver: 70);		
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
 	    }
-	   
-       	public override void UseStyle(Player player, Rectangle heldItemFrame)
+
+        public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            player.itemLocation.Y -= 1f * player.gravDir;
-		}
+            base.MeleeEffects(player, hitbox);
+        }
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<FlamesBlast>(), Item.damage, Item.knockBack, player.whoAmI);
+            }
+        }
 	}
 }

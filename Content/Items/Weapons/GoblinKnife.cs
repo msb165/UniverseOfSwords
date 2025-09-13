@@ -16,9 +16,9 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void SetDefaults()
         { 
             Item.width = 40;
-            Item.height = 40; 
-            Item.rare = 2;            
-            Item.useStyle = 1;             
+            Item.height = 40;
+            Item.rare = ItemRarityID.Green;
+            Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 9;
             Item.useAnimation = 9;           
             Item.damage = 15; 
@@ -27,6 +27,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(silver: 10);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = ItemHoldStyleID.HoldUp;
 	    }
 	   
        	public override void UseStyle(Player player, Rectangle heldItemFrame)

@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
+using static System.Net.Mime.MediaTypeNames;
 using static Terraria.ModLoader.ModContent;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -15,7 +16,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             Item.width = 58;
             Item.height = 58;
-            Item.scale = 1.125f;
+            Item.scale = 1.25f;
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
@@ -34,20 +35,23 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (Main.rand.NextBool(2))
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.YellowTorch, 0f, 0f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
-                dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.TintableDustLighted, 0f, 0f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
+                UniverseUtils.SpawnRotatedDust(player, DustID.GemAmber);
+                UniverseUtils.SpawnRotatedDust(player, DustID.GemAmethyst);
+                UniverseUtils.SpawnRotatedDust(player, DustID.GemDiamond);
+                UniverseUtils.SpawnRotatedDust(player, DustID.GemEmerald);
+                UniverseUtils.SpawnRotatedDust(player, DustID.GemRuby);
+                UniverseUtils.SpawnRotatedDust(player, DustID.GemSapphire);
+                UniverseUtils.SpawnRotatedDust(player, DustID.GemTopaz);
             }
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemType<GemSlayer>(), 1);
-            recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemType<GemSlayer>())
+                .AddIngredient(ItemID.BrokenHeroSword)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -58,8 +62,22 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 return;
             }
             Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 8f;
-            int projType = Utils.SelectRandom(Main.rand, [ProjectileType<SapphireBolt>(), ProjectileType<AmberBolt>(), ProjectileType<DiamondBolt>(), ProjectileType<SapphireBolt>(), ProjectileType<TopazBolt>(), ProjectileType<AmethystBolt>(), ProjectileType<EmeraldBolt>()]);
-            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, projType, (int)(damageDone * 0.75), hit.Knockback, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ProjectileType<GemBolt>(), (int)(damageDone * 0.8), hit.Knockback, player.whoAmI, ai0: Main.rand.Next(6));
+            int projAmount = Main.rand.Next(3, 6);
+            for (int i = 0; i < projAmount; i++)
+            {
+                Vector2 velocity = Utils.RandomVector2(Main.rand, -100f, 101f);
+                while (velocity.Equals(Vector2.Zero))
+                {
+                    velocity = Utils.RandomVector2(Main.rand, -100f, 101f);
+                }
+                velocity = velocity.SafeNormalize(-Vector2.UnitY) * Main.rand.Next(70, 101) * 0.1f;
+                if (Collision.SolidTiles(target.Center - velocity * 10f, 10, 10))
+                {
+                    continue;
+                }
+                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - velocity * 10f, velocity, ProjectileType<GemPulse>(), (int)(damageDone * 0.5), hit.Knockback * 0.8f, player.whoAmI);
+            }
         }
     }
 }

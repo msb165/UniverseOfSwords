@@ -94,7 +94,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             {
                 Projectile.velocity = Projectile.velocity.SafeNormalize(-Vector2.UnitY) * new Vector2(0.98f, -1.1f);
             }
-            Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Projectile.velocity.ToRotation() + MathHelper.Pi, 0.15f);
+            Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Projectile.velocity.ToRotation() + MathHelper.PiOver2, 0.15f);
             int startAttackRange = 500;
             int attackTarget = -1;
             Projectile.Minion_FindTargetInRange(startAttackRange, ref attackTarget, skipIfCannotHitWithOwnBody: false);
@@ -126,7 +126,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Vector2 targetVel = Vector2.Normalize(npc.Center - Vector2.UnitY * npc.height * 2f - Projectile.Center) * 8f;
             Vector2 targetPos = npc.Center - Projectile.Center;
             Vector2 spawnVel = targetPos.SafeNormalize(Vector2.Zero) * 10f;
-            Projectile.rotation = targetPos.ToRotation();
+            Projectile.rotation = targetPos.ToRotation() + MathHelper.PiOver2;
             Projectile.velocity = Projectile.velocity.MoveTowards(targetVel, 0.1f);
             if (Timer % 48f == 0f && Main.myPlayer == Projectile.owner)
             {

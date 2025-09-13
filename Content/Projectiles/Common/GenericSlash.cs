@@ -37,16 +37,16 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void AI()
         {
-            if (Projectile.ai[0] != 0f)
-            {
-                Projectile.velocity = Projectile.velocity.RotatedBy(Projectile.ai[0] / 10 * Projectile.MaxUpdates);
-            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
             Color drawColor = Main.hslToRgb(Projectile.ai[1], 1f, 0.5f, (byte)Projectile.ai[2]);
+            if (Projectile.ai[0] != 0f)
+            {
+                drawColor = Color.Lerp(drawColor, Color.White with { A = (byte)Projectile.ai[2] }, Projectile.ai[0]);
+            }
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
             Vector2 origin = texture.Size() / 2;
             Color trailColor = drawColor;

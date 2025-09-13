@@ -15,7 +15,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 122;
+            Item.damage = 120;
             Item.DamageType = DamageClass.Melee;
             Item.width = 52;
             Item.height = 60;

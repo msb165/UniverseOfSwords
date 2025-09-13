@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -39,17 +40,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         
 		public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-	        recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
-			recipe.AddIngredient(null, "Orichalcon", 1);
-			recipe.AddIngredient(null, "UpgradeMatter", 1);
-			recipe.AddIngredient(ItemID.LaserRifle, 1);
-			recipe.AddIngredient(null, "PrimeSword", 1);
-			recipe.AddIngredient(null, "DestroyerSword", 1);
-			recipe.AddIngredient(null, "TwinsSword", 1);
-			recipe.AddIngredient(null, "SwordMatter", 200);
-            recipe.AddTile(TileID.MythrilAnvil);			
-            recipe.Register();
 	    }
     }
 }

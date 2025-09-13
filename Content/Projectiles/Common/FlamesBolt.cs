@@ -38,6 +38,17 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             {
                 Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position, Vector2.Zero, ModContent.ProjectileType<FlamesBlast>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
+            Projectile.Resize(150, 150);
+            Projectile.Damage();
+            for (int i = 0; i < 30; i++)
+            {
+                Vector2 spawnVel = Vector2.Normalize(Utils.RandomVector2(Main.rand, -10f, 11f)) * Main.rand.Next(6, 12);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.InfernoFork);
+                dust.noGravity = true;
+                dust.scale = 1.5f;
+                dust.position = Projectile.Center + Main.rand.NextVector2Square(-10f, 11f);
+                dust.velocity = spawnVel;
+            }
         }
     }
 }

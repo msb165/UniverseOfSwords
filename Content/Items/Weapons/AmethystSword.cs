@@ -5,6 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
+using static UniverseOfSwordsMod.Content.Projectiles.Common.GemBolt.GemType;
+
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -42,7 +44,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 return;
             }
             Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 4f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ModContent.ProjectileType<AmethystBolt>(), (int)(damageDone * 0.75), hit.Knockback, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ModContent.ProjectileType<GemBolt>(), (int)(damageDone * 0.75), hit.Knockback, player.whoAmI, ai0: (float)Gem_Amethyst);
         }
 
         public override void AddRecipes()

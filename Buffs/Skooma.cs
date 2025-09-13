@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace UniverseOfSwordsMod.Buffs
@@ -19,6 +20,8 @@ namespace UniverseOfSwordsMod.Buffs
             player.jumpSpeedBoost += 13.37f;
             player.extraFall += 45;
             player.portalPhysicsFlag = true;
+            player.noFallDmg = false;
+            player.AddBuff(BuffID.Tipsy, 400);
         }
     }
 }

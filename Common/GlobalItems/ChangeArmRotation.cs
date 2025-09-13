@@ -17,6 +17,7 @@ namespace UniverseOfSwordsMod.Common.GlobalItems
                     rotation -= MathHelper.PiOver4 * 2;
                 }
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
+                player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.ThreeQuarters, rotation);
             }
         }
     }

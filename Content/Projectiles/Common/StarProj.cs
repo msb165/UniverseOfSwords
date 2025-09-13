@@ -77,6 +77,17 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.rotation += 0.2f * Projectile.direction;
         }
 
+        public override void OnKill(int timeLeft)
+        {
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            for (int i = 0; i < 30; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<GoldCoin>());
+                dust.noGravity = true;
+                dust.velocity *= 2f;
+            }
+        }
+
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;

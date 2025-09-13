@@ -31,10 +31,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.UseSound = SoundID.Item105;
             Item.shoot = ProjectileID.StarWrath;
             Item.shootSpeed = 20f;
-            Item.value = Item.sellPrice(gold: 40);
+            Item.value = Item.sellPrice(gold: 30);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
+            Item.shootsEveryUse = true;
         }
 
         public override bool AltFunctionUse(Player player) => true;
@@ -49,6 +50,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 Item.damage = 100;
                 Item.shoot = ProjectileID.DD2ApprenticeStorm;
                 Item.shootSpeed = 5f;
+                Item.shootsEveryUse = false;
             }
             else
             {
@@ -58,6 +60,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 Item.damage = 200;
                 Item.shoot = ModContent.ProjectileType<MaelstormStar>();
                 Item.shootSpeed = 20f;
+                Item.shootsEveryUse = true;
             }
             return base.CanUseItem(player);
         }

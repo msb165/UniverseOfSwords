@@ -29,11 +29,11 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void AI()
         {
-            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 107);
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Terra);
             dust.noGravity = true;
-            dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 107);
+            dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Terra);
             dust.noGravity = true;
-            dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 107);
+            dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Terra);
             dust.scale = 1.0f;
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)(Math.PI / 4);
         }
@@ -53,26 +53,11 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnKill(int timeLeft)
         {
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 0, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 0, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 10, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -10, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -10, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 10, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 20, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -20, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -20, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 20, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 40, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -40, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -40, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 40, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 80, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -80, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -80, 10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 80, -10, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, -120, 5, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
-            Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position.X + 40, Projectile.position.Y + 40, 120, -5, 132, Projectile.damage, 0, Main.myPlayer, 0f, 0f);
+            for (int i = 0; i < 19; i++)
+            {
+                Vector2 spawnVel = (Vector2.UnitY * 8f).RotatedBy(i * MathHelper.TwoPi / 19f) * new Vector2(2f, 1f);
+                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position, spawnVel.RotatedBy(Projectile.velocity.ToRotation()), ProjectileID.TerraBeam, Projectile.damage, 0, Projectile.owner, 0f, 0f);
+            }
         }
     }
 }

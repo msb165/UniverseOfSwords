@@ -12,17 +12,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
-            Item.scale = 1.9F;
+            Item.width = 64;
+            Item.height = 64;
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 30;
+            Item.useTime = 60;
             Item.useAnimation = 30;
-            Item.knockBack = 7.0F;
+            Item.knockBack = 4f;
             Item.damage = 63;
             Item.shoot = ProjectileID.VenomFang;
-            Item.shootSpeed = 40;
+            Item.shootSpeed = 15f;
             Item.UseSound = SoundID.Item43;
             Item.value = 200000;
             Item.autoReuse = true;
@@ -37,7 +36,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 0.2f; // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
             }
             return false;
         }
@@ -49,12 +48,12 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<PoisonSword>(), 1);
-            recipe.AddIngredient(ItemID.PoisonStaff, 1);
-            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 3);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<PoisonSword>())
+                .AddIngredient(ItemID.PoisonStaff)
+                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 5)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
 
     }

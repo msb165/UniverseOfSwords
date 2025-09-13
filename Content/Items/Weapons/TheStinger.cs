@@ -3,53 +3,59 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
     public class TheStinger : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			// Tooltip.SetDefault("Shoots deadly Stingers");
-		}
-		
-        public override void SetDefaults()
-        { 
-            Item.width = 62;
-            Item.height = 62;			
-			Item.scale = 1.0F;
-            Item.rare = 3;            
-            Item.useStyle = 1;             
-            Item.useTime = 20;
-            Item.useAnimation = 20;           
-            Item.damage = 23;
-            Item.knockBack = 5.0F;
-			Item.shoot = ProjectileID.HornetStinger ;
-            Item.shootSpeed = 10;
-            Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(silver: 50);			
-            Item.autoReuse = true; 
-            Item.DamageType = DamageClass.Melee;
-	    }
-		
-		public override void AddRecipes()
+        public override void SetStaticDefaults()
         {
-            Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "SwordMatter", 100);
-			recipe.AddIngredient(ItemID.Vine, 1);
-			recipe.AddIngredient(ItemID.Stinger, 14);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
-	    } 
-	   
-	    public override void MeleeEffects(Player player, Rectangle hitbox)
-		{
-			if (Main.rand.Next(4) == 0)
-			{
+            // Tooltip.SetDefault("Shoots deadly Stingers");
+        }
 
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 128, 0f, 0f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
-			}
-		}
+        public override void SetDefaults()
+        {
+            Item.width = 62;
+            Item.height = 62;
+            Item.scale = 1.125f;
+            Item.rare = ItemRarityID.Orange;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.damage = 23;
+            Item.knockBack = 5f;
+            Item.shoot = ModContent.ProjectileType<Stinger>();
+            Item.shootSpeed = 5f;
+            Item.UseSound = SoundID.Item1;
+            Item.value = Item.sellPrice(silver: 50);
+            Item.autoReuse = true;
+            Item.DamageType = DamageClass.Melee;
+        }
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Poisoned, 300);
+        }
+
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+            if (Main.rand.NextBool(4))
+            {
+                UniverseUtils.SpawnRotatedDust(player, DustID.Chlorophyte, 1.25f);
+            }
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
+                .AddIngredient(ItemID.Vine, 1)
+                .AddIngredient(ItemID.Stinger, 14)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
     }
 }

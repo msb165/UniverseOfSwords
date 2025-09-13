@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -50,7 +51,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.BlizzardStaff, 1);
             recipe.AddIngredient(null, "Orichalcon", 1);
-            recipe.AddIngredient(null, "SwordMatter", 100);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 100);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

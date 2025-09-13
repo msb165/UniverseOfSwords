@@ -6,8 +6,10 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -37,6 +39,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f));
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -59,9 +75,9 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<DraculaSword>())
                 .AddIngredient(ItemID.VampireKnives)
                 .AddIngredient(ItemID.VampireBanner)
-                .AddIngredient(ItemID.HellstoneBar, 80)
-                .AddIngredient(ItemID.LunarBar, 40)
-                .AddIngredient(ModContent.ItemType<SwordShard>(), 3)
+                .AddIngredient(ItemID.HellstoneBar, 40)
+                .AddIngredient(ItemID.LunarBar, 30)
+                .AddIngredient(ModContent.ItemType<SwordShard>(), 30)
                 .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 30)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
@@ -69,9 +85,9 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<DraculaSword>())
                 .AddIngredient(ItemID.ScourgeoftheCorruptor)
                 .AddIngredient(ItemID.VampireBanner)
-                .AddIngredient(ItemID.HellstoneBar, 80)
-                .AddIngredient(ItemID.LunarBar, 40)
-                .AddIngredient(ModContent.ItemType<SwordShard>(), 3)
+                .AddIngredient(ItemID.HellstoneBar, 40)
+                .AddIngredient(ItemID.LunarBar, 30)
+                .AddIngredient(ModContent.ItemType<SwordShard>(), 30)
                 .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 30)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();

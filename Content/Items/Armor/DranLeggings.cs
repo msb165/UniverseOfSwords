@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Placeable;
 
 namespace UniverseOfSwordsMod.Content.Items.Armor
 {
@@ -36,8 +37,8 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 20);
-			recipe.AddIngredient(null, "BlackOre", 50);
-			recipe.AddIngredient(null, "HaloOfHorrors", 1);
+            recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
+            recipe.AddIngredient(null, "HaloOfHorrors", 1);
 			recipe.AddIngredient(null, "BlueDamascusLeggings", 1);
 			recipe.AddIngredient(null, "GreenDamascusLeggings", 1);
 			recipe.AddIngredient(null, "RedDamascusLeggings", 1);
@@ -52,7 +53,6 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			player.statLifeMax2 += 1000;
 			player.GetDamage(DamageClass.Melee) += 0.5f;
 	        player.GetDamage(DamageClass.Magic) += 0.5f;
-		    player.GetDamage(DamageClass.Throwing) += 0.5f;
 			player.GetDamage(DamageClass.Summon) += 0.5f;
 			player.GetDamage(DamageClass.Ranged) += 0.5f;
 			player.moveSpeed += 1f;
@@ -63,7 +63,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			player.buffImmune[BuffID.OnFire] = true;
 			player.buffImmune[BuffID.Burning] = true;
 			player.lavaImmune = true;
-			player.AddBuff(BuffID.WaterWalking, 2);
+			player.AddBuff(BuffID.WaterWalking, 18000);
         }
 	}
 }

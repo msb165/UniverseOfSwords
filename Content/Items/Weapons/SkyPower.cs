@@ -34,7 +34,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             for (int i = 0; i < 3; i++)
             {
                 float offset = i - (3f - 1f) / 2f;
-                Vector2 newVel = new Vector2(14f * player.direction, 10f);
+                Vector2 newVel = new(14f * player.direction, 10f);
                 Projectile.NewProjectileDirect(source, player.Center - Vector2.UnitY * player.height * 2f, newVel.RotatedBy(spin * offset) * Main.rand.NextFloat(0.75f, 1.25f), type, damage / 3, knockback, player.whoAmI, ai1: Main.rand.Next(1, 11));
             }
             return false;

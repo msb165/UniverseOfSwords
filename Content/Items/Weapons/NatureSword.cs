@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -48,7 +49,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 			recipe.AddIngredient(ItemID.Seed, 10);
 			recipe.AddIngredient(ItemID.Daybloom, 5);
 			recipe.AddIngredient(ItemID.DirtBlock, 100);
-            recipe.AddIngredient(null, "SwordMatter", 40);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 40);
             recipe.AddTile(TileID.Anvils);			
             recipe.Register();
 			
@@ -57,7 +58,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 			recipe.AddIngredient(ItemID.Seed, 10);
 			recipe.AddIngredient(ItemID.Daybloom, 5);
 			recipe.AddIngredient(ItemID.DirtBlock, 100);
-			recipe.AddIngredient(null, "SwordMatter", 40);
+			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 40);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
 	    }

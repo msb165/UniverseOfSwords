@@ -4,7 +4,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -21,7 +23,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.Size = new(64);
             Item.rare = ItemRarityID.LightRed;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 40;
+            Item.useTime = 50;
             Item.useAnimation = 20;
             Item.damage = 33;
             Item.knockBack = 5f;
@@ -35,12 +37,12 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(null, "SwordMatter", 100);
-            recipe.AddIngredient(ItemID.StarCannon, 1);
-            recipe.AddIngredient(ItemID.FallenStar, 15);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
+                .AddIngredient(ItemID.StarCannon, 1)
+                .AddIngredient(ItemID.FallenStar, 15)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -50,13 +52,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Vector2 spawnPos = Main.rand.NextVector2Circular(200f, 200f);
-            if (spawnPos.Y < 0f)
+            if (UniverseUtils.IsAValidTarget(target))
             {
-                spawnPos.Y *= -1f;
+                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.MediumPurple, player.whoAmI, damageDone, 100);
             }
-            Vector2 spawnVel = spawnPos.SafeNormalize(-Vector2.UnitY) * 6f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnPos, spawnVel, ModContent.ProjectileType<GenericSlash>(), hit.Damage, Item.knockBack, player.whoAmI, ai1: (Color.Red.PackedValue), ai2: 100);
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

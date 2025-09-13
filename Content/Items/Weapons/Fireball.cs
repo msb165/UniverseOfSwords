@@ -1,9 +1,11 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -26,11 +28,28 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 3);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 999;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             player.itemLocation.Y -= 1f * player.gravDir;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction - 6f * -player.direction, player.gravDir * -48f), 32, 32, DustID.OrangeTorch, 0, 0, 127, default(Color), 2f);
+                if (player.direction == -1)
+                {
+                    dust.position.X -= 34f;
+                }
+                dust.noGravity = true;
+                dust.velocity = Main.rand.NextVector2Circular(2f, 4f) - Vector2.UnitY;
+                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation);
+                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -64f), new Vector2(0f, 4f));
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)

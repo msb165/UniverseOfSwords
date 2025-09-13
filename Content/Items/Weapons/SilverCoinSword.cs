@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -53,7 +54,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.SilverCoin, 99);
-            recipe.AddIngredient(null, "SwordMatter", 20);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 20);
             recipe.AddTile(TileID.WorkBenches);
             recipe.Register();
         }

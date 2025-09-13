@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -43,7 +44,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.WoodenBow, 1);
 			recipe.AddRecipeGroup("IronBar", 15);
-			recipe.AddIngredient(null, "SwordMatter", 60);
+			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 60);
             recipe.AddTile(TileID.Anvils);			
             recipe.Register();
 	    } 

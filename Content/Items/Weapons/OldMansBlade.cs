@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -56,7 +57,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             recipe.AddIngredient(ItemID.SpookyWood, 100);
             recipe.AddIngredient(ItemID.Pearlwood, 100);
             recipe.AddIngredient(null, "Orichalcon", 1);
-            recipe.AddIngredient(null, "SwordMatter", 100);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 100);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

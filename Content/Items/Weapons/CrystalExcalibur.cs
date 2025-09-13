@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -56,7 +57,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 			recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
 			recipe.AddIngredient(null, "MartianSaucerCore", 1);
 			recipe.AddIngredient(null, "Orichalcon", 1);
-			recipe.AddIngredient(null, "SwordMatter", 150);
+			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 150);
             recipe.AddTile(TileID.MythrilAnvil);			
             recipe.Register();
 	    }

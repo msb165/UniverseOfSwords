@@ -1,9 +1,11 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
+using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -26,31 +28,35 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 61; 
             Item.knockBack = 7f;
             Item.UseSound = SoundID.Item28;
-			Item.shoot = ProjectileID.IceBolt;
-            Item.shootSpeed = 40;
+			Item.shoot = ProjectileID.FrostBoltSword;
+            Item.shootSpeed = 20f;
             Item.value = 300200;			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
-	    }
-	   
-       	public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            player.itemLocation.Y -= -1f * player.gravDir;
-		}
-		
-		public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.IceBlade, 1);
-			recipe.AddIngredient(ItemID.SnowBlock, 1000);
-			recipe.AddIngredient(null, "Orichalcon", 1);
-			recipe.AddIngredient(null, "SwordShard", 1);
-			recipe.AddIngredient(null, "SwordMatter", 150);
-            recipe.AddTile(TileID.MythrilAnvil);			
-            recipe.Register();
+            Item.holdStyle = 0;
 	    } 
-		
-		public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                Dust dust = Dust.NewDustDirect(player.itemLocation - new Vector2(-32f * player.direction, 80f), 64, 64, DustID.SpectreStaff, 0, 0, 127, default, 1f);
+                if (player.direction == -1)
+                {
+                    dust.position.X -= 48f;
+                }
+                dust.noGravity = true;
+                dust.velocity.X = Main.rand.Next(-10, 11) * 0.5f * player.direction;
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -62f), new Vector2(0f, 4f));
+            }
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 		{
 			float numberProjectiles = 2 + Main.rand.Next(3); // 3, 4, or 5 shots
 			float rotation = MathHelper.ToRadians(10f);
@@ -62,5 +68,17 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 			}
 			return false;
 		}
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.IceBlade)
+                .AddIngredient(ItemID.Frostbrand)
+                .AddIngredient(ItemID.SnowBlock, 1000)
+                .AddIngredient(ModContent.ItemType<Orichalcon>())
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+        }
     }
 }

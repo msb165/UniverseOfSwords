@@ -29,7 +29,6 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
                 .AddIngredient(ItemID.SoulofLight, 1)
                 .AddIngredient(ItemID.SoulofNight, 1)
                 .AddIngredient(ItemID.PixieDust, 10)
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
                 .AddIngredient(ItemID.FrostCore, 1)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

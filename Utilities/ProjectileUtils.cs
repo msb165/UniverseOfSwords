@@ -14,7 +14,7 @@ namespace UniverseOfSwordsMod.Utilities
     {
         public struct Spawn
         {
-            public static void SummonGenericSlash(Vector2 target, Color drawColor, int owner, int damage, int drawAlpha = 255)
+            public static void SummonGenericSlash(Vector2 target, Color drawColor, int owner, int damage, int drawAlpha = 255, float lerpToWhite = 0f)
             {
                 System.Drawing.Color newColor = System.Drawing.Color.FromArgb(drawColor.R, drawColor.G, drawColor.B);
                 float colorHue = newColor.GetHue() / 360f;
@@ -26,7 +26,7 @@ namespace UniverseOfSwordsMod.Utilities
                 }
                 v.Y += 100f;
                 Vector2 vector = v.SafeNormalize(Vector2.UnitY) * 6f;
-                Projectile.NewProjectile(Projectile.GetSource_None(), target - vector * 20f, vector, ModContent.ProjectileType<GenericSlash>(), damage, 0f, owner, 0f, ai1: colorHue, ai2: drawAlpha);
+                Projectile.NewProjectile(Projectile.GetSource_None(), target - vector * 20f, vector, ModContent.ProjectileType<GenericSlash>(), damage, 0f, owner, lerpToWhite, ai1: colorHue, ai2: drawAlpha);
             }
 
             public static void VampireHeal(int dmg, Vector2 Position, Entity victim, Player owner)

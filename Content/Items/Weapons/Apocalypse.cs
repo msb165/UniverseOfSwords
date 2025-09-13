@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -66,7 +67,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             recipe.AddIngredient(ItemID.MeteoriteBar, 20);
             recipe.AddIngredient(null, "MartianSaucerCore", 1);
             recipe.AddIngredient(null, "SwordShard", 3);
-            recipe.AddIngredient(null, "SwordMatter", 500);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 500);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
         }

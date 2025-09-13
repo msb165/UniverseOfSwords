@@ -42,14 +42,14 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 Projectile.timeLeft = 2;
                 Projectile.Center = Player.Center - Timer.ToRotationVector2() * 120f;
             }
-            if (!Player.active || Player.HeldItem.type != ModContent.ItemType<Caladbolg>())
+            if (!Player.active || Player.HeldItem.type != ModContent.ItemType<BigCrunch>())
             {
                 Projectile.Kill();
             }
             Lighting.AddLight(Projectile.Center, Color.Green.ToVector3());
             for (int i = 0; i < 3; i++)
             {
-                Dust dust = Dust.NewDustPerfect(Projectile.position, DustID.GreenTorch, Projectile.velocity * 0.1f, 100, Scale: 1.5f);
+                Dust dust = Dust.NewDustPerfect(Projectile.position, DustID.Clentaminator_Green, Projectile.velocity * 0.1f, 100, Scale: 1.5f);
                 dust.scale = 1.5f;
                 dust.position = Projectile.Center - Projectile.velocity.ToRotation().ToRotationVector2();
                 dust.rotation = Projectile.velocity.ToRotation();

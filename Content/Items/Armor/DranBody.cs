@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Placeable;
 
 namespace UniverseOfSwordsMod.Content.Items.Armor
 {
@@ -36,10 +37,9 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 30);
-			recipe.AddIngredient(null, "LegendaryWarriorGauntlet", 2);
-			recipe.AddIngredient(null, "BlackOre", 50);
+			recipe.AddIngredient(null, "LegendaryWarriorGauntlet");
+			recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
 			recipe.AddIngredient(null, "HaloOfHorrors", 1);
-			recipe.AddIngredient(null, "SwordShard", 2);
 			recipe.AddIngredient(null, "BlueDamascusChestplate", 1);
 			recipe.AddIngredient(null, "GreenDamascusChestplate", 1);
 			recipe.AddIngredient(null, "RedDamascusChestplate", 1);

@@ -23,8 +23,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
 
         public override void SetDefaults()
         {
-            Projectile.width = 52;     //Set the hitbox width
-            Projectile.height = 52;
+            Projectile.width = 160;     //Set the hitbox width
+            Projectile.height = 160;
             Projectile.scale = Player.HeldItem.scale;
             Projectile.friendly = true;    //Tells the game whether it is friendly to players/friendly npcs or not
             Projectile.penetrate = -1;    //Tells the game how many enemies it can hit before being destroyed. -1 = never
@@ -79,7 +79,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float _ = 0f;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 60f * Projectile.scale, 2f, ref _);
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + Projectile.rotation.ToRotationVector2() * 100f * Projectile.scale, 2f, ref _);
         }
 
         public override bool PreDraw(ref Color lightColor)  //this make the projectile sprite rotate perfectaly around the player

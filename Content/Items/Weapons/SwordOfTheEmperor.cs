@@ -58,11 +58,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (Main.rand.NextBool(8000))
-            {
-                target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 100);
-            }
+            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 100);
             target.AddBuff(BuffID.OnFire, 300);
+            target.AddBuff(BuffID.Midas, 360);
+            target.AddBuff(ModContent.BuffType<TrueSlow>(), 60);
         }
     }
 }

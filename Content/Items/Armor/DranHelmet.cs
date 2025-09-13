@@ -2,6 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Placeable;
 
 namespace UniverseOfSwordsMod.Content.Items.Armor
 {
@@ -37,8 +38,8 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.LunarBar, 20);
 			recipe.AddIngredient(ItemID.BossMaskBetsy, 1);
-			recipe.AddIngredient(null, "BlackOre", 50);
-			recipe.AddIngredient(null, "HaloOfHorrors", 1);
+            recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
+            recipe.AddIngredient(null, "HaloOfHorrors", 1);
 			recipe.AddIngredient(null, "SwordShard", 5);
 			recipe.AddIngredient(null, "BlueDamascusHelmet", 1);
 			recipe.AddIngredient(null, "GreenDamascusHelmet", 1);

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Mono.Cecil;
+using System;
 using Terraria;
-using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -18,15 +20,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 110;
-            Item.height = 110;
-            Item.scale = 1f;
+            Item.Size = new(110);
+            Item.scale = 1.125f;
             Item.rare = ItemRarityID.Purple;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 40;
             Item.useAnimation = 20;
             Item.damage = 150;
-            Item.knockBack = 10f;
+            Item.knockBack = 8f;
             Item.UseSound = SoundID.Item71;
             Item.shoot = ModContent.ProjectileType<Nightmare>();
             Item.shootSpeed = 5f;
@@ -42,14 +43,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position - Vector2.UnitY * 80f + velocity * 4f, velocity, type, damage, knockback, player.whoAmI);
+            Projectile.NewProjectile(source, position - Vector2.UnitY * 72f + velocity * 4f, velocity, type, damage, knockback, player.whoAmI);
             return false;
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            UniverseUtils.SpawnRotatedDust(player, DustID.PurpleTorch, 2f, 30, 160);
-            UniverseUtils.SpawnRotatedDust(player, DustID.PurpleTorch, 2f, 30, 160);
+            UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Purple, 1.25f, 30, 130);
+            UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Purple, 1.25f, 30, 130);
             Lighting.AddLight(player.Center, Color.Purple.ToVector3());
         }
 
@@ -59,45 +60,49 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 return;
             }
+            Vector2 newPos = Main.rand.NextVector2CircularEdge(200f, 200f);
+            Vector2 newVel = (target.Center - newPos).SafeNormalize(Vector2.UnitY) * 4f;
+            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - newPos, newVel * Main.rand.NextFloat(0.9f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - newPos, newVel * Main.rand.NextFloat(0.9f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<NightmareBlast>(), damageDone, Item.knockBack / 2, player.whoAmI, target.whoAmI);
             target.AddBuff(BuffID.ShadowFlame, 800);
             target.AddBuff(BuffID.Venom, 800);
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<CthulhuJudge>());
-            recipe.AddIngredient(ModContent.ItemType<StickyGlowstickSword>());
-            recipe.AddIngredient(ModContent.ItemType<TheEater>());
-            recipe.AddIngredient(ItemID.BeeKeeper, 1);
-            recipe.AddIngredient(null, "SwordOfPower", 1);
-            recipe.AddIngredient(ItemID.BreakerBlade, 1);
-            recipe.AddIngredient(null, "PrimeSword", 1);
-            recipe.AddIngredient(null, "DestroyerSword", 1);
-            recipe.AddIngredient(null, "TwinsSword", 1);
-            recipe.AddIngredient(null, "Executioner", 1);
-            recipe.AddIngredient(null, "Golem", 1);
-            recipe.AddIngredient(null, "Doomsday", 1);
-            recipe.AddIngredient(null, "Sharkron", 1);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.Register();
-
-            recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<CthulhuJudge>());
-            recipe.AddIngredient(ModContent.ItemType<StickyGlowstickSword>());
-            recipe.AddIngredient(ModContent.ItemType<TheBrain>());
-            recipe.AddIngredient(ItemID.BeeKeeper, 1);
-            recipe.AddIngredient(null, "SwordOfPower", 1);
-            recipe.AddIngredient(ItemID.BreakerBlade, 1);
-            recipe.AddIngredient(null, "PrimeSword", 1);
-            recipe.AddIngredient(null, "DestroyerSword", 1);
-            recipe.AddIngredient(null, "TwinsSword", 1);
-            recipe.AddIngredient(null, "Executioner", 1);
-            recipe.AddIngredient(null, "Golem", 1);
-            recipe.AddIngredient(null, "Doomsday", 1);
-            recipe.AddIngredient(null, "Sharkron", 1);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<CthulhuJudge>())
+                .AddIngredient(ModContent.ItemType<StickyGlowstickSword>())
+                .AddIngredient(ModContent.ItemType<TheEater>())
+                .AddIngredient(ItemID.BeeKeeper)
+                .AddIngredient(ModContent.ItemType<FixedSwordOfPower>())
+                .AddIngredient(ItemID.BreakerBlade, 1)
+                .AddIngredient(ModContent.ItemType<PrimeSword>())
+                .AddIngredient(ModContent.ItemType<DestroyerSword>())
+                .AddIngredient(ModContent.ItemType<TwinsSword>())
+                .AddIngredient(ModContent.ItemType<Executioner>())
+                .AddIngredient(ModContent.ItemType<Golem>())
+                .AddIngredient(ModContent.ItemType<Doomsday>())
+                .AddIngredient(ModContent.ItemType<Sharkron>())
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<CthulhuJudge>())
+                .AddIngredient(ModContent.ItemType<StickyGlowstickSword>())
+                .AddIngredient(ModContent.ItemType<TheBrain>())
+                .AddIngredient(ItemID.BeeKeeper)
+                .AddIngredient(ModContent.ItemType<FixedSwordOfPower>())
+                .AddIngredient(ItemID.BreakerBlade)
+                .AddIngredient(ModContent.ItemType<PrimeSword>())
+                .AddIngredient(ModContent.ItemType<DestroyerSword>())
+                .AddIngredient(ModContent.ItemType<TwinsSword>())
+                .AddIngredient(ModContent.ItemType<Executioner>())
+                .AddIngredient(ModContent.ItemType<Golem>())
+                .AddIngredient(ModContent.ItemType<Doomsday>())
+                .AddIngredient(ModContent.ItemType<Sharkron>())
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 }

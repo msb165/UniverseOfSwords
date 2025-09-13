@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
@@ -52,7 +53,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.CandyCornRifle, 1);
             recipe.AddIngredient(null, "Orichalcon", 1);
-            recipe.AddIngredient(null, "SwordMatter", 150);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 150);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

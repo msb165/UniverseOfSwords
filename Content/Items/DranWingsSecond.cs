@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Placeable;
 
 namespace UniverseOfSwordsMod.Content.Items
 {
@@ -68,7 +69,7 @@ namespace UniverseOfSwordsMod.Content.Items
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ItemID.DD2PetDragon, 1);
 			recipe.AddIngredient(ItemID.SoulofFlight, 40);
-			recipe.AddIngredient(null, "BlackOre", 15);
+			recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
 			recipe.AddIngredient(null, "LunarOrb", 6);
 			recipe.AddIngredient(null, "HaloOfHorrors", 1);
 			recipe.AddIngredient(ItemID.WingsSolar, 1);

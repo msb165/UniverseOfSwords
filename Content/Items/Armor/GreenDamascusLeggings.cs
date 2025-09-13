@@ -41,7 +41,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			recipe.AddIngredient(ItemID.SoulofSight, 15);
 			recipe.AddIngredient(ItemID.SoulofFright, 15);
 			recipe.AddIngredient(ItemID.SwiftnessPotion, 15);
-			recipe.AddIngredient(ItemID.HallowedGreaves, 1);
+			recipe.AddIngredient(ItemID.BeetleLeggings, 1);
 			recipe.AddIngredient(ItemID.HallowedBar, 16);
             recipe.AddTile(TileID.MythrilAnvil);			
 			recipe.Register();

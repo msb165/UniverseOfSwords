@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 using static System.Net.Mime.MediaTypeNames;
@@ -56,7 +57,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.MartianConduitPlating, 1000);
             recipe.AddIngredient(null, "MartianSaucerCore", 1);
-            recipe.AddIngredient(null, "SwordMatter", 200);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 200);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

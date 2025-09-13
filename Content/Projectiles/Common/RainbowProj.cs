@@ -30,6 +30,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.extraUpdates = 2;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 300;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         int attackTarget = -1;

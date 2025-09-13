@@ -10,6 +10,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common.GlobalItems;
 using UniverseOfSwordsMod.Utilities;
 using static UniverseOfSwordsMod.Utilities.UniverseUtils.Drawing;
 
@@ -45,7 +46,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common.Base
 
         public override void AI()
         {
-            Projectile.localAI[0] += 1f;
+            Projectile.localAI[0]++;
             float num = Projectile.localAI[0] / Projectile.ai[1];
             float num2 = Projectile.ai[0];
             float num3 = Projectile.velocity.ToRotation();
@@ -56,7 +57,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common.Base
             Projectile.Center = Player.RotatedRelativePoint(Player.MountedCenter) - Projectile.velocity;
             Projectile.scale = BaseScale + num * ScaleAdd;
             float randomRotation = Projectile.rotation + Main.rand.NextFloatDirection() * MathHelper.PiOver2 * 0.7f;
-            Vector2 vector2 = Projectile.Center + randomRotation.ToRotationVector2() * 84f * Projectile.scale;
+            Vector2 vector2 = Projectile.Center + randomRotation.ToRotationVector2() * 84f * Projectile.scale * Player.HeldItem.scale;
             Vector2 dustVel = (randomRotation + Projectile.ai[0] * MathHelper.PiOver2).ToRotationVector2();
             if (Main.rand.NextFloat() * 2f < Projectile.Opacity)
             {
@@ -84,7 +85,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common.Base
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.Hitbox.Intersects(Projectile.Hitbox) && !proj.reflected && proj.hostile)
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
                     {
                         SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
                         proj.velocity = -proj.oldVelocity;

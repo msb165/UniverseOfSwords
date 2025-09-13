@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -31,7 +32,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(null, "SwordMatter", 100);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 100);
             recipe.AddIngredient(ModContent.ItemType<TheStinger>(), 1);
             recipe.AddIngredient(ItemID.BeeGun, 1);
             recipe.AddTile(TileID.Anvils);

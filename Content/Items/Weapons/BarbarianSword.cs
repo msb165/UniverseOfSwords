@@ -17,13 +17,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         { 
             Item.width = 58;
             Item.height = 58; 
-			Item.scale = 1.0F;
-            Item.rare = 1;            
-            Item.useStyle = 1;             
+			Item.scale = 1f;
+            Item.rare = ItemRarityID.Blue;            
+            Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 24;
             Item.useAnimation = 24;           
             Item.damage = 20; 
-            Item.knockBack = 3.0F;
+            Item.knockBack = 3f;
             Item.UseSound = SoundID.Item1;
             Item.value = 15000;			
             Item.autoReuse = true; 

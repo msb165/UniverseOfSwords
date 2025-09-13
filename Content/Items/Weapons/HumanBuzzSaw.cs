@@ -2,6 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Held;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons      //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
@@ -45,7 +46,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons      //We need this to basic
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Sawmill, 1);
             recipe.AddIngredient(ItemID.TitaniumBar, 8);
-            recipe.AddIngredient(null, "SwordMatter", 60);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 60);
             recipe.AddIngredient(null, "DamascusBar", 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
@@ -53,7 +54,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons      //We need this to basic
             recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Sawmill, 1);
             recipe.AddIngredient(ItemID.AdamantiteBar, 8);
-            recipe.AddIngredient(null, "SwordMatter", 60);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 60);
             recipe.AddIngredient(null, "DamascusBar", 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();

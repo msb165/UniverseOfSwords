@@ -1,8 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -20,8 +22,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 65;
             Item.knockBack = 7f;
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ProjectileID.JackOLantern;
-            Item.shootSpeed = 10;
             Item.value = 360500;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
@@ -32,13 +32,23 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             player.itemLocation.Y -= 1f * player.gravDir;
         }
 
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!UniverseUtils.IsAValidTarget(target))
+            {
+                return;
+            }
+            Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 10f;
+            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ProjectileID.JackOLantern, damageDone, hit.Knockback, player.whoAmI);
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<PumpkinSword>(), 1)
                 .AddIngredient(ItemID.JackOLanternLauncher, 1)
                 .AddIngredient(null, "Orichalcon", 1)
-                .AddIngredient(null, "SwordMatter", 100)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

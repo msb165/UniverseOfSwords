@@ -1,8 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Buffs;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
@@ -29,23 +31,23 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 50);
             Item.shoot = ModContent.ProjectileType<Bonerang>();
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 12f;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 999;
         }
 
-        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {
-            position += velocity * 2.5f;
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -24f), new Vector2(0f, 4f));
+            }
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(BuffID.Midas, 360); // 6 second
-            //if (UniverseUtils.IsAValidTarget(target))
-            //{
-            //    Projectile.NewProjectile(target.GetSource_OnHit(), )
-            //}
+            target.AddBuff(BuffID.Midas, 360);
         }
 
         public override void AddRecipes()

@@ -36,7 +36,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (Main.rand.NextBool(2))
             {
-                UniverseUtils.SpawnRotatedDust(player, DustID.PurificationPowder, 2f, end: 40, alpha: 80);
+                UniverseUtils.SpawnRotatedDust(player, DustID.PurificationPowder, 1.25f, start: 40, end: 60, alpha: 80);
             }
         }
 

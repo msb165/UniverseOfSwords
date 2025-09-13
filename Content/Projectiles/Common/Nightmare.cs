@@ -6,14 +6,16 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwordsMod.Utilities.Projectiles;
 
 namespace UniverseOfSwordsMod.Content.Projectiles.Common
 {
-    class Nightmare : ModProjectile
+    public class Nightmare : ModProjectile
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Type] = 4;           //this is projectile frames
+            Main.projFrames[Type] = 4;          
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 3;
         }
@@ -25,40 +27,24 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.scale = 1f;
             Projectile.friendly = true;
             Projectile.alpha = 255;
-            Projectile.penetrate = -1;                       //this is the projectile penetration
-            Projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Melee;                        //this make the projectile do magic damage
-            Projectile.tileCollide = false;                 //this make that the projectile does not go thru walls
+            Projectile.penetrate = -1;                      
+            Projectile.DamageType = DamageClass.Melee;                   
+            Projectile.tileCollide = false;            
             Projectile.ignoreWater = true;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 27;
+            Projectile.localNPCHitCooldown = 20;
         }
 
         int attackTarget = -1;
         public override void AI()
         {
-            if ((++Projectile.frameCounter) / 2 >= Main.projFrames[Type]) //once the frameCounter has reached 10 - change the 10 to change how fast the projectile animates
-            {
-                Projectile.frameCounter = 0; //reset the counter
-                if (++Projectile.frame >= Main.projFrames[Type])
-                {
-                    Projectile.frame = 0; //go back to the first frame
-                }
-            }
-
-            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Purple);
             dust.noGravity = true;
-            dust.scale = 1.0f;
-            dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
-            dust.noGravity = true;
-            dust.scale = 1.5f;
-            dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 62);
-            dust.noGravity = true;
-            dust.scale = 2.0f;
+            dust.scale = 1f;
 
             Projectile.spriteDirection = Projectile.direction;
-            Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.rotation = MathHelper.WrapAngle(Projectile.velocity.ToRotation());
 
             if (Projectile.ai[0] == 0f && Projectile.alpha > 0)
             {
@@ -72,18 +58,15 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
             if (Projectile.ai[0] >= 1f)
             {
-                Projectile.ai[0]++;
+                Projectile.SimpleFadeOut(ai: 0, 20f);
             }
 
-            if (Projectile.ai[0] >= 16f)
-            {
-                Projectile.alpha += 10;
-                if (Projectile.alpha >= 255)
-                {
-                    Projectile.active = false;
-                }
-            }
+            FindNPCAndApplySpeed();
+            FindFrame();
+        }
 
+        public void FindNPCAndApplySpeed()
+        {
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.CanBeChasedBy(this) && attackTarget == -1 && npc.Distance(Projectile.Center) < 200f)
@@ -96,7 +79,19 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             {
                 Projectile.timeLeft = 2;
                 Vector2 speed = Vector2.Normalize(Main.npc[attackTarget].Center - Projectile.Center);
-                Projectile.velocity = (Projectile.velocity * 20f + speed * 10f) / 21f;
+                Projectile.velocity = (Projectile.velocity * 40f + speed * 10f) / 41f;
+            }
+        }
+
+        public void FindFrame()
+        {
+            if ((++Projectile.frameCounter) / 2 >= Main.projFrames[Type])
+            {
+                Projectile.frameCounter = 0;
+                if (++Projectile.frame >= Main.projFrames[Type])
+                {
+                    Projectile.frame = 0; 
+                }
             }
         }
 
@@ -114,15 +109,11 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (NPCID.Sets.CountsAsCritter[target.type] || target.immortal || !target.active)
-            {
-                return;
-            }
             Player owner = Main.player[Projectile.owner];
-            if (Main.rand.NextBool(2))
+            if (UniverseUtils.IsAValidTarget(target) && Main.rand.NextBool(2))
             {
-                target.AddBuff(BuffID.ShadowFlame, 800); //On Fire! debuff for 3 seconds
-                owner.Heal(2); //Shows you have healed by 5 health
+                target.AddBuff(BuffID.ShadowFlame, 800);
+                owner.Heal(2);
             }
         }
 

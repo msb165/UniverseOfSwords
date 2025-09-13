@@ -7,8 +7,8 @@ namespace UniverseOfSwordsMod.Buffs
     {
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetDamage(DamageClass.Melee) += 0.1f;
-            player.GetDamage(DamageClass.MeleeNoSpeed) += 0.1f;
+            player.GetDamage(DamageClass.Melee) += 0.15f;
+            player.GetDamage(DamageClass.MeleeNoSpeed) += 0.15f;
         }
     }
 }

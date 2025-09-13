@@ -40,7 +40,7 @@ namespace UniverseOfSwordsMod.Content.Items.Consumables
             recipe.AddIngredient(ItemID.PurpleMucos, 1);
             recipe.AddIngredient(ItemID.CandyCorn, 10);
             recipe.AddIngredient(ItemID.Moonglow, 1);
-            recipe.AddTile(TileID.AlchemyTable);
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
         }
     }

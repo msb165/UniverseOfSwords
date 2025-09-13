@@ -7,7 +7,9 @@ using Terraria.ModLoader;
 using UniverseOfSwordsMod.Content.Items.Accessories;
 using UniverseOfSwordsMod.Content.Items.Consumables;
 using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Content.Items.Placeable;
 using UniverseOfSwordsMod.Content.Items.Weapons;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Common.GlobalNPCs
 {
@@ -33,7 +35,7 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
             Conditions.IsHardmode hardMode = new();
             Conditions.IsPreHardmode notHardMode = new();
             Conditions.DownedPlantera downedPlantera = new();
-            Conditions.IsExpert isExpert = new();            
+            Conditions.NotExpert isNotExpert = new();            
 
             if (npc.lifeMax > 5 && !npc.immortal && !npc.boss && !NPCID.Sets.CountsAsCritter[npc.type])
             {
@@ -43,1144 +45,161 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
             if (npc.boss)
             {
                 npcLoot.Add(ItemDropRule.ByCondition(hardMode, ModContent.ItemType<UpgradeMatter>(), 10, 1, 6));
-                npcLoot.Add(ItemDropRule.ByCondition(downedPlantera, ModContent.ItemType<SwordShard>(), 1, 1, 4));
             }
 
             if (Array.IndexOf([NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail], npc.type) > -1)
             {
                 npcLoot.Add(ItemDropRule.ByCondition(new Conditions.LegacyHack_IsABoss(), ModContent.ItemType<TheEater>()));
             }
+            if (Array.IndexOf([NPCID.WyvernHead, NPCID.WyvernBody, NPCID.WyvernTail], npc.type) > -1)
+            {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SkyPower>(), 10));
+            }
 
             switch (npc.type)
             {
                 case NPCID.EyeofCthulhu:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<CthulhuJudge>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<CthulhuJudge>()));
                     break;
                 case NPCID.KingSlime:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<StickyGlowstickSword>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<StickyGlowstickSword>()));
                     break;
                 case NPCID.BrainofCthulhu:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<TheBrain>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<TheBrain>()));
                     break;
                 case NPCID.SkeletronHead:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<SwordOfPower>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<SwordOfPower>()));
                     break;
                 case NPCID.SkeletronPrime:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<PrimeSword>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<PrimeSword>()));
                     break;
                 case NPCID.Spazmatism:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<TwinsSword>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<TwinsSword>()));
                     break;
                 case NPCID.TheDestroyer:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<DestroyerSword>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<DestroyerSword>()));
+                    break;
+                case NPCID.Plantera:
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<Executioner>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<BlackBar>(), 1, 15, 30));
                     break;
                 case NPCID.Golem:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<Golem>()));
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<SolBlade>(), 100));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<Golem>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<SwordShard>(), 5, 1, 6));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<SolBlade>(), 100));
                     break;
                 case NPCID.CultistBoss:
-                    npcLoot.Add(ItemDropRule.ByCondition(isExpert, ModContent.ItemType<Doomsday>()));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<Doomsday>()));
+                    break;
+                case NPCID.MoonLordCore:
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<StarMaelstorm>(), 30));
+                    break;
+                case NPCID.BigMimicJungle:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RottenSword>(), 10));
+                    break;
+                case NPCID.BigMimicHallow:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CrystalVileSword>(), 10));
+                    break;
+                case NPCID.BigMimicCorruption:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ClingerSword>(), 10));
+                    break;
+                case NPCID.Zombie:
+                case NPCID.ArmedZombie:
+                case NPCID.FemaleZombie:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ZombieKnife>(), 8));
                     break;
                 case NPCID.Paladin:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PaladinSword>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PaladinSword>(), 8));
                     break;
                 case NPCID.DungeonGuardian:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HaloOfHorrors>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HaloOfHorrors>(), 100));
                     break;
                 case NPCID.RedDevil:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScarletFlareCore>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DevilBlade>(), 10));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScarletFlareCore>(), 4));
                     break;
                 case NPCID.GreekSkeleton:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CaesarSword>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CaesarSword>(), 4));
                     break;
                 case NPCID.BlackRecluse:
                 case NPCID.BlackRecluseWall:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSword>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSword>(), 5));
                     break;
                 case NPCID.Vampire:
                 case NPCID.VampireBat:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DraculaSword>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DraculaSword>(), 10));
                     break;
                 case NPCID.LunarTowerNebula:
                 case NPCID.LunarTowerSolar:
                 case NPCID.LunarTowerVortex:
                 case NPCID.LunarTowerStardust:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BeliarClaw>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BeliarClaw>(), 5));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<InnosWrath>(), 6));
+                    break;
+                case NPCID.GoblinSummoner:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PhantomScimitar>(), 6));
+                    break;
+                case NPCID.DrManFly:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HeisenbergsFlask>(), 5));
+                    break;
+                case NPCID.HellArmoredBonesSpikeShield:
+                case NPCID.HellArmoredBones:
+                case NPCID.HellArmoredBonesMace:
+                case NPCID.HellArmoredBonesSword:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordOfFlames>(), 3));
+                    break;
+                case NPCID.BlueArmoredBones:
+                case NPCID.BlueArmoredBonesMace:
+                case NPCID.BlueArmoredBonesNoPants:
+                case NPCID.BlueArmoredBonesSword:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MagnetSword>(), 8));
+                    break;
+                case NPCID.Harpy:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FeatherDuster>(), 3));
+                    break;
+                case NPCID.Frankenstein:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FingerOfDoom>(), 4));
+                    break;
+                case NPCID.Stylist:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Extase>(), 4));
+                    break;
+                case NPCID.GraniteGolem:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WitherBane>(), 4));
+                    break;
+                case NPCID.Wraith:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WraithBlade>(), 4));
+                    break;
+                case NPCID.DarkCaster:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WraithBlade>(), 5));
+                    break;
+                case NPCID.MossHornet:
+                case NPCID.Arapaima:
+                case NPCID.FlyingSnake:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DragonsDeath>(), 100));
+                    break;
+                case NPCID.Mimic:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ElBastardo>(), 20));
+                    break;
+                case NPCID.Crab:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<OceanRoar>(), 5));
+                    break;
+                case NPCID.PossessedArmor:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PossessedSword>(), 5));
+                    break;
+                case NPCID.FireImp:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Fireball>(), 20));
+                    break;
+                case NPCID.GiantBat:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BatSlayer>(), 15));
+                    break;
+                case NPCID.Piranha:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Biter>(), 15));
+                    break;
+                case NPCID.GoblinPeon:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinKnife>(), 15));
                     break;
             }
         }
 
-        /*public override void OnKill(NPC npc)
-        {
-            if (npc.lifeMax > 5 && npc.value > 0f)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordMatter"));
-            }
-            if (npc.type == NPCID.EyeofCthulhu && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("CthulhuJudge"));
-            }
-            if (npc.type == NPCID.KingSlime && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("StickyGlowstickSword"));
-            }
-            if (npc.type == NPCID.EaterofWorldsTail && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("TheEater"));
-            }
-            if (npc.type == NPCID.BrainofCthulhu && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("TheBrain"));
-            }
-            if (npc.type == NPCID.SkeletronHead && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfPower"));
-            }
-            if (npc.type == NPCID.SkeletronPrime && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PrimeSword"));
-            }
-            if (npc.type == NPCID.Spazmatism && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("TwinsSword"));
-            }
-            if (npc.type == NPCID.TheDestroyer && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DestroyerSword"));
-            }
-            if (npc.type == NPCID.Plantera && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Executioner"));
-            }
-            if (npc.type == NPCID.Golem && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Golem"));
-            }
-            if (npc.type == NPCID.CultistBoss && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Doomsday"));
-            }
-            if (npc.type == NPCID.CultistBoss && Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Doomsday"));
-            }
-            if (npc.type == NPCID.DukeFishron && !Main.expertMode)
-            {
-                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Sharkron"));
-            }
-            if (npc.type == NPCID.Paladin && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 7) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PaladinSword"));
-                }
-            }
-            if (npc.type == NPCID.Paladin && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PaladinSword"));
-                }
-            }
-            if (npc.type == NPCID.Vampire && !Main.expertMode)
-            {
-                if (Main.rand.Next(50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DraculaSword"));
-                }
-            }
-            if (npc.type == NPCID.Vampire && Main.expertMode)
-            {
-                if (Main.rand.Next(40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DraculaSword"));
-                }
-            }
-            if (npc.type == NPCID.VampireBat && !Main.expertMode)
-            {
-                if (Main.rand.Next(50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DraculaSword"));
-                }
-            }
-            if (npc.type == NPCID.VampireBat && Main.expertMode)
-            {
-                if (Main.rand.Next(45) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DraculaSword"));
-                }
-            }
-            if (npc.type == NPCID.MartianSaucerCore && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 2) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MartianSaucerCore"));
-                }
-            }
-            if (npc.type == NPCID.MartianSaucerCore && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MartianSaucerCore"));
-                }
-            }
-            if (npc.type == NPCID.Frankenstein && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("FingerofDoom"));
-                }
-            }
-            if (npc.type == NPCID.Frankenstein && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("FingerofDoom"));
-                }
-            }
-            if (npc.type == NPCID.Unicorn && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 15) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("GiantUnicornHorn"));
-                }
-            }
-            if (npc.type == NPCID.Unicorn && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 10) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("GiantUnicornHorn"));
-                }
-            }
-            if (npc.type == NPCID.GreekSkeleton && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 15) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("CaesarSword"));
-                }
-            }
-            if (npc.type == NPCID.GreekSkeleton && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 11) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("CaesarSword"));
-                }
-            }
-            if (npc.type == NPCID.PirateShip && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DutchSword"));
-                }
-            }
-            if (npc.type == NPCID.PirateShip && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DutchSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicHallow && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ShardSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicHallow && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 2) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ShardSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicCrimson && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DartSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicCrimson && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 2) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DartSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicCorruption && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ClingerSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicCorruption && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 2) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ClingerSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicJungle && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RottenSword"));
-                }
-            }
-            if (npc.type == NPCID.BigMimicJungle && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 2) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RottenSword"));
-                }
-            }
-            if (npc.type == NPCID.RedDevil && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 15) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DevilSword"));
-                }
-            }
-            if (npc.type == NPCID.RedDevil && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 13) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DevilSword"));
-                }
-            }
-            if (npc.type == NPCID.Demon && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DeathSword"));
-                }
-            }
-            if (npc.type == NPCID.Demon && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 35) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DeathSword"));
-                }
-            }
-            if (npc.type == NPCID.GoblinWarrior && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Sting"));
-                }
-            }
-            if (npc.type == NPCID.GoblinWarrior && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 25) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Sting"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerVortex && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerVortex && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerNebula && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerNebula && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerStardust && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerStardust && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerSolar && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerSolar && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("InnosWrath"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerVortex && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerVortex && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerNebula && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerNebula && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerStardust && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerStardust && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerSolar && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.LunarTowerSolar && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BeliarClaw"));
-                }
-            }
-            if (npc.type == NPCID.GoblinPeon && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 20) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("GoblinKnife"));
-                }
-            }
-            if (npc.type == NPCID.GoblinPeon && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 17) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("GoblinKnife"));
-                }
-            }
-            if (npc.type == NPCID.FireImp && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Fireball"));
-                }
-            }
-            if (npc.type == NPCID.FireImp && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 25) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Fireball"));
-                }
-            }
-            if (npc.type == NPCID.GiantBat && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BatSlayer"));
-                }
-            }
-            if (npc.type == NPCID.GiantBat && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 45) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("BatSlayer"));
-                }
-            }
-            if (npc.type == NPCID.Piranha && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 80) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Biter"));
-                }
-            }
-            if (npc.type == NPCID.Piranha && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 70) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Biter"));
-                }
-            }
-            if (npc.type == NPCID.DungeonSlime && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 10) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SlimeKiller"));
-                }
-            }
-            if (npc.type == NPCID.DungeonSlime && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SlimeKiller"));
-                }
-            }
-            if (npc.type == NPCID.TheGroom && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("UselessWeapon"));
-                }
-            }
-            if (npc.type == NPCID.TheGroom && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("UselessWeapon"));
-                }
-            }
-            if (npc.type == NPCID.Werewolf && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WolfDestroyer"));
-                }
-            }
-            if (npc.type == NPCID.Werewolf && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 25) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WolfDestroyer"));
-                }
-            }
-            if (npc.type == NPCID.Wraith && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WraithBlade"));
-                }
-            }
-            if (npc.type == NPCID.Wraith && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WraithBlade"));
-                }
-            }
-            if (npc.type == NPCID.Zombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.Zombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.ArmedZombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.ArmedZombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.PossessedArmor && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PossessedSword"));
-                }
-            }
-            if (npc.type == NPCID.PossessedArmor && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 35) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PossessedSword"));
-                }
-            }
-            if (npc.type == NPCID.BaldZombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.BaldZombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.PincushionZombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.PincushionZombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.SlimedZombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.SlimedZombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.SwampZombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.SwampZombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.TwiggyZombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.TwiggyZombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.FemaleZombie && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.FemaleZombie && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ZombieKnife"));
-                }
-            }
-            if (npc.type == NPCID.Mimic && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 4) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ElBastardo"));
-                }
-            }
-            if (npc.type == NPCID.Mimic && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ElBastardo"));
-                }
-            }
-            if (npc.type == NPCID.GiantCursedSkull && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WeirdSword"));
-                }
-            }
-            if (npc.type == NPCID.GiantCursedSkull && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 20) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WeirdSword"));
-                }
-            }
-            if (npc.type == NPCID.DarkCaster && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 40) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WaterBoltSword"));
-                }
-            }
-            if (npc.type == NPCID.DarkCaster && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WaterBoltSword"));
-                }
-            }
-            if (npc.type == NPCID.Harpy && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("FeatherDuster"));
-                }
-            }
-            if (npc.type == NPCID.Harpy && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 20) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("FeatherDuster"));
-                }
-            }
-            if (npc.type == NPCID.WyvernHead && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 10) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SkyPower"));
-                }
-            }
-            if (npc.type == NPCID.WyvernHead && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 5) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SkyPower"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesAxe && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesAxe && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesFlail && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesFlail && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesSword && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesSword && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesSwordNoArmor && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.RustyArmoredBonesSwordNoArmor && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("RustySword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBones && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBones && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBonesMace && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBonesMace && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBonesNoPants && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBonesNoPants && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBonesSword && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.BlueArmoredBonesSword && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("MagnetSword"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBones && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBones && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBonesMace && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBonesMace && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBonesSword && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBonesSword && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBonesSpikeShield && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 150) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.HellArmoredBonesSpikeShield && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 120) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SwordOfFlames"));
-                }
-            }
-            if (npc.type == NPCID.MossHornet && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1250) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DragonsDeath"));
-                }
-            }
-            if (npc.type == NPCID.MossHornet && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1050) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DragonsDeath"));
-                }
-            }
-            if (npc.type == NPCID.Arapaima && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1250) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DragonsDeath"));
-                }
-            }
-            if (npc.type == NPCID.Arapaima && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1050) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DragonsDeath"));
-                }
-            }
-            if (npc.type == NPCID.FlyingSnake && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 1000) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DragonsDeath"));
-                }
-            }
-            if (npc.type == NPCID.FlyingSnake && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 900) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DragonsDeath"));
-                }
-            }
-            if (npc.type == NPCID.Crab && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("OceanRoar"));
-                }
-            }
-            if (npc.type == NPCID.Crab && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("OceanRoar"));
-                }
-            }
-            if (npc.type == NPCID.BlackRecluse && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 70) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PoisonSword"));
-                }
-            }
-            if (npc.type == NPCID.BlackRecluse && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PoisonSword"));
-                }
-            }
-            if (npc.type == NPCID.BlackRecluseWall && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 70) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PoisonSword"));
-                }
-            }
-            if (npc.type == NPCID.BlackRecluseWall && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PoisonSword"));
-                }
-            }
-            if (npc.type == NPCID.GoblinSummoner && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 6) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PhantomScimitar"));
-                }
-            }
-            if (npc.type == NPCID.GoblinSummoner && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 3) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("PhantomScimitar"));
-                }
-            }
-            if (npc.type == NPCID.GraniteGolem && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WitherBane"));
-                }
-            }
-            if (npc.type == NPCID.GraniteGolem && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 15) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("WitherBane"));
-                }
-            }
-
-            if (npc.type == NPCID.DungeonGuardian && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 100) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("HaloOfHorrors"));
-                }
-            }
-            if (npc.type == NPCID.DungeonGuardian && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 100) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("HaloOfHorrors"));
-                }
-            }
-
-            if (npc.type == NPCID.DrManFly && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 30) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("HeisenbergsFlask"));
-                }
-            }
-
-            if (npc.type == NPCID.DrManFly && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 20) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("HeisenbergsFlask"));
-                }
-            }
-
-            if (npc.type == NPCID.Stylist && !Main.expertMode)
-            {
-                if (Main.rand.Next(4) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Extase"));
-                }
-            }
-            if (npc.type == NPCID.Stylist && Main.expertMode)
-            {
-                if (Main.rand.Next(2) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("Extase"));
-                }
-            }
-            if (npc.type == NPCID.MoonLordCore && !Main.expertMode)
-            {
-                if (Main.rand.Next(100) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("StarMaelstorm"));
-                }
-            }
-            if (npc.type == NPCID.MoonLordCore && Main.expertMode)
-            {
-                if (Main.rand.Next(50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("StarMaelstorm"));
-                }
-            }
-            if (npc.type == NPCID.RedDevil && !Main.expertMode)
-            {
-                if (Main.rand.Next(0, 15) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ScarletFlareCore"));
-                }
-            }
-            if (npc.type == NPCID.RedDevil && Main.expertMode)
-            {
-                if (Main.rand.Next(0, 10) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("ScarletFlareCore"));
-                }
-            }
-            if (npc.type == NPCID.Demon && !Main.expertMode)
-            {
-                if (Main.rand.Next(60) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DaedricSword"));
-                }
-            }
-            if (npc.type == NPCID.Demon && Main.expertMode)
-            {
-                if (Main.rand.Next(50) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("DaedricSword"));
-                }
-            }
-            if (npc.type == NPCID.Golem && !Main.expertMode)
-            {
-                if (Main.rand.Next(100) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SolBlade"));
-                }
-            }
-            if (npc.type == NPCID.Golem && Main.expertMode)
-            {
-                if (Main.rand.Next(75) == 0)
-                {
-                    Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ModContent.ItemType<T>("SolBlade"));
-                }
-            }
-
-        }*/
     }
 }

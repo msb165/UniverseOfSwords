@@ -42,7 +42,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			recipe.AddIngredient(ItemID.SoulofFright, 15);
 			recipe.AddIngredient(ItemID.IronskinPotion, 15);
 			recipe.AddIngredient(ItemID.HallowedMask, 1);
-			recipe.AddIngredient(ItemID.HallowedBar, 16);
+            recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 8);
             recipe.AddTile(TileID.MythrilAnvil);			
 			recipe.Register();
 		}

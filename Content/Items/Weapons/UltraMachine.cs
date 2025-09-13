@@ -71,8 +71,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(null, "Machine", 1);
-            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 150);
+            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 100);
             recipe.AddIngredient(null, "DamascusBar", 20);
             recipe.AddIngredient(ItemID.SkeletronPrimeTrophy, 1);
             recipe.AddIngredient(ItemID.DestroyerTrophy, 1);

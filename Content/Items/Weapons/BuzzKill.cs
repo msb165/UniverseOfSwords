@@ -1,9 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -27,7 +28,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 30;
             Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;
-            Item.shoot = ProjectileID.GiantBee;
             Item.shootSpeed = 8;
             Item.value = Item.sellPrice(gold: 5);
             Item.autoReuse = true;
@@ -41,22 +41,19 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float spread = 10f * 0.0174f; //Replace 45 with whatever spread you want
-            float baseSpeed = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
-            double startAngle = Math.Atan2(velocity.X, velocity.Y) - spread / 2;
-            double deltaAngle = spread / 2f;
-            double offsetAngle;
-            for (int i = 0; i < 3; i++) //Replace 2 with number of projectiles
-            {
-                offsetAngle = startAngle + deltaAngle * i;
-                Projectile.NewProjectile(source, position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), player.beeType(), damage, knockback, player.whoAmI);
-            }
+
             return false;
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            base.OnHitNPC(player, target, hit, damageDone);
+            float spin = MathHelper.ToRadians(3f);
+            for (int i = 0; i < 3; i++)
+            {
+                float offset = i - (3f - 1f) / 2f;
+                Vector2 newVel = ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitY) * 4f).RotatedBy(spin * offset) * Main.rand.NextFloat(0.5f, 1.25f);
+                Projectile.NewProjectileDirect(target.GetSource_OnHit(target), player.Center + newVel * 8f, newVel, player.beeType(), Item.damage, Item.knockBack, player.whoAmI);
+            }
         }
 
         public override void AddRecipes()

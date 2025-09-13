@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
@@ -30,16 +31,25 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 5, silver: 10);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 999;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 200)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
                 .AddIngredient(ItemID.OnyxBlaster)
-                .AddIngredient(ItemID.SoulofNight)
+                .AddIngredient(ItemID.SoulofNight, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -64f), new Vector2(0f, 4f));
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)

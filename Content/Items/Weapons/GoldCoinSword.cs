@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
@@ -61,7 +62,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.GoldCoin, 20);
-            recipe.AddIngredient(null, "SwordMatter", 50);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 50);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }

@@ -44,7 +44,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 		public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SwordShard>(), 20)
+                .AddIngredient(ModContent.ItemType<SwordShard>(), 15)
                 .AddIngredient(ModContent.ItemType<RedFlareLongsword>(), 1)
                 .AddIngredient(ModContent.ItemType<ScarletFlareCore>())
                 .AddIngredient(ModContent.ItemType<TheNightmareAmalgamation>())

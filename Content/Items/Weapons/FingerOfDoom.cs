@@ -16,7 +16,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useTime = 13;
             Item.useAnimation = 13;           
             Item.damage = 80;
-            Item.knockBack = 10f;
+            Item.knockBack = 8f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 40);			
             Item.autoReuse = true; 

@@ -66,5 +66,7 @@ namespace UniverseOfSwordsMod.Utilities.Projectiles
                 proj.velocity.Y = 16f;
             }
         }
+
+
     }
 }

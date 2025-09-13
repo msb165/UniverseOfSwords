@@ -1,10 +1,11 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Buffs;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
@@ -121,6 +122,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             target.AddBuff(BuffID.OnFire, 360);
             target.AddBuff(BuffID.Poisoned, 360);
             target.AddBuff(BuffID.CursedInferno, 360);
+            target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
             for (int i = 0; i < 3; i++)
             {
                 Vector2 spawnPos = player.Center + Main.rand.NextVector2Circular(300f, 300f);

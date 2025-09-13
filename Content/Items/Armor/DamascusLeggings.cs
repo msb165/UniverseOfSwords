@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Items.Placeable;
 
 namespace UniverseOfSwordsMod.Content.Items.Armor
@@ -33,7 +34,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<DamascusBar>(), 15);
-			recipe.AddIngredient(null, "SwordMatter", 65);
+			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 65);
             recipe.AddTile(TileID.Anvils);			
 			recipe.Register();
 		}

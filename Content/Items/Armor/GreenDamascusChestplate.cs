@@ -36,7 +36,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			player.setBonus = "25% increased melee speed, 7% increased melee critical chance, 50% increased movement speed, increases maximum life by 20";
 			player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
 			player.GetCritChance(DamageClass.Melee) += 7;
-			player.moveSpeed += 0.50f;
+			player.moveSpeed += 0.40f;
 			player.statLifeMax2 += 20;
 		}
 
@@ -55,7 +55,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			recipe.AddIngredient(ItemID.SoulofSight, 15);
 			recipe.AddIngredient(ItemID.SoulofFright, 15);
 			recipe.AddIngredient(ItemID.SwiftnessPotion, 15);
-			recipe.AddIngredient(ItemID.HallowedPlateMail, 1);
+			recipe.AddIngredient(ItemID.BeetleScaleMail, 1);
 			recipe.AddIngredient(ItemID.HallowedBar, 16);
             recipe.AddTile(TileID.MythrilAnvil);			
 			recipe.Register();

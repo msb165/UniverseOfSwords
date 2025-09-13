@@ -28,7 +28,7 @@ namespace UniverseOfSwordsMod.Utilities
             {
                 rotated += MathHelper.PiOver2 * -player.direction;
             }
-            Vector2 spawnVel = (player.itemRotation).ToRotationVector2().RotatedBy(rotated);
+            Vector2 spawnVel = player.itemRotation.ToRotationVector2().RotatedBy(rotated);
 
             if (player.direction == -1)
             {

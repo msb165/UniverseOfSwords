@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Items.Materials;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -39,16 +40,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.IceBlade, 1)
-            .AddIngredient(ItemID.Amarok, 1)
-            .AddIngredient(ItemID.Frostbrand, 2)
-            .AddIngredient(ItemID.NorthPole, 1)
-            .AddIngredient(ItemID.FrostCore, 10)
-            .AddIngredient(ItemID.IceFeather, 2)
-            .AddIngredient(ItemID.LunarBar, 1)
-            .AddIngredient(ItemID.IceBlock, 1000)
-            .AddTile(TileID.LunarCraftingStation)
-            .Register();
+                .AddIngredient(ItemID.IceBlade, 1)
+                .AddIngredient(ItemID.Amarok, 1)
+                .AddIngredient(ItemID.Frostbrand, 2)
+                .AddIngredient(ItemID.NorthPole, 1)
+                .AddIngredient(ItemID.FrostCore, 10)
+                .AddIngredient(ItemID.IceFeather, 2)
+                .AddIngredient(ModContent.ItemType<SwordShard>(), 5)
+                .AddIngredient(ItemID.IceBlock, 1000)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -63,6 +64,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 Projectile.NewProjectileDirect(target.GetSource_OnHit(target), targetPos, targetVelocity, ProjectileID.NorthPoleSpear, Item.damage, Item.knockBack, player.whoAmI);
             }
             target.AddBuff(BuffID.Frostburn, 360);
+            target.AddBuff(BuffID.Frostburn2, 360);
         }
     }
 }

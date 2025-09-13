@@ -28,7 +28,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 78; 
             Item.knockBack = 7.2f;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(silver: 38);			
+            Item.value = Item.sellPrice(silver: 20);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
 	    }  
@@ -51,11 +51,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         
 		public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<ShroomiteBlade>(), 1);
-			recipe.AddIngredient(null, "UpgradeMatter", 1);
-            recipe.AddTile(TileID.MythrilAnvil);			
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.ShroomiteBar, 10)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
 	    }
     }
 }

@@ -28,6 +28,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
+            Item.shootsEveryUse = true;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -43,7 +44,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             recipe.AddIngredient(ItemID.FragmentNebula, 10);
             recipe.AddIngredient(ItemID.FragmentStardust, 10);
             recipe.AddIngredient(ItemID.LunarBar, 14);
-            recipe.AddIngredient(null, "Dragrael", 1);
             recipe.AddIngredient(null, "Doomsday", 1);
             recipe.AddIngredient(ItemID.TerraBlade, 1);
             recipe.AddIngredient(null, "LunarOrb", 1);

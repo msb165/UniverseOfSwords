@@ -28,6 +28,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.shoot = ModContent.ProjectileType<OmegaExcaliburEnergy>();
             Item.noMelee = true;
+            Item.shootsEveryUse = true;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

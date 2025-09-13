@@ -1,9 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -19,10 +20,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             Item.width = 32;
             Item.height = 32;
-            Item.scale = 1.3F;
+            Item.scale = 1.4f;
             Item.rare = ItemRarityID.Red;
             Item.crit = 4;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.damage = 50;
@@ -33,6 +34,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 10);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.noMelee = true;
+            Item.shootsEveryUse = true;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -42,7 +45,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float spread = 10f * 0.0174f; //Replace 45 with whatever spread you want
+            /*float spread = 10f * 0.0174f; //Replace 45 with whatever spread you want
             float baseSpeed = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
             double startAngle = Math.Atan2(velocity.X, velocity.Y) - spread / 2;
             double deltaAngle = spread / 2f;
@@ -52,7 +55,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 offsetAngle = startAngle + deltaAngle * i;
                 Projectile.NewProjectile(source, position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), Item.shoot, damage, knockback, Item.playerIndexTheItemIsReservedFor);
-            }
+            }*/
+            float adjustedItemScale = player.GetAdjustedItemScale(Item);
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), ModContent.ProjectileType<BuzzFutureEnergy>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
             return false;
         }
 

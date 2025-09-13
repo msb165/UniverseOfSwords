@@ -1,12 +1,15 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Buffs;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
+using static Terraria.Player;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -31,24 +34,38 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 15;
             Item.damage = 80000;
             Item.knockBack = 2f;
-            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/SOTM");
-            Item.shoot = ModContent.ProjectileType<Projectiles.Common.SOTM>();
+            Item.UseSound = SoundID.Item1 with { Pitch = -1f };
+            Item.shoot = ModContent.ProjectileType<SOTM>();
             Item.shootSpeed = 30f;
             Item.expert = true;
             Item.value = Item.sellPrice(platinum: 90);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            //Item.noMelee = true;
-            //Item.noUseGraphic = true;
+            Item.holdStyle = 0;
         }
 
         //public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
         //public override bool MeleePrefix() => true;
 
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override bool AltFunctionUse(Player player) => true;
+
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation = player.Center;
+            player.itemLocation = player.Center + new Vector2(12f * -player.direction, 4f);
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -96f), new Vector2(12f * -player.direction, 4f));
+            }
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
