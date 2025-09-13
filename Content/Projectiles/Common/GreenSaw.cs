@@ -29,20 +29,22 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.aiStyle = -1;
             Projectile.extraUpdates = 2;
             Projectile.timeLeft = 300;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 20;
         }
 
         public override void AI()
         {
             Projectile.localAI[1]++;
-            if (Projectile.localAI[1] > 10f && Main.rand.Next(3) == 0)
+            if (Projectile.localAI[1] > 10f && Main.rand.NextBool(3))
             {
                 int maxDust = 6;
                 for (int i = 0; i < maxDust; i++)
                 {
                     Vector2 spawnPosOffset = Vector2.Normalize(Projectile.velocity) * Projectile.Size / 2f;
-                    spawnPosOffset = spawnPosOffset.RotatedBy((double)(i - (maxDust / 2 - 1)) * MathHelper.Pi / (double)maxDust) + Projectile.Center;
-                    Vector2 spawnVel = ((float)(Main.rand.NextDouble() * MathHelper.Pi) - MathHelper.PiOver2).ToRotationVector2() * Main.rand.Next(3, 8);
-                    int dust = Dust.NewDust(spawnPosOffset + spawnVel, 0, 0, DustID.Clentaminator_Green, spawnVel.X * 2f, spawnVel.Y * 2f, 100, default(Color), 1f);
+                    spawnPosOffset = spawnPosOffset.RotatedBy((double)(i - (maxDust / 2 - 1)) * MathHelper.Pi / maxDust) + Projectile.Center;
+                    Vector2 spawnVel = ((float)(Main.rand.NextFloat() * MathHelper.Pi) - MathHelper.PiOver2).ToRotationVector2() * Main.rand.Next(3, 8);
+                    int dust = Dust.NewDust(spawnPosOffset + spawnVel, 0, 0, DustID.Clentaminator_Green, spawnVel.X * 2f, spawnVel.Y * 2f, 100, default, 1f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].noLight = true;
                     Dust dust2 = Main.dust[dust];
@@ -147,7 +149,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             return false;
         }
 
-        public override bool PreDraw(ref Color lightColor) //this is where the animation happens
+        public override bool PreDraw(ref Color lightColor)
         {
             Main.instance.LoadProjectile(ProjectileID.VortexVortexPortal);
             Texture2D texture = TextureAssets.Projectile[ProjectileID.VortexVortexPortal].Value;

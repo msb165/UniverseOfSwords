@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Content.Items.Placeable;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -17,27 +18,25 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 35;
-            Item.height = 35;
-            Item.scale = 2.7F;
-            Item.rare = 10;
-            Item.useStyle = 1;
+            Item.width = 128;
+            Item.height = 128;
+            Item.rare = ItemRarityID.Red;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.damage = 600;
-            Item.knockBack = 8.0F;
+            Item.damage = 182;
+            Item.knockBack = 8f;
             Item.UseSound = SoundID.Item71;
             Item.shoot = ProjectileID.DeathSickle;
-            Item.shootSpeed = 20;
-            Item.value = 10000000;
+            Item.shootSpeed = 20f;
+            Item.value = Item.sellPrice(platinum: 1);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation.X -= 1f * player.direction;
-            player.itemLocation.Y -= 1f * player.direction;
+            player.itemLocation = player.Center;
         }
 
         public override void AddRecipes()
@@ -48,6 +47,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<GnomBlade>())
                 .AddIngredient(ItemID.BrokenHeroSword, 10)
                 .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 25)
+                .AddIngredient(ModContent.ItemType<BlackBar>(), 25)
                 .AddIngredient(ModContent.ItemType<LunarOrb>(), 3)
                 .AddIngredient(ItemID.LunarBar, 80)
                 .AddTile(TileID.DemonAltar)

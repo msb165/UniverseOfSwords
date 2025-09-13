@@ -27,13 +27,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.damage = 190;
-            Item.knockBack = 20f;
+            Item.damage = 275;
+            Item.knockBack = 8f;
             Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
             Item.shoot = Mod.Find<ModProjectile>("SOTUV4Projectile").Type;
             Item.shootSpeed = 30;
             Item.expert = true;
-            Item.value = Item.sellPrice(platinum: 10);
+            Item.value = Item.sellPrice(platinum: 5);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }

@@ -20,15 +20,15 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.width = 16;
             Projectile.height = 16;
             Projectile.aiStyle = -1;
-            Projectile.scale = 3f;
+            Projectile.scale = 3.25f;
             Projectile.friendly = true;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = -1;
             Projectile.extraUpdates = 1;
-            //Projectile.usesLocalNPCImmunity = true;
-            //Projectile.localNPCHitCooldown = 10;
             Projectile.tileCollide = false;
             Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.alpha = 255;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 25;
         }
 
         Player Player => Main.player[Projectile.owner];

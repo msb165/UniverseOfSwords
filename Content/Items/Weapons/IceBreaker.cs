@@ -1,73 +1,96 @@
 using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
     public class IceBreaker : ModItem
     {
-		public override void SetStaticDefaults()
-		{
-			// Tooltip.SetDefault("'Freezing to the touch'");
-		}
-		
+        public override void SetStaticDefaults()
+        {
+            // Tooltip.SetDefault("'Freezing to the touch'");
+        }
+
         public override void SetDefaults()
         {
             Item.width = 64;
-            Item.height = 64; 
-			Item.scale = 1.25f;
-            Item.rare = ItemRarityID.Lime;            
-            Item.useStyle = ItemUseStyleID.Swing;             
+            Item.height = 64;
+            Item.scale = 1.25f;
+            Item.rare = ItemRarityID.Lime;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 40;
-            Item.useAnimation = 20;           
-            Item.damage = 61; 
+            Item.useAnimation = 20;
+            Item.damage = 61;
             Item.knockBack = 7f;
             Item.UseSound = SoundID.Item28;
-			Item.shoot = ProjectileID.FrostBoltSword;
-            Item.shootSpeed = 20f;
-            Item.value = 300200;			
-            Item.autoReuse = true; 
+            Item.value = 300200;
+            Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.holdStyle = 0;
-	    } 
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            Item.UseSound = player.altFunctionUse == 2 ? SoundID.Item92 : SoundID.Item28;
+            return player.ownedProjectileCounts[ModContent.ProjectileType<IceBreakerProj>()] < 1;
+        }
+
+        public override bool AltFunctionUse(Player player) => true;
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                Projectile.NewProjectile(source, player.Center + new Vector2(24f * player.direction, -48f), Vector2.Zero, ModContent.ProjectileType<IceBreakerProj>(), damage, knockback, player.whoAmI);
+            }
+            return false;
+        }
 
         public override void HoldItem(Player player)
         {
-            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle && player.ownedProjectileCounts[ModContent.ProjectileType<IceBreakerProj>()] < 1 ? 999 : 0;
         }
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {
-            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle && player.ownedProjectileCounts[ModContent.ProjectileType<IceBreakerProj>()] < 1)
             {
-                Dust dust = Dust.NewDustDirect(player.itemLocation - new Vector2(-32f * player.direction, 80f), 64, 64, DustID.SpectreStaff, 0, 0, 127, default, 1f);
+                float rotation = player.itemRotation - MathHelper.PiOver4;
                 if (player.direction == -1)
                 {
-                    dust.position.X -= 48f;
+                    rotation -= MathHelper.PiOver2;
                 }
+                Dust dust = Dust.NewDustPerfect(player.Center + rotation.ToRotationVector2() * 20f * Item.scale, DustID.SpectreStaff, Vector2.Zero, Alpha: 127, newColor: default, Scale: 2f);
                 dust.noGravity = true;
-                dust.velocity.X = Main.rand.Next(-10, 11) * 0.5f * player.direction;
-                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -62f), new Vector2(0f, 4f));
+                dust.velocity = Main.rand.NextVector2Circular(4f, 16f);
+                if (dust.velocity.Y > 0f)
+                {
+                    dust.velocity *= -1f;
+                }
+                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation);
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -62f), new Vector2(1f, 6f));
             }
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-		{
-			float numberProjectiles = 2 + Main.rand.Next(3); // 3, 4, or 5 shots
-			float rotation = MathHelper.ToRadians(10f);
-			position += Vector2.Normalize(velocity) * 5f;
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
-				Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
-			}
-			return false;
-		}
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            float numberProjectiles = 2 + Main.rand.Next(3);
+            Vector2 position = player.Center;
+            Vector2 velocity = ((Main.MouseWorld - position).SafeNormalize(Vector2.Zero) * 10f).RotatedByRandom(MathHelper.ToRadians(15f));
+            for (int i = 0; i < numberProjectiles; i++)
+            {
+                Projectile.NewProjectile(target.GetSource_OnHit(target), position + velocity, velocity, ProjectileID.FrostBoltSword, Item.damage, Item.knockBack, player.whoAmI);
+            }
+        }
 
         public override void AddRecipes()
         {

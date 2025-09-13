@@ -22,7 +22,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			Item.width = 26;
 			Item.height = 20;
 			Item.value = Item.buyPrice(gold: 7);
-			Item.rare = 9;
+			Item.rare = ItemRarityID.Cyan;
 			Item.defense = 20;
 		}
 		

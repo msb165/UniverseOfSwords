@@ -39,7 +39,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             if (Main.rand.Next(2) == 0)
             {
 
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 174, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.InfernoFork, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
             }
         }

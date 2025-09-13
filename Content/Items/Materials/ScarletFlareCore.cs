@@ -19,7 +19,7 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
             Item.height = 50;
             Item.maxStack = 99;
             Item.value = Item.sellPrice(gold: 1);
-            Item.rare = 10;
+            Item.rare = ItemRarityID.Red;
         }
     }
 }

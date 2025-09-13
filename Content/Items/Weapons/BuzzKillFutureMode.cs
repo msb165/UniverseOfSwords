@@ -4,7 +4,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -18,9 +20,9 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
-            Item.scale = 1.4f;
+            Item.width = 128;
+            Item.height = 128;
+            Item.scale = 1f;
             Item.rare = ItemRarityID.Red;
             Item.crit = 4;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -36,26 +38,39 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
             Item.shootsEveryUse = true;
+            Item.holdStyle = 0;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        public override void HoldItem(Player player)
         {
-            player.itemLocation.Y -= 1f * player.gravDir;
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                float rotation = player.itemRotation - MathHelper.PiOver4;
+                if (player.direction == -1)
+                {
+                    rotation -= MathHelper.PiOver2;
+                }
+                Dust dust = Dust.NewDustPerfect(player.Center + rotation.ToRotationVector2() * 140f * Item.scale, DustID.Vortex, Vector2.Zero, Alpha: 127, newColor: default, Scale: 1.25f);
+                dust.noGravity = true;
+                dust.velocity = Main.rand.NextVector2Circular(8f, 16f);
+                if (dust.velocity.Y > 0f)
+                {
+                    dust.velocity *= -1f;
+                }
+                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation);
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -62f), new Vector2(0f, 4f));
+            }
+        }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            /*float spread = 10f * 0.0174f; //Replace 45 with whatever spread you want
-            float baseSpeed = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
-            double startAngle = Math.Atan2(velocity.X, velocity.Y) - spread / 2;
-            double deltaAngle = spread / 2f;
-            double offsetAngle;
-            int i;
-            for (i = 0; i < 7; i++) //Replace 2 with number of projectiles
-            {
-                offsetAngle = startAngle + deltaAngle * i;
-                Projectile.NewProjectile(source, position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), Item.shoot, damage, knockback, Item.playerIndexTheItemIsReservedFor);
-            }*/
             float adjustedItemScale = player.GetAdjustedItemScale(Item);
             Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), ModContent.ProjectileType<BuzzFutureEnergy>(), damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
             NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
@@ -64,13 +79,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(null, "LunarOrb", 1);
-            recipe.AddIngredient(ItemID.HiveBackpack, 1);
-            recipe.AddIngredient(ItemID.LunarBar, 20);
-            recipe.AddIngredient(null, "BuzzKill", 1);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(null, "LunarOrb", 1)
+                .AddIngredient(ItemID.HiveBackpack, 1)
+                .AddIngredient(ItemID.LunarBar, 20)
+                .AddIngredient(null, "BuzzKill", 1)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 }

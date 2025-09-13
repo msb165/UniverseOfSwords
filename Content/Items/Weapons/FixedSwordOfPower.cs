@@ -31,10 +31,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 50);
             Item.shoot = ModContent.ProjectileType<Bonerang>();
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 10f;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            Item.holdStyle = 999;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)

@@ -25,20 +25,21 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useTime = 62;
             Item.useAnimation = 62;
             Item.damage = 240;
+            Item.DamageType = DamageClass.Melee;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(gold: 2000);
             Item.autoReuse = true;
             Item.holdStyle = 0;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            player.itemLocation = player.Center;
-        }
-
         public override void HoldItem(Player player)
         {
             Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        {
+            player.itemLocation = player.Center;
         }
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)

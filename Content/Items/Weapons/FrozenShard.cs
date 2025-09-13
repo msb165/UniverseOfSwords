@@ -27,7 +27,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 66;
             Item.knockBack = 8.0F;
             Item.shoot = ModContent.ProjectileType<Frozen>();
-            Item.shootSpeed = 3.5f;
+            Item.shootSpeed = 4f;
             Item.UseSound = SoundID.Item28;
             Item.value = Item.sellPrice(gold: 15);
             Item.autoReuse = true;
@@ -50,13 +50,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            position += velocity * 4f - Vector2.UnitY * 24f;
+            position += velocity * 8f - Vector2.UnitY * 24f;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<VenomShard>(), 1);
+            recipe.AddIngredient(ModContent.ItemType<VenomShard>());
             recipe.AddIngredient(ItemID.FrostCore, 2);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();

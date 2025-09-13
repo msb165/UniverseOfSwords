@@ -84,8 +84,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
                     if (Collision.SolidTiles(spawnPos, 8, 8))
                     {
-                        f = Main.rand.NextFloat() * MathHelper.TwoPi;
-                        spawnPos = position + f.ToRotationVector2() * Main.rand.NextFloat(20f, 61f);
+                        continue;
                     }
 
                     Vector2 spawnVel = (Main.MouseWorld - spawnPos).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;

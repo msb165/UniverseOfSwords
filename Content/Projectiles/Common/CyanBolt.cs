@@ -47,7 +47,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 Projectile.ai[1] = 1f;
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            if (Projectile.ai[0] % 32f == 0f && Main.myPlayer == Projectile.owner)
+            if (Projectile.ai[0] % 72f == 0f && Main.myPlayer == Projectile.owner)
             {
                 Vector2 newVel = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2 * Projectile.direction);
                 Vector2 newVel2 = Vector2.Normalize(Projectile.velocity).RotatedBy(-MathHelper.PiOver2 * Projectile.direction);

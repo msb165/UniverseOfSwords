@@ -24,9 +24,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 555;
-            Item.height = 555;
-            Item.scale = 1f;
+            Item.width = 250;
+            Item.height = 250;
             Item.rare = ItemRarityID.Expert;
             Item.crit = 65;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -57,14 +56,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation = player.Center + new Vector2(12f * -player.direction, 4f);
+            player.itemLocation = player.Center + new Vector2(12f * -player.direction, 14f);
         }
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -96f), new Vector2(12f * -player.direction, 4f));
+                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -96f), new Vector2(12f * -player.direction, 14f));
             }
         }
 
@@ -75,18 +74,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 return false;
             }
             Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SOTM>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X + 10, velocity.Y + 10), ModContent.ProjectileType<SOTM>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X - 10, velocity.Y - 10), ModContent.ProjectileType<SOTM>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ModContent.ProjectileType<SOTUProjectile1>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X + 5, velocity.Y + 5), ModContent.ProjectileType<SOTUProjectile2>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X - 5, velocity.Y - 5), ModContent.ProjectileType<SOTUProjectile3>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X + 8, velocity.Y + 8), ModContent.ProjectileType<SOTUV4Projectile>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X - 8, velocity.Y - 8), ModContent.ProjectileType<SOTUV5Projectile>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X + 12, velocity.Y + 12), ModContent.ProjectileType<SOTUV6Projectile>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X - 13, velocity.Y - 13), ModContent.ProjectileType<SOTU7>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X + 12, velocity.Y + 12), ModContent.ProjectileType<SOTU8>(), damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, new(velocity.X - 10, velocity.Y - 10), ModContent.ProjectileType<SOTUV9Projectile>(), damage, knockback, player.whoAmI);
-            //Projectile.NewProjectile(source, position, Vector2.Normalize(velocity), ModContent.ProjectileType<Projectiles.Held.SwordOfTheMultiverse>(), damage, knockback, player.whoAmI);
             return false;
         }
 

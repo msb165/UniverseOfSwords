@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
@@ -19,7 +20,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             Item.width = 46;
             Item.height = 56;
-            Item.scale = 1f;
+            Item.scale = 1.125f;
             Item.rare = ItemRarityID.LightRed;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 25;
@@ -32,6 +33,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 5);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -22f), new Vector2(0f, 4f));
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -55,7 +70,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<PoisonCrystallus>(), 1)
+                .AddIngredient(ModContent.ItemType<PoisonCrystallus>())
                 .AddIngredient(ItemID.HellstoneBar, 18)
                 .AddIngredient(ItemID.Obsidian, 10)
                 .AddTile(TileID.Anvils)

@@ -13,8 +13,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.width = 36;
             Item.height = 36; 
 			Item.scale = 1.0F;
-            Item.rare = 0;            
-            Item.useStyle = 1;             
+            Item.rare = ItemRarityID.White;            
+            Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 30;
             Item.useAnimation = 30;           
             Item.damage = 7; 
@@ -29,7 +29,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 		{
 			if (Main.rand.Next(3) == 0)
 			{
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 10, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Gold, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
 			}
 		}

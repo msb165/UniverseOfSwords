@@ -26,14 +26,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.crit = 16;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 15;
-            Item.useAnimation = 15;           
-            Item.damage = 1337; 
+            Item.useAnimation = 15;
+            Item.damage = 275;
             Item.knockBack = 20.0F;
             Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
 			Item.shoot = Mod.Find<ModProjectile>("SOTU7").Type;
             Item.shootSpeed = 15f;
 			Item.expert = true;
-            Item.value = Item.sellPrice(platinum: 10);			
+            Item.value = Item.sellPrice(platinum: 5);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
 	    }
@@ -82,7 +82,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 		{
 			if (Main.rand.Next(2) == 0)
 			{
-				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 21, 0f, 0f, 100, default, 2f);
+				int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.VilePowder, 0f, 0f, 100, default, 2f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity.X -= player.direction * 0f;
 			    Main.dust[dust].velocity.Y -= 0.0f;

@@ -45,15 +45,10 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnKill(int timeLeft)
         {
-            for (int k = 0; k < 2; k++)
+            for (int k = 0; k < 20; k++)
             {
-                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Flare, Projectile.oldVelocity.X * 0.5f, Projectile.oldVelocity.Y * 0.5f);
-                dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Flare, Projectile.oldVelocity.X * 0.10f, Projectile.oldVelocity.Y * 0.10f);
-            }
-
-            if (Main.myPlayer == Projectile.owner && Main.rand.NextBool(50))
-            {
-                Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.position, Vector2.Zero, ModContent.ProjectileType<FlamesBlast>(), (int)(Projectile.damage * 0.5), Projectile.knockBack, Projectile.owner);
+                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Flare, Projectile.oldVelocity.X * 0.5f, Projectile.oldVelocity.Y * 0.5f);
+                Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Flare, Projectile.oldVelocity.X * 0.10f, Projectile.oldVelocity.Y * 0.10f);
             }
 
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);

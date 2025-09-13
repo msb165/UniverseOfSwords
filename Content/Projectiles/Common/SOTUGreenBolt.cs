@@ -1,48 +1,45 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Content.Dusts;
 using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwordsMod.Utilities.Projectiles;
 
 namespace UniverseOfSwordsMod.Content.Projectiles.Common
 {
     public class SOTUGreenBolt : ModProjectile
     {
-        public override string Texture => UniverseUtils.TexturesPath + "Empty";
+        public override string Texture => $"{UniverseUtils.VanillaTexturesPath}NPC_{NPCID.CursedSkull}";
 
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 30;
             ProjectileID.Sets.TrailingMode[Type] = 2;
+            Main.projFrames[Type] = 3;
         }
 
         public override void SetDefaults()
         {
-            Projectile.Size = new(8);
+            Projectile.Size = new(24);
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
-            Projectile.extraUpdates = 2;
+            Projectile.extraUpdates = 0;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
             //Projectile.tileCollide = false;
             Projectile.noEnchantmentVisuals = true;
-            Projectile.timeLeft = 300;
         }
 
         public override void AI()
         {
-            Projectile.velocity *= 0.99f;
-            for (int j = 0; j < 3; j++)
-            {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100);
-                dust.velocity *= 0.6f;
-                dust.position = Projectile.Center - Projectile.velocity / 3f * j;
-                dust.scale = 1.125f;
-                dust.noGravity = true;
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            Projectile.spriteDirection = Projectile.direction;
+            Projectile.SimpleFadeOut(ai: 0, 15f);
         }
 
         public override void OnKill(int timeLeft)
@@ -69,7 +66,30 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override bool PreDraw(ref Color lightColor)
         {
-            return base.PreDraw(ref lightColor);
+            Texture2D texture = TextureAssets.Projectile[Type].Value;
+            Texture2D textureGlow = TextureAssets.Projectile[ProjectileID.StardustTowerMark].Value;
+            SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None;
+            int frameHeight = texture.Height / Main.projFrames[Type];
+            int startY = frameHeight * Projectile.frame;
+            Rectangle sourceRectangle = new(0, startY, texture.Width, frameHeight);
+            Vector2 origin = sourceRectangle.Size() / 2;
+            Vector2 originGlow = textureGlow.Size() / 2;
+            Color drawColor = Color.Lime with { A = 100 } * Projectile.Opacity;
+            Color trailColor = drawColor;
+            Color trailColor2 = Color.LightGreen with { A = 0 } * Projectile.Opacity;
+
+            for (int i = 0; i < Projectile.oldPos.Length; i++)
+            {
+                trailColor *= 0.75f;
+                trailColor2 *= 0.75f;
+                float newScale = MathHelper.Lerp(Projectile.scale * 0.75f, 0f, 0.1f * i);
+                Main.spriteBatch.Draw(textureGlow, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, trailColor2 * 0.5f * Projectile.Opacity, Projectile.oldRot[i], originGlow, newScale, spriteEffects, 0f);
+                Main.spriteBatch.Draw(texture, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, sourceRectangle, trailColor2 * Projectile.Opacity, Projectile.oldRot[i], origin, Projectile.scale * 1.125f, spriteEffects, 0f);
+                Main.spriteBatch.Draw(texture, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, sourceRectangle, trailColor * 0.5f, Projectile.oldRot[i], origin, Projectile.scale, spriteEffects, 0f);
+            }
+
+            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, sourceRectangle, drawColor * 0.5f, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0f);
+            return false;
         }
     }
 }

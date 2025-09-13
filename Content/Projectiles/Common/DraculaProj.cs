@@ -29,11 +29,13 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.DamageType = DamageClass.Melee;
             Projectile.light = 0.2f;
             Projectile.ignoreWater = true;
+            Projectile.noEnchantmentVisuals = true;
+            Projectile.extraUpdates = 1;
         }
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.SimpleFadeOut(ai: 0, 30f);
         }
 
@@ -62,7 +64,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             Vector2 origin = texture.Size() / 2;
-            Color drawColor = new(255, 255, 255, (255 - Projectile.alpha) / 3f);
+            Color drawColor = Color.White with { A = 40 } * Projectile.Opacity;
             SpriteEffects spriteEffects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
             Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0f);

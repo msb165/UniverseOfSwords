@@ -26,15 +26,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.rare = ItemRarityID.Purple;
             Item.crit = 16;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 15;
+            Item.useTime = 7;
             Item.useAnimation = 15;
-            Item.damage = 190;
+            Item.damage = 275;
             Item.knockBack = 20f;
             Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
             Item.shoot = ModContent.ProjectileType<SOTUV5Projectile>();
             Item.shootSpeed = 15f;
             Item.expert = true;
-            Item.value = Item.sellPrice(platinum: 10);
+            Item.value = Item.sellPrice(platinum: 5);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -81,14 +81,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            float spin = MathHelper.ToRadians(12f);
-            for (int i = 0; i < 3; i++)
-            {
-                float offset = i - (6f - 1f) / 2f;
-                Projectile.NewProjectileDirect(source, position, velocity.RotatedBy(spin * offset), ProjectileID.MonkStaffT3_AltShot, damage / 19, knockback, player.whoAmI);
-            }
-            Projectile.NewProjectileDirect(source, position + velocity * 3, velocity, type, damage / 2, knockback, player.whoAmI);
+            Vector2 spawnPos = Main.MouseWorld;
+            player.LimitPointToPlayerReachableArea(ref spawnPos);
+            Vector2 spawnVel = (spawnPos - player.MountedCenter + Main.rand.NextVector2Circular(150f, 150f)).SafeNormalize(Vector2.Zero) * Main.rand.Next(1, 150);
+            Projectile.NewProjectileDirect(source, spawnPos, spawnVel, ProjectileID.FinalFractal, damage, knockback, player.whoAmI, 100f);
             return false;
         }
 
@@ -102,7 +98,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             target.AddBuff(BuffID.CursedInferno, 360);
             for (int i = 0; i < 10; i++)
             {
-                Projectile.NewProjectileDirect(target.GetSource_OnHit(target), target.Center, Vector2.UnitX.RotatedBy(-i * MathHelper.TwoPi / 10f * i, Vector2.Zero), ProjectileID.InfluxWaver, hit.Damage, Item.knockBack, player.whoAmI);
+                //Projectile.NewProjectileDirect(target.GetSource_OnHit(target), target.Center, Vector2.UnitX.RotatedBy(-i * MathHelper.TwoPi / 10f * i, Vector2.Zero), ProjectileID.InfluxWaver, hit.Damage, Item.knockBack, player.whoAmI);
             }
         }
     }

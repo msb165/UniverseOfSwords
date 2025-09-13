@@ -37,7 +37,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 		{
             if (Main.rand.Next(1) == 0)
 			{
-				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 204, 0f, 0f, 100, default, 2f);
+				int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.TreasureSparkle, 0f, 0f, 100, default, 2f);
 				Main.dust[dust].noGravity = true;
 				Main.dust[dust].velocity *= 0.2f;
 				Main.dust[dust].velocity += Projectile.velocity;

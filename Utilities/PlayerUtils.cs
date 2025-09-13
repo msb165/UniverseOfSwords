@@ -23,19 +23,22 @@ namespace UniverseOfSwordsMod.Utilities
                 itemRot += MathHelper.PiOver2;
             }
 
-            Vector2 playerVel = player.velocity.SafeNormalize(Vector2.Zero) * 4f;
-            player.itemRotation = MathHelper.Lerp(0f, itemRot, MathF.Sin((float)Main.timeForVisualEffects / 60f));
+            player.itemRotation = MathHelper.Lerp(0f, itemRot, MathF.Sin((float)Main.timeForVisualEffects / 60f)) - MathHelper.PiOver4 / 2;
+            if (player.direction == -1)
+            {
+                player.itemRotation += MathHelper.PiOver4;
+            }
 
-            CompositeArmStretchAmount stretch = CompositeArmStretchAmount.ThreeQuarters;
+            CompositeArmStretchAmount stretch = CompositeArmStretchAmount.Quarter;
             float offset = MathHelper.Pi / 6f;
             if (player.direction == -1)
             {
                 offset *= -1f;
             }
-            float armRotation = player.itemRotation - MathHelper.PiOver4 + MathHelper.Pi;
+            float armRotation = player.itemRotation + MathHelper.PiOver2;
             if (player.direction == 1)
             {
-                armRotation += MathHelper.PiOver2;
+                armRotation += MathHelper.Pi;
             }
             float rotation = armRotation + offset;
             float rotation2 = armRotation - offset;

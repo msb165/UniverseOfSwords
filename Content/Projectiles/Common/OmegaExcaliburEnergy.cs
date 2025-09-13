@@ -33,7 +33,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
             if (UniverseUtils.IsAValidTarget(target))
             {
-                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Cyan, Projectile.owner, damageDone);
+                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Cyan, Projectile.owner, damageDone, 200, 0.5f);
             }
         }
     }

@@ -25,11 +25,11 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.HallowedBar, 1)
-                .AddIngredient(ItemID.SoulofLight, 1)
-                .AddIngredient(ItemID.SoulofNight, 1)
+                .AddIngredient(ItemID.HallowedBar)
+                .AddIngredient(ItemID.SoulofLight)
+                .AddIngredient(ItemID.SoulofNight)
                 .AddIngredient(ItemID.PixieDust, 10)
-                .AddIngredient(ItemID.FrostCore, 1)
+                .AddIngredient(ItemID.FrostCore, 2)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

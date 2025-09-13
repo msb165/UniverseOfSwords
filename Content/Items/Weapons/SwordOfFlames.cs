@@ -36,14 +36,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction - 60f * -player.direction, player.gravDir * -80f).RotatedBy(player.itemRotation), 18, 18, DustID.InfernoFork, 0, 0, 127, default, 1.25f);
-                if (player.direction == -1)
-                {
-                    dust.position.X -= 24f;
-                }
-                dust.noGravity = true;
-                dust.velocity = Main.rand.NextVector2Circular(2f, 4f) - Vector2.UnitY;
-                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation);
                 UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
             }
         }

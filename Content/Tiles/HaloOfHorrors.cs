@@ -18,7 +18,7 @@ namespace UniverseOfSwordsMod.Content.Tiles
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.StyleWrapLimit = 36;
 			TileObjectData.addTile(Type);
-			DustType = 7;
+			DustType = DustID.WoodFurniture;
 			LocalizedText name = CreateMapEntryName();
 			// name.SetDefault("Trophy");
 			AddMapEntry(new Color(120, 85, 60), name);

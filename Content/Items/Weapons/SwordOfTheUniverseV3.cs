@@ -27,7 +27,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.damage = 190;
+            Item.damage = 275;
             Item.knockBack = 20f;
             Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
             Item.shoot = Mod.Find<ModProjectile>("SOTUProjectile3").Type;
@@ -80,27 +80,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 2, velocity.Y + 2, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 2, velocity.Y - 2, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 4, velocity.Y + 4, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 4, velocity.Y - 4, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 6, velocity.Y + 6, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 6, velocity.Y - 6, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 8, velocity.Y + 8, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 8, velocity.Y - 8, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 10, velocity.Y + 10, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 1, velocity.Y + 1, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 1, velocity.Y - 1, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 2, velocity.Y + 2, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 2, velocity.Y - 2, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 3, velocity.Y + 3, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 3, velocity.Y - 3, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 4, velocity.Y + 4, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 4, velocity.Y - 4, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 5, velocity.Y + 5, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            return true;
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+            return false;
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

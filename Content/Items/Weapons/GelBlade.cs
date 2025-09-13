@@ -18,8 +18,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.width = 35;
             Item.height = 35; 
 			Item.scale = 0.9F;
-            Item.rare = 0;            
-            Item.useStyle = 1;             
+            Item.rare = ItemRarityID.White;            
+            Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 30;
             Item.useAnimation = 30;           
             Item.damage = 9; 

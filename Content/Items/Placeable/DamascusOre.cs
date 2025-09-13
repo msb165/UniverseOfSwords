@@ -16,9 +16,9 @@ namespace UniverseOfSwordsMod.Content.Items.Placeable
             Item.height = 16; // Hitbox Height
             Item.useTime = 15; // Speed before reuse
             Item.useAnimation = 15; // Animation Speed
-            Item.useStyle = 1; // 1 = Broadsword 
+            Item.useStyle = ItemUseStyleID.Swing; // 1 = Broadsword 
             Item.value = 500; // 10 | 00 | 00 | 00 : Platinum | Gold | Silver | Bronze
-            Item.rare = 2; // Item Tier
+            Item.rare = ItemRarityID.Green; // Item Tier
             Item.autoReuse = true; // Do you want to torture people with clicking? Set to false
             Item.consumable = true; // Will consume the item when placed.
             Item.createTile = Mod.Find<ModTile>("DamascusOreTile").Type;

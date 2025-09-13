@@ -20,9 +20,9 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override Color DustColorFrom => Color.Cyan;
         public override Color DustColorTo => Color.LightCyan;
 
-        public override float ScaleAdd => 0.6f;
+        public override float ScaleAdd => 1f;
 
-        public override float BaseScale => 1.2f;
+        public override float BaseScale => 2f;
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

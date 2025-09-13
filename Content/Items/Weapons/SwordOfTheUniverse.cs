@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Buffs;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 using static System.Net.Mime.MediaTypeNames;
@@ -28,18 +29,33 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.width = 274;
             Item.height = 274;
             Item.scale = 1f;
-            Item.rare = ItemRarityID.Purple;
+            Item.rare = ItemRarityID.Red;
             Item.crit = 16;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 15;
-            Item.damage = 190;
+            Item.damage = 275;
             Item.knockBack = 20f;
-            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
-            Item.expert = true;
-            Item.value = Item.sellPrice(platinum: 1);
+            Item.UseSound = SoundID.Item1;
+            Item.value = Item.sellPrice(platinum: 5);
             Item.autoReuse = true;
+            Item.shoot = ProjectileID.WoodenArrowFriendly;
+            Item.shootSpeed = 6f;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -47,7 +63,51 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             player.itemLocation = player.Center;
         }
 
+        public override void MeleeEffects(Player player, Rectangle hitbox)
+        {
+            if (Main.rand.NextBool(2))
+            {
+                UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Green, 1.5f, 32, 200);
+            }
+        }
+
         public override bool AltFunctionUse(Player player) => true;
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (player.altFunctionUse != 2)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    float f = Main.rand.NextFloat() * MathHelper.TwoPi;
+                    Vector2 spawnPos = position - Vector2.UnitY * 16f + f.ToRotationVector2() * Main.rand.NextFloat(20f, 61f);
+
+                    if (Collision.SolidTiles(spawnPos, 24, 24))
+                    {
+                        continue;
+                    }
+
+                    Vector2 spawnVel = (Main.MouseWorld - spawnPos).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
+                    Projectile.NewProjectile(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.5f, 1.25f), ModContent.ProjectileType<SOTUGreenBolt>(), damage, knockback, player.whoAmI);
+                }
+            }
+            return false;
+        }
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!UniverseUtils.IsAValidTarget(target))
+            {
+                return;
+            }
+            target.AddBuff(BuffID.Midas, 360);
+            target.AddBuff(BuffID.Ichor, 360);
+            target.AddBuff(BuffID.Frostburn, 360);
+            target.AddBuff(BuffID.OnFire, 360);
+            target.AddBuff(BuffID.Poisoned, 360);
+            target.AddBuff(BuffID.CursedInferno, 360);
+            target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
+        }
 
         public override void AddRecipes()
         {
@@ -75,28 +135,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV9>())
                 .Register();
-        }
-
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            if (!UniverseUtils.IsAValidTarget(target))
-            {
-                return;
-            }
-            target.AddBuff(BuffID.Midas, 360);
-            target.AddBuff(BuffID.Ichor, 360);
-            target.AddBuff(BuffID.Frostburn, 360);
-            target.AddBuff(BuffID.OnFire, 360);
-            target.AddBuff(BuffID.Poisoned, 360);
-            target.AddBuff(BuffID.CursedInferno, 360);
-            target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
-            float spin = MathHelper.ToRadians(3f);
-            for (int i = 0; i < 3; i++)
-            {
-                float offset = i - (3f - 1f) / 2f;
-                Vector2 newVel = ((Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitY) * 8f).RotatedBy(spin * offset) * Main.rand.NextFloat(0.5f, 1.25f);
-                Projectile.NewProjectileDirect(target.GetSource_OnHit(target), player.Center + newVel * 8f, newVel, ModContent.ProjectileType<SOTUGreenBolt>(), Item.damage, Item.knockBack, player.whoAmI);
-            }
         }
     }
 }

@@ -31,10 +31,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.UseSound = SoundID.Item70;
             Item.shootSpeed = 5f;
             Item.shoot = ModContent.ProjectileType<Armageddon>();
-            Item.value = Item.sellPrice(gold: 25);
+            Item.value = Item.sellPrice(gold: 10);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            Item.holdStyle = 999;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -46,13 +51,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -64f), new Vector2(0f, 4f));
+                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -36f), new Vector2(0f, 8f));
             }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            if (Main.rand.Next(3) == 0)
+            if (Main.rand.NextBool(3))
             {
                 int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.InfernoFork, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;

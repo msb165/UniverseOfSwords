@@ -23,11 +23,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.damage = 360;
+            Item.damage = 180;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item71;
             Item.shoot = ProjectileID.DeathSickle;
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 10f;
             Item.value = Item.sellPrice(gold: 6, silver: 6, copper: 6);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;

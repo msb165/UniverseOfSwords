@@ -1,9 +1,11 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -43,9 +45,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             return base.AltFunctionUse(player);
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            return base.Shoot(player, source, position, velocity, type, damage, knockback);
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                Vector2 spawnPos = player.Center - Vector2.UnitY * 96f;
+                Vector2 newVel = (target.Center - spawnPos).SafeNormalize(Vector2.UnitY) * 12f;
+                Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, newVel.RotatedByRandom(MathHelper.ToRadians(5f)), ModContent.ProjectileType<MightBolt>(), Item.damage, Item.knockBack, player.whoAmI);
+            }
         }
     }
 }

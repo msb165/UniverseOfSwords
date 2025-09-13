@@ -21,10 +21,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.height = 54;
             Item.useTime = 20;
             Item.useAnimation = 20;
-            Item.useStyle = 1;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 7.0F;
             Item.value = Item.sellPrice(gold: 5);
-            Item.rare = 6;
+            Item.rare = ItemRarityID.LightPurple;
 			Item.scale = 1.2F;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
@@ -36,11 +36,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 			if (Main.rand.Next(2) == 0)
 			{
 
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 242, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.PinkTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity.X += player.direction * 0f;
                 Main.dust[dust].velocity.Y += 0.0f;
-                dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 21, 0f, 0f, 100, default, 2f);
+                dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.VilePowder, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity.X += player.direction * 0f;
                 Main.dust[dust].velocity.Y += 0.0f;

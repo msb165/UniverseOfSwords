@@ -82,7 +82,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (Main.rand.NextBool(2))
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 242, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.PinkTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity.X -= player.direction * 0f;
                 Main.dust[dust].velocity.Y -= 0.0f;

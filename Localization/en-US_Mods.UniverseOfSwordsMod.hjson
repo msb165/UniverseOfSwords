@@ -366,17 +366,7 @@ Items: {
 
 	CalculatorSword: {
 		DisplayName: Calculator Sword
-		Tooltip: ""
-	}
-
-	ChlorophyteArrowSword: {
-		DisplayName: Chlorophyte Arrow Sword
-		Tooltip: ""
-	}
-
-	ChlorophyteBulletSword: {
-		DisplayName: Chlorophyte Bullet Sword
-		Tooltip: ""
+		Tooltip: <right> over an enemy to show their stats
 	}
 
 	ClaySword: {
@@ -391,7 +381,7 @@ Items: {
 
 	ClusterBOOMer: {
 		DisplayName: Cluster BOOMer
-		Tooltip: ""
+		Tooltip: '''"We do not take any responsibility for destroyed buildings"'''
 	}
 
 	CopperCoinSword: {
@@ -406,7 +396,7 @@ Items: {
 
 	CosmoStorm: {
 		DisplayName: Cosmo Storm
-		Tooltip: ""
+		Tooltip: '''"Sword that shatters galaxies"'''
 	}
 
 	CrimsonCrystallus: {
@@ -569,11 +559,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	ExplosiveBulletSword: {
-		DisplayName: Explosive Bullet Sword
-		Tooltip: ""
-	}
-
 	Extase: {
 		DisplayName: Extase
 		Tooltip: ""
@@ -636,7 +621,7 @@ Items: {
 
 	GemSlayer: {
 		DisplayName: Gem Slayer
-		Tooltip: ""
+		Tooltip: Summons powerful bolts on contact
 	}
 
 	GiantUnicornHorn: {
@@ -656,7 +641,7 @@ Items: {
 
 	GnomBlade: {
 		DisplayName: Gnom Blade
-		Tooltip: ""
+		Tooltip: Summons powerful sword beams on contact
 	}
 
 	GoblinKnife: {
@@ -711,7 +696,7 @@ Items: {
 
 	HeisenbergsFlask: {
 		DisplayName: A Certain Chemist's Flask
-		Tooltip: Hablan de un tal Heisenberg que ahora controla el mercado
+		Tooltip: '''"Hablan de un tal Heisenberg que ahora controla el mercado"'''
 	}
 
 	HellfireArrowSword: {
@@ -1151,7 +1136,7 @@ Items: {
 
 	SolBlade: {
 		DisplayName: Sol Blade
-		Tooltip: ""
+		Tooltip: Unleashes a small spread of meteors
 	}
 
 	StakeBlade: {
@@ -1605,6 +1590,8 @@ Projectiles: {
 	SOTUGreenBolt.DisplayName: Green Bolt
 	BuzzFutureEnergy.DisplayName: Buzz Future Energy
 	CyanBolt.DisplayName: Cyan Bolt
+	PrimeBolt.DisplayName: Prime Bolt
+	IceBreakerProj.DisplayName: Ice Breaker Proj
 }
 
 Configs: {
@@ -1618,3 +1605,5 @@ Configs: {
 		}
 	}
 }
+
+NPCs.Nazgul.DisplayName: Nazgul

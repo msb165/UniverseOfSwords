@@ -18,9 +18,9 @@ namespace UniverseOfSwordsMod.Content.Items.Placeable
             Item.height = 24; // Hitbox Height
             Item.useTime = 20; // Speed before reuse
             Item.useAnimation = 20; // Animation Speed
-            Item.useStyle = 1; // 1 = Broadsword 
+            Item.useStyle = ItemUseStyleID.Swing; // 1 = Broadsword 
             Item.value = 2000; // 10 | 00 | 00 | 00 : Platinum | Gold | Silver | Bronze
-            Item.rare = 2; // Item Tier
+            Item.rare = ItemRarityID.Green; // Item Tier
             Item.UseSound = SoundID.Item1; // Sound effect of item on use 
             Item.autoReuse = true; // Do you want to torture people with clicking? Set to false
             Item.consumable = true; // Will consume the item when placed.

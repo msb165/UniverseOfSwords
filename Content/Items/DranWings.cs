@@ -27,7 +27,7 @@ namespace UniverseOfSwordsMod.Content.Items
 			Item.width = 78;
 			Item.height = 54;
 			Item.value = Item.sellPrice(platinum: 1);
-			Item.rare = 10;
+			Item.rare = ItemRarityID.Red;
 			Item.accessory = true;
 			Item.defense = 50;
 		}

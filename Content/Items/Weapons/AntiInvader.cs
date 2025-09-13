@@ -36,14 +36,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!UniverseUtils.IsAValidTarget(target))
+            if (NPCID.Sets.CountsAsCritter[target.type] && target.immortal && !target.chaseable && target.dontTakeDamage)
             {
                 return;
             }
 
             for (int i = 0; i < 6; i++) //Replace 2 with number of projectiles
             {
-                UniverseUtils.Spawn.SummonGenericSlash(target.Center, new(100, 220, 255), player.whoAmI, damageDone, 180);
+                UniverseUtils.Spawn.SummonGenericSlash(target.Center, new(100, 220, 255), player.whoAmI, damageDone, 180, 0.5f);
             }
 
             if (target.life <= 0)

@@ -18,7 +18,7 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
 			Item.height = 40;
 			Item.maxStack = 99;
 			Item.value = 400000;
-			Item.rare = 8;
+			Item.rare = ItemRarityID.Yellow;
 		}
 	}
 }

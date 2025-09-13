@@ -48,7 +48,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         {
             for (int k = 0; k < 10; k++)
             {
-                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, 39, Projectile.oldVelocity.X * 0.1f, Projectile.oldVelocity.Y * 0.1f);
+                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.JungleGrass, Projectile.oldVelocity.X * 0.1f, Projectile.oldVelocity.Y * 0.1f);
             }
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
         }

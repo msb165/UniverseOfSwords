@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
@@ -31,6 +32,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 2);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(31f * player.direction, -24f), new Vector2(0f, 4f));
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -49,13 +64,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<CorruptCrystallus>(), 1)
+                .AddIngredient(ModContent.ItemType<CorruptCrystallus>())
                 .AddIngredient(ItemID.Stinger, 15)
                 .AddIngredient(ItemID.JungleSpores, 10)
                 .AddTile(TileID.Anvils)
                 .Register();
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<CrimsonCrystallus>(), 1)
+                .AddIngredient(ModContent.ItemType<CrimsonCrystallus>())
                 .AddIngredient(ItemID.Stinger, 15)
                 .AddIngredient(ItemID.JungleSpores, 10)
                 .AddTile(TileID.Anvils)

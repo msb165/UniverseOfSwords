@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.Drawing;
 using UniverseOfSwordsMod.Content.Projectiles.Common.Base;
@@ -38,7 +36,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
             if (UniverseUtils.IsAValidTarget(target))
             {
-                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Purple, Projectile.owner, damageDone, 255);
+                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.MediumPurple, Projectile.owner, damageDone, 255, 0.7f);
             }
         }
     }

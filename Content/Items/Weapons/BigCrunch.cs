@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Buffs;
 using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
@@ -28,8 +29,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.holdStyle = 999;
         }
 
-        public override bool MeleePrefix() => false;
-
         public override void UseItemFrame(Player player)
         {
             player.itemLocation = player.RotatedRelativePoint(player.MountedCenter);
@@ -39,7 +38,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction * -player.direction, player.gravDir * -110f), 96, 96, DustID.Clentaminator_Green, 0, 0, 127, default(Color), 1f);
+                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction * -player.direction, player.gravDir * -110f), 96, 96, DustID.Clentaminator_Green, 0, 0, 127, default, 1f);
                 if (player.direction == -1)
                 {
                     dust.position.X -= 64f;
@@ -73,6 +72,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             }
             target.AddBuff(BuffID.Poisoned, 1000);
             target.AddBuff(BuffID.CursedInferno, 1000);
+            target.AddBuff(ModContent.BuffType<TrueSlow>(), 1000);
         }
 
         public override void AddRecipes()

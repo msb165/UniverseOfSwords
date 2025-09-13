@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -27,7 +28,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.knockBack = 3.0F;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 50);
-            Item.shoot = ProjectileID.VampireKnife;
+            Item.shoot = ModContent.ProjectileType<DraculaProj>();
             Item.shootSpeed = 3.5f;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
@@ -37,7 +38,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (Main.rand.NextBool(2))
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 5, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Blood, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
             }
         }

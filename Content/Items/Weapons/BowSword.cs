@@ -19,8 +19,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.width = 32;
             Item.height = 32;			
 			Item.scale = 1.1F;
-            Item.rare = 3;            
-            Item.useStyle = 1;             
+            Item.rare = ItemRarityID.Orange;            
+            Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 25;
             Item.useAnimation = 25;           
             Item.damage = 24;
@@ -30,7 +30,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(silver: 50);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
-			Item.shoot = 10;
+			Item.shoot = ProjectileID.PurificationPowder;
 			Item.useAmmo = AmmoID.Arrow;
 	    }
 	   

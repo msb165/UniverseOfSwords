@@ -28,7 +28,12 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 3);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            Item.holdStyle = 999;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -40,7 +45,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction - 6f * -player.direction, player.gravDir * -48f), 32, 32, DustID.OrangeTorch, 0, 0, 127, default(Color), 2f);
+                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction - 6f * -player.direction, player.gravDir * -48f), 32, 32, DustID.OrangeTorch, 0, 0, 127, default, 2f);
                 if (player.direction == -1)
                 {
                     dust.position.X -= 34f;
@@ -56,10 +61,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (Main.rand.NextBool(2))
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6, 0f, 0f, 100, default, 2f);
+                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Torch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity.X += player.direction * 0f;
-                dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 6, 0f, 0f, 100, default, 2f);
+                dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Torch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity.X += player.direction * 0f;
             }

@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,10 +9,6 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
     public class MightBolt : ModProjectile
     {
         public override string Texture => UniverseUtils.TexturesPath + "Empty";
-        public override void SetStaticDefaults()
-        {
-
-        }
 
         public override void SetDefaults()
         {
