@@ -1,11 +1,13 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -32,6 +34,27 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(platinum: 1);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                Vector2 spawnVel = Main.rand.NextVector2CircularEdge(200f, 200f);
+                Vector2 spawnPos = player.Center - spawnVel;
+                Dust dust = Dust.NewDustPerfect(spawnPos, DustID.Clentaminator_Green, Vector2.Zero);
+                dust.position = spawnPos;
+                dust.scale = 1f;
+                dust.velocity = -Vector2.Normalize(dust.position - player.Center) * 8f;
+                dust.noGravity = true;
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -60f), Vector2.UnitY * 6f);
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)

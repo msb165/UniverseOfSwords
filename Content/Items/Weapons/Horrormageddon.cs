@@ -1,10 +1,12 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -31,6 +33,27 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 6, silver: 6, copper: 6);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                Vector2 spawnVel = Main.rand.NextVector2CircularEdge(200f, 200f);
+                Vector2 spawnPos = player.Center - spawnVel;
+                Dust dust = Dust.NewDustPerfect(spawnPos, DustID.Clentaminator_Green, Vector2.Zero);
+                dust.position = spawnPos;
+                dust.scale = 1f;
+                dust.velocity = -Vector2.Normalize(dust.position - player.Center) * 8f;
+                dust.noGravity = true;
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -60f), Vector2.UnitY * 6f);
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -48,14 +71,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<Doomsday>())
                 .AddIngredient(ModContent.ItemType<StarMaelstorm>())
-                .AddIngredient(ModContent.ItemType<Machine>())
                 .AddIngredient(ModContent.ItemType<InnosWrath>())
                 .AddIngredient(ModContent.ItemType<BeliarClaw>())
                 .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 25)
                 .AddIngredient(ModContent.ItemType<LunarOrb>())
-                .AddIngredient(ItemID.LargeEmerald, 1)
-                .AddIngredient(ItemID.Meowmere, 1)
-                .AddIngredient(ItemID.TheHorsemansBlade, 1)
+                .AddIngredient(ItemID.LargeEmerald)
+                .AddIngredient(ItemID.Meowmere)
+                .AddIngredient(ItemID.TheHorsemansBlade)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
@@ -66,7 +88,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Projectile.NewProjectile(source, position, velocity, ProjectileID.InfernoFriendlyBlast, damage, knockback, player.whoAmI);
             Projectile.NewProjectile(source, position, velocity, ProjectileID.StarWrath, damage, knockback, player.whoAmI);
             Projectile.NewProjectile(source, position, velocity, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            return true;
+            return false;
         }
     }
 }
