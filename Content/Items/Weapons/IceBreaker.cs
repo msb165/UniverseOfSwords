@@ -34,6 +34,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = 300200;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.noUseGraphic = true;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.holdStyle = 0;
         }
@@ -57,6 +58,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void HoldItem(Player player)
         {
+            Item.noUseGraphic = Item.noMelee = player.altFunctionUse == 2;
             Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle && player.ownedProjectileCounts[ModContent.ProjectileType<IceBreakerProj>()] < 1 ? 999 : 0;
         }
 
@@ -64,10 +66,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle && player.ownedProjectileCounts[ModContent.ProjectileType<IceBreakerProj>()] < 1)
             {
-                float rotation = player.itemRotation - MathHelper.PiOver4;
+                float rotation = player.itemRotation - MathHelper.PiOver4 * player.gravDir;
                 if (player.direction == -1)
                 {
-                    rotation -= MathHelper.PiOver2;
+                    rotation -= MathHelper.PiOver2 * player.gravDir;
                 }
                 Dust dust = Dust.NewDustPerfect(player.Center + rotation.ToRotationVector2() * 20f * Item.scale, DustID.SpectreStaff, Vector2.Zero, Alpha: 127, newColor: default, Scale: 2f);
                 dust.noGravity = true;
@@ -83,12 +85,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            float numberProjectiles = 2 + Main.rand.Next(3);
-            Vector2 position = player.Center;
-            Vector2 velocity = ((Main.MouseWorld - position).SafeNormalize(Vector2.Zero) * 10f).RotatedByRandom(MathHelper.ToRadians(15f));
-            for (int i = 0; i < numberProjectiles; i++)
+            if (player.altFunctionUse != 2 && UniverseUtils.IsAValidTarget(target))
             {
-                Projectile.NewProjectile(target.GetSource_OnHit(target), position + velocity, velocity, ProjectileID.FrostBoltSword, Item.damage, Item.knockBack, player.whoAmI);
+                float numberProjectiles = 1 + Main.rand.Next(3);
+                Vector2 position = player.Center;
+                Vector2 velocity = (Main.MouseWorld - position).SafeNormalize(Vector2.Zero) * 10f;
+                for (int i = 0; i < numberProjectiles; i++)
+                {
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), position + velocity, velocity.RotatedByRandom(MathHelper.ToRadians(15f)) * Main.rand.NextFloat(0.5f, 1.2f), ProjectileID.FrostBoltSword, Item.damage, Item.knockBack, player.whoAmI);
+                }
             }
         }
 
