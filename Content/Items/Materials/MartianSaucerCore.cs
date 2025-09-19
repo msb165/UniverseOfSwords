@@ -9,15 +9,16 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
 	{
 		public override void SetStaticDefaults()
 		{
-			// Tooltip.SetDefault("Pulses with space energy");
-		}
-		
-		public override void SetDefaults()
+            Item.ResearchUnlockCount = 25;
+            // Tooltip.SetDefault("Pulses with space energy");
+        }
+
+        public override void SetDefaults()
 		{
 			Item.width = 38;
 			Item.height = 40;
-			Item.maxStack = 99;
-			Item.value = 400000;
+			Item.maxStack = Item.CommonMaxStack;
+			Item.value = Item.sellPrice(gold: 4);
 			Item.rare = ItemRarityID.Yellow;
 		}
 	}

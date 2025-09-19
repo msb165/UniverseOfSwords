@@ -18,7 +18,7 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
             Item.width = 32;
             Item.height = 32;
             Item.maxStack = Item.CommonMaxStack;
-            Item.value = 180000;
+            Item.value = Item.sellPrice(gold: 1, silver: 80);
             Item.rare = ItemRarityID.LightPurple;
         }
 
