@@ -7,6 +7,10 @@ namespace UniverseOfSwordsMod.Common
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
+        [Header("General")]
+        [DefaultValue(false)]
+        public bool enableVanillaChanges;
+
         [Header("Misc")]
         [DefaultValue(true)]
         public bool enableHoldStyle;
