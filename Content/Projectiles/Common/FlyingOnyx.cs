@@ -10,6 +10,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Projectiles.Common
 {
@@ -39,7 +40,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override void AI()
         {
             NPC npc = Main.npc[(int)TargetIndex];
-            if (!npc.CanBeChasedBy())
+            if (!npc.CanBeChasedBy(this) && !UniverseUtils.IsAValidTarget(npc))
             {
                 Projectile.Kill();
                 return;
@@ -52,7 +53,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             {
                 SoundEngine.PlaySound(SoundID.Item36, Projectile.position);
                 Vector2 spawnVel = Vector2.Normalize(npc.Center - Projectile.Center) * 16f;
-                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center + spawnVel, spawnVel, ProjectileID.BlackBolt, Projectile.damage / 2, 4f, Projectile.owner);
+                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center + spawnVel, spawnVel, ModContent.ProjectileType<BlackBolt>(), Projectile.damage / 2, 4f, Projectile.owner);
                 proj.DamageType = DamageClass.Melee;
             }
         }

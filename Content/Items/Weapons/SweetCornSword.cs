@@ -13,6 +13,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.33f;
             // Tooltip.SetDefault("Shoots Candy Corn");
         }
 
@@ -45,17 +46,17 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 return;
             }
             Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 8f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ProjectileID.CandyCorn, hit.Damage, hit.Knockback, player.whoAmI);
+            Projectile.NewProjectileDirect(target.GetSource_OnHit(target), player.Center + newVel, newVel, ModContent.ProjectileType<Corn>(), hit.Damage, hit.Knockback, player.whoAmI);
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.CandyCornRifle, 1);
-            recipe.AddIngredient(null, "Orichalcon", 1);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 150);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.CandyCornRifle, 1)
+                .AddIngredient(null, "Orichalcon", 1)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 }

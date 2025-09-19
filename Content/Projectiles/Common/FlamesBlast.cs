@@ -28,7 +28,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             if (Projectile.localAI[0] == 0f)
             {
                 SoundEngine.PlaySound(SoundID.Item74, Projectile.position);
-                Projectile.localAI[0] += 1f;
+                Projectile.localAI[0]++;
             }
             for (int i = 0; i < 20; i++)
             {

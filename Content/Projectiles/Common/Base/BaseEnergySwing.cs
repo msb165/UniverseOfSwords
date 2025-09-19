@@ -121,7 +121,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common.Base
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
+            if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
             {
                 NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
             }

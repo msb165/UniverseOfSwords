@@ -9,16 +9,11 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 {
     public class TrueTerrablade : ModProjectile
     {
-        public override void SetStaticDefaults()
-        {
-            Main.projFrames[Type] = 6;
-        }
-
         public override void SetDefaults()
         {
             Projectile.width = 50;
             Projectile.height = 30;
-            Projectile.scale = 1.3F;
+            Projectile.scale = 1f;
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.hostile = false;
@@ -34,7 +29,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Terra);
             dust.noGravity = true;
             dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Terra);
-            dust.scale = 1.0f;
+            dust.scale = 1f;
             Projectile.rotation = Projectile.velocity.ToRotation() + (float)(Math.PI / 4);
         }
 

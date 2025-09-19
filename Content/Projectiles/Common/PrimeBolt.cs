@@ -15,7 +15,10 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         {
             Projectile.Size = new(6);
             Projectile.friendly = true;
+            Projectile.penetrate = 1;
             Projectile.aiStyle = -1;
+            Projectile.timeLeft = 200;
+            Projectile.usesIDStaticNPCImmunity = true;
         }
 
         public override void AI()
@@ -28,7 +31,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             {
                 Projectile.ai[0] = -1f;
                 float velLength = Projectile.velocity.Length();
-                int projAmount = Main.rand.Next(1, 4);
+                int projAmount = Main.rand.Next(0, 3);
                 Vector2 projVel = Vector2.Normalize(Projectile.velocity) * 2f;
                 for (int i = 0; i < projAmount; i++)
                 {
@@ -36,13 +39,13 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                     spawnVel += projVel;
                     spawnVel.Normalize();
                     spawnVel *= velLength;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, spawnVel, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, -1f);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, spawnVel, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, -1f);
                 }
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Dust dust = Dust.NewDustPerfect(Projectile.position, DustID.TheDestroyer);
-                dust.position = Projectile.Center - Projectile.velocity * i / 3f;
+                dust.position = Projectile.Center - Projectile.velocity / 5f * i;
                 dust.scale = 1.5f;
                 dust.noGravity = true;
                 dust.velocity *= 0f;

@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -16,11 +17,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.scale = 1.25f;
             Item.rare = ItemRarityID.Pink;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 20;
+            Item.useTime = 28;
             Item.useAnimation = 17;
             Item.damage = 60;
             Item.knockBack = 7f;
-            Item.shoot = ProjectileID.SkyFracture;
+            Item.shoot = ModContent.ProjectileType<SkyProj>();
             Item.shootSpeed = 15f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 40);
@@ -34,8 +35,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             for (int i = 0; i < 3; i++)
             {
                 float offset = i - (3f - 1f) / 2f;
-                Vector2 newVel = new(14f * player.direction, 10f);
-                Projectile.NewProjectileDirect(source, player.Center - Vector2.UnitY * player.height * 2f, newVel.RotatedBy(spin * offset) * Main.rand.NextFloat(0.75f, 1.25f), type, damage / 3, knockback, player.whoAmI, ai1: Main.rand.Next(1, 11));
+                Vector2 newVel = new(11f * player.direction, 24f);
+                Projectile.NewProjectileDirect(source, player.Center - Vector2.UnitY * player.height * 4f + newVel, newVel.RotatedBy(spin * offset) * Main.rand.NextFloat(0.5f, 1.25f), type, damage / 3, knockback, player.whoAmI, ai1: Main.rand.Next(14));
             }
             return false;
         }

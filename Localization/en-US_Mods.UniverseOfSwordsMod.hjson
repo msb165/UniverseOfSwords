@@ -16,7 +16,7 @@ Buffs: {
 		DisplayName: Lesser Melee Power
 		Description:
 			'''
-			Increased melee stats: 4% increased melee crit
+			4% increased melee critical chance
 			10% increased melee damage
 			10% increased melee speed
 			'''
@@ -43,8 +43,8 @@ Buffs: {
 	}
 
 	TrueSlow: {
-		DisplayName: True Slow
-		Description: Mods.UniverseOfSwordsMod.Buffs.TrueSlow.Description
+		DisplayName: True Slowness
+		Description: ""
 	}
 }
 
@@ -1486,36 +1486,34 @@ Projectiles: {
 	DoubleBladedLightsaberProjectile.DisplayName: Double Bladed Lightsaber Projectile
 	FlareCore.DisplayName: Flare Core
 	Frozen.DisplayName: Frozen
-	GreenSaw.DisplayName: Green Saw
-	GreenSOTUBeam.DisplayName: Green S O T U Beam
+	GreenSaw.DisplayName: Green Vortex
 	HarpyFeather.DisplayName: Harpy Feather
 	HumanBuzzSaw.DisplayName: Human Buzz Saw
-	InvisibleProj.DisplayName: Invisible Proj
+	InvisibleProj.DisplayName: Invisible
 	MechanicalSoul.DisplayName: Mechanical Soul
 	MoltenShard.DisplayName: Molten Shard
 	Nightlight.DisplayName: Nightlight
 	Nightmare.DisplayName: Nightmare
 	Poison.DisplayName: Poison
-	SaphiraProj.DisplayName: Saphira Proj
+	SaphiraProj.DisplayName: Saphira
 	ScarletFlareBolt.DisplayName: Scarlet Flare Bolt
-	SOTM.DisplayName: S O T M
-	SOTU7.DisplayName: S O T U7
-	SOTU8.DisplayName: S O T U8
-	SOTUProjectile1.DisplayName: S O T U Projectile1
-	SOTUProjectile2.DisplayName: S O T U Projectile2
-	SOTUProjectile3.DisplayName: S O T U Projectile3
-	SOTUV4Projectile.DisplayName: S O T U V4 Projectile
-	SOTUV5Projectile.DisplayName: S O T U V5 Projectile
-	SOTUV6Projectile.DisplayName: S O T U V6 Projectile
-	SOTUV9Projectile.DisplayName: S O T U V9 Projectile
-	Soul1.DisplayName: Soul1
-	Soul2.DisplayName: Soul2
-	Soul3.DisplayName: Soul3
+	SOTM.DisplayName: Sword Of The Multiverse
+	SOTU7.DisplayName: Sword Of The Universe
+	SOTU8.DisplayName: Sword Of The Universe
+	SOTUProjectile1.DisplayName: Sword Of The Universe
+	SOTUProjectile2.DisplayName: Sword Of The Universe
+	SOTUProjectile3.DisplayName: Sword Of The Universe
+	SOTUV4Projectile.DisplayName: Sword Of The Universe
+	SOTUV5Projectile.DisplayName: Sword Of The Universe
+	SOTUV6Projectile.DisplayName: Sword Of The Universe
+	SOTUV9Projectile.DisplayName: Sword Of The Universe
+	Soul1.DisplayName: Soul
+	Soul2.DisplayName: Soul
+	Soul3.DisplayName: Soul
 	Tier2CProjectile.DisplayName: Tier2 C Projectile
 	TrueTerrablade.DisplayName: True Terrablade
 	Venom.DisplayName: Venom
 	VugarMutater.DisplayName: Vugar Mutater
-	ExampleCustomSwingProjectile.DisplayName: Example Custom Swing Projectile
 	Twirl.DisplayName: Twirl
 	TrueRuneBlade.DisplayName: True Rune Blade
 	TrueRuneWave.DisplayName: True Rune Wave
@@ -1553,10 +1551,10 @@ Projectiles: {
 	MaelstormEnergy.DisplayName: Maelstorm
 	OmegaExcaliburEnergy.DisplayName: Omega Excalibur
 	MaelstormStar.DisplayName: Maelstorm Star
-	GnomeEnergy1.DisplayName: Gnome Energy1
-	GnomeEnergy2.DisplayName: Gnome Energy2
+	GnomeEnergy1.DisplayName: Gnom Blade
+	GnomeEnergy2.DisplayName: Gnom Blade
 	SuperExplosion.DisplayName: Super Explosion
-	RainbowProj.DisplayName: Rainbow Proj
+	RainbowProj.DisplayName: Rainbow
 	AmberBolt.DisplayName: Amber Bolt
 	UltraMachine.DisplayName: Ultra Machine
 	FireBreath.DisplayName: Fire Breath
@@ -1588,19 +1586,40 @@ Projectiles: {
 	BlueCloud1.DisplayName: Blue Cloud
 	DraculaProj.DisplayName: Dracula
 	SOTUGreenBolt.DisplayName: Green Bolt
-	BuzzFutureEnergy.DisplayName: Buzz Future Energy
+	BuzzFutureEnergy.DisplayName: Buzz Kill
 	CyanBolt.DisplayName: Cyan Bolt
 	PrimeBolt.DisplayName: Prime Bolt
-	IceBreakerProj.DisplayName: Ice Breaker Proj
+	IceBreakerProj.DisplayName: Ice Breaker
+	BreakerBolt.DisplayName: Breaker Bolt
+	Bullet.DisplayName: Bullet
+	BlackBolt.DisplayName: Black Bolt
+	Corn.DisplayName: Corn
+	HorrorBlast.DisplayName: Horror Blast
+	HorrormageddonEnergy.DisplayName: Horrormageddon Energy
+	TrueHorrormageddon.DisplayName: True Horrormageddon
+	Rocket.DisplayName: Rocket
+	WateryBolt.DisplayName: Watery Bolt
+	Grenade.DisplayName: Grenade
+	PinkCrystalShard.DisplayName: Pink Crystal Shard
+	SkyProj.DisplayName: Sky Proj
 }
 
 Configs: {
 	UniverseConfig: {
 		DisplayName: Universe Config
-		Headers.Misc: Misc
+
+		Headers: {
+			Misc: Misc
+			General: General Header
+		}
 
 		enableHoldStyle: {
 			Label: Custom hold animation for swords
+			Tooltip: ""
+		}
+
+		enableVanillaChanges: {
+			Label: enable Vanilla Changes
 			Tooltip: ""
 		}
 	}

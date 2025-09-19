@@ -37,7 +37,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             if (Main.myPlayer == Projectile.owner && UniverseUtils.IsAValidTarget(target))
             {
                 Vector2 targetPos = target.Center;
-                for (int i = 0; i < 13; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     Vector2 spawnPos = Player.Center + new Vector2(Main.rand.Next(-200, 201), -600f);
                     spawnPos.Y -= 100 * i;

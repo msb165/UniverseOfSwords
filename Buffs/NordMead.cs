@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace UniverseOfSwordsMod.Buffs
@@ -18,6 +19,7 @@ namespace UniverseOfSwordsMod.Buffs
             player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
             player.endurance += 0.5f;
             player.statDefense -= 8;
+            player.AddBuff(BuffID.Tipsy, 400);
         }
     }
 }

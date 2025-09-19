@@ -1,9 +1,11 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -18,8 +20,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 60;
-            Item.height = 60;
+            Item.width = 40;
+            Item.height = 40;
             Item.scale = 1.125f;
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -28,19 +30,33 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 74;
             Item.knockBack = 5f;
             Item.shoot = ModContent.ProjectileType<ScarletFlareBolt>();
-            Item.shootSpeed = 5f;
+            Item.shootSpeed = 6f;
             Item.UseSound = SoundID.Item45;
             Item.value = Item.sellPrice(gold: 10);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -60f), Vector2.UnitY * 6f);
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             if (Main.rand.NextBool(2))
             {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.LifeDrain, 0f, 0f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
+                UniverseUtils.SpawnRotatedDust(player, DustID.LifeDrain, 1.25f, (int)(30 * Item.scale), (int)(90 * Item.scale));
             }
         }
 
@@ -52,7 +68,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             recipe.AddIngredient(ItemID.Ruby, 50);
             recipe.AddIngredient(ItemID.SoulofFright, 20);
             recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
-            recipe.AddIngredient(null, "DeathSword", 1);
+            recipe.AddIngredient(ModContent.ItemType<DeathSword>());
             recipe.AddIngredient(null, "DamascusBar", 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();

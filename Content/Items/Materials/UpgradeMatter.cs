@@ -10,6 +10,7 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
     {
         public override void SetStaticDefaults()
         {
+            Item.ResearchUnlockCount = 100;
             // DisplayName.SetDefault("Upgrade Matter");
             // Tooltip.SetDefault("'Source for upgrading swords'");
             Main.RegisterItemAnimation(Type, new DrawAnimationVertical(5, 4));

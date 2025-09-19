@@ -21,7 +21,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             Item.width = 128;
             Item.height = 128;
-            Item.scale = 1f;
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 20;
@@ -32,13 +31,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 1);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            Item.holdStyle = 999;
+            Item.holdStyle = 0;
+        }
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            player.itemLocation = player.Center + new Vector2(0f, 4f);
-        }
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center + new Vector2(0f, 4f);
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {

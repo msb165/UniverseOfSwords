@@ -12,7 +12,7 @@ namespace UniverseOfSwordsMod.Common.GlobalItems
 
         public override void SetDefaults(Item entity)
         {
-            if ((entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed) && entity.useStyle == ItemUseStyleID.Swing && !entity.noUseGraphic && entity.axe == 0 && entity.pick == 0)
+            if ((entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed) && entity.useStyle == ItemUseStyleID.Swing && entity.axe == 0 && entity.pick == 0 && reflectChance == 0)
             {
                 reflectChance = 2;
             }
@@ -27,6 +27,9 @@ namespace UniverseOfSwordsMod.Common.GlobalItems
                     break;
                 case ItemID.Cutlass:
                     reflectChance = 5;
+                    break;
+                case ItemID.FetidBaghnakhs:
+                    reflectChance = 10;
                     break;
             }
         }

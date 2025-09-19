@@ -10,6 +10,7 @@ namespace UniverseOfSwordsMod.Content.Items.Consumables
 	{
 		public override void SetStaticDefaults()
 		{
+			ItemID.Sets.OpenableBag[Type] = true;
 			// DisplayName.SetDefault("Revenant Bag");
 			// Tooltip.SetDefault("'Something terrible is hidden inside this bag'");
 		}
@@ -22,8 +23,6 @@ namespace UniverseOfSwordsMod.Content.Items.Consumables
 			Item.height = 24;
 			Item.rare = ItemRarityID.Red;
 		}
-
-        public override bool CanRightClick() => true;
 
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {

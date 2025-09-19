@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -30,7 +31,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 275;
             Item.knockBack = 20f;
             Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
-            Item.shoot = Mod.Find<ModProjectile>("SOTUProjectile3").Type;
+            Item.shoot = ModContent.ProjectileType<SOTUProjectile3>();
             Item.shootSpeed = 30f;
             Item.expert = true;
             Item.value = Item.sellPrice(platinum: 10);

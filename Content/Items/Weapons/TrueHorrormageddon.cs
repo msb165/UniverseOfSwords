@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -15,6 +16,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.75f;
             // Tooltip.SetDefault("'There used to be a graveyard, now it is a crater'");
         }
 
@@ -24,17 +26,19 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.height = 128;
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = 25;
+            Item.useAnimation = 25;
             Item.damage = 182;
             Item.knockBack = 8f;
             Item.UseSound = SoundID.Item71;
             Item.shoot = ProjectileID.DeathSickle;
-            Item.shootSpeed = 20f;
+            Item.shootSpeed = 10f;
             Item.value = Item.sellPrice(platinum: 1);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
+            Item.shootsEveryUse = true;
+            Item.noMelee = true;
         }
 
         public override void HoldItem(Player player)
@@ -79,21 +83,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.Meowmere, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.InfernoFriendlyBlast, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.StarWrath, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y + 2, velocity.X, velocity.Y + 2, ProjectileID.Meowmere, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y + 2, velocity.X, velocity.Y + 2, ProjectileID.DeathSickle, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y + 2, velocity.X, velocity.Y + 2, ProjectileID.InfernoFriendlyBlast, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y + 2, velocity.X, velocity.Y + 2, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y + 2, velocity.X, velocity.Y + 2, ProjectileID.StarWrath, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y - 2, velocity.X, velocity.Y - 2, ProjectileID.Meowmere, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y - 2, velocity.X, velocity.Y - 2, ProjectileID.DeathSickle, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y - 2, velocity.X, velocity.Y - 2, ProjectileID.InfernoFriendlyBlast, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y - 2, velocity.X, velocity.Y - 2, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y - 2, velocity.X, velocity.Y - 2, ProjectileID.StarWrath, damage, knockback, player.whoAmI);
-            return true;
+            float adjustedItemScale = player.GetAdjustedItemScale(Item);
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), ModContent.ProjectileType<HorrormageddonEnergy>(), Item.damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            Projectile.NewProjectile(source, player.MountedCenter, velocity, ModContent.ProjectileType<Projectiles.Common.TrueHorrormageddon>(), Item.damage, knockback, player.whoAmI, player.direction * player.gravDir, 32f, 2f);
+            NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+            return false;
         }
     }
 }

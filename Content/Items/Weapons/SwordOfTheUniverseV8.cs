@@ -1,10 +1,14 @@
-using System;
 using Microsoft.Xna.Framework;
+using Mono.Cecil;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Buffs;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -27,55 +31,46 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            Item.damage = 1337;
-            Item.knockBack = 20.0F;
+            Item.damage = 275;
+            Item.knockBack = 20f;
             Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
-            Item.shoot = Mod.Find<ModProjectile>("SOTU8").Type;
-            Item.shootSpeed = 30;
             Item.expert = true;
             Item.value = Item.sellPrice(platinum: 10);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            player.itemLocation = player.Center;
-        }
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverseV2");
-            recipe.Register();
-
-            recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverseV3");
-            recipe.Register();
-
-            recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverseV4");
-            recipe.Register();
-
-            recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverseV5");
-            recipe.Register();
-
-            recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverseV6");
-            recipe.Register();
-
-            recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverseV7");
-            recipe.Register();
-
-            recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverseV9");
-            recipe.Register();
-
-            recipe = CreateRecipe(1);
-            recipe.AddIngredient(null, "SwordOfTheUniverse");
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV2>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV3>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV4>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV5>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV6>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV7>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV8>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV9>())
+                .Register();
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordOfTheUniverse>())
+                .Register();
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -85,33 +80,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.PinkTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity.X -= player.direction * 0f;
-                Main.dust[dust].velocity.Y -= 0.0f;
             }
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 2, velocity.Y + 2, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 2, velocity.Y - 2, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 4, velocity.Y + 4, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 4, velocity.Y - 4, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 6, velocity.Y + 6, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 6, velocity.Y - 6, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 8, velocity.Y + 8, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 8, velocity.Y - 8, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 10, velocity.Y + 10, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 1, velocity.Y + 1, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 1, velocity.Y - 1, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 2, velocity.Y + 2, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 2, velocity.Y - 2, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 3, velocity.Y + 3, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 3, velocity.Y - 3, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 4, velocity.Y + 4, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X - 4, velocity.Y - 4, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position.X, position.Y, velocity.X + 5, velocity.Y + 5, ProjectileID.InfluxWaver, damage, knockback, player.whoAmI);
-            return false;
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -122,6 +91,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             target.AddBuff(BuffID.OnFire, 360);
             target.AddBuff(BuffID.Poisoned, 360);
             target.AddBuff(BuffID.CursedInferno, 360);
+            target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
+            float piOverTen = MathHelper.Pi / 10f;
+            Vector2 baseVel = (target.Center - player.Center).SafeNormalize(Vector2.Zero) * 40f;
+            Vector2 newVel = (target.Center - player.Center).SafeNormalize(Vector2.Zero) * 15f;
+            for (int i = 0; i < 5; i++)
+            {
+                float offset = i - (5f - 1f) / 2f;
+                Vector2 velOffset = baseVel.RotatedBy(piOverTen * offset);
+                Projectile.NewProjectileDirect(target.GetSource_OnHit(target), player.RotatedRelativePoint(player.MountedCenter) + velOffset, newVel, ModContent.ProjectileType<SOTU8>(), Item.damage, Item.knockBack, player.whoAmI);
+            }
         }
     }
 }

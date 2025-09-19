@@ -30,7 +30,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.penetrate = 1;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
-            Projectile.extraUpdates = 1;
+            //Projectile.extraUpdates = 1;
             Projectile.alpha = 0;
         }
 
@@ -45,7 +45,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 dust.noGravity = true;
                 dust.scale = 1f;
             }
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 30);
+            Lighting.AddLight(Projectile.position, Color.Red.ToVector3() / 2);
+            Projectile.SimpleFadeOut(ai: 0, maxTime: 20f);
             FindFrame();
         }
 
@@ -71,7 +72,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
             Vector2 drawOrigin = new(Projectile.width / 2, Projectile.height);
             Color drawColor = Color.White with { A = 200 } * Projectile.Opacity;
-            Color trailColor = Color.White with { A = 0 } * Projectile.Opacity;
+            Color trailColor = Color.White with { A = 10 } * Projectile.Opacity;
 
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {

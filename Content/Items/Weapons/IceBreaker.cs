@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Common;
+using UniverseOfSwordsMod.Common.GlobalItems;
 using UniverseOfSwordsMod.Content.Items.Materials;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
@@ -37,6 +38,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.noUseGraphic = true;
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.holdStyle = 0;
+            Item.GetGlobalItem<ReflectionChance>().reflectChance = 3;
         }
 
         public override bool CanUseItem(Player player)
@@ -92,7 +94,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 Vector2 velocity = (Main.MouseWorld - position).SafeNormalize(Vector2.Zero) * 10f;
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-                    Projectile.NewProjectile(target.GetSource_OnHit(target), position + velocity, velocity.RotatedByRandom(MathHelper.ToRadians(15f)) * Main.rand.NextFloat(0.5f, 1.2f), ProjectileID.FrostBoltSword, Item.damage, Item.knockBack, player.whoAmI);
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), position + velocity, velocity.RotatedByRandom(MathHelper.ToRadians(15f)) * Main.rand.NextFloat(0.5f, 1.2f), ModContent.ProjectileType<BreakerBolt>(), Item.damage, Item.knockBack, player.whoAmI);
                 }
             }
         }

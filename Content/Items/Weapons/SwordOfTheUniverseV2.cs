@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Buffs;
 using UniverseOfSwordsMod.Common;
+using UniverseOfSwordsMod.Common.GlobalItems;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
@@ -38,6 +39,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
+            Item.GetGlobalItem<ReflectionChance>().reflectChance = 10;
         }
 
         public override void HoldItem(Player player)
@@ -49,7 +51,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -72f));
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -72f), Vector2.UnitY * 12f);
             }
         }
 
@@ -79,6 +81,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             target.AddBuff(BuffID.Poisoned, 360);
             target.AddBuff(BuffID.CursedInferno, 360);
             target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
+            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 360);
             for (int i = 0; i < 3; i++)
             {
                 Vector2 spawnPos = player.Center + Main.rand.NextVector2Circular(300f, 300f);

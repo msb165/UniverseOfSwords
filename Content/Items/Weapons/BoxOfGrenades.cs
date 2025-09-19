@@ -38,8 +38,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation.X -= 1f * player.direction;
-            player.itemLocation.Y -= 1f * player.direction;
+            player.itemLocation = player.Center;
         }
 
         public override void AddRecipes()
@@ -74,8 +73,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 }
 
                 Vector2 spawnVel = (Main.MouseWorld - spawnPos).SafeNormalize(Vector2.UnitY) * 10f;
-                Projectile proj = Projectile.NewProjectileDirect(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.9f, 1.26f), Utils.SelectRandom<int>(Main.rand, [ProjectileID.Grenade, ProjectileID.BouncyGrenade, ProjectileID.StickyGrenade]), Item.damage, Item.knockBack, player.whoAmI);
-                proj.DamageType = DamageClass.Melee;
+                Projectile.NewProjectileDirect(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.9f, 1.26f), ModContent.ProjectileType<Grenade>(), Item.damage, Item.knockBack, player.whoAmI);
             }
         }
     }

@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,9 +14,8 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
 
         public override void SetDefaults()
         {
-            Item.width = 30;
-            Item.height = 50;
-            Item.maxStack = 99;
+            Item.Size = new(30);
+            Item.maxStack = Item.CommonMaxStack;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Red;
         }

@@ -44,13 +44,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -62f));
+                UniverseUtils.CustomHoldStyle(player, new Vector2(36f * player.direction, -24f), Vector2.UnitY * 30f);
             }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation = player.Center;
+            player.itemLocation = player.Center + player.itemRotation.ToRotationVector2();
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -63,19 +63,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 Vector2 velocity = (target.Center - player.Center).SafeNormalize(-Vector2.UnitY) * 12f * (0.6f + Main.rand.NextFloat() * 0.8f);
                 Vector2 spawnPos = player.Center + Utils.RandomVector2(Main.rand, -15f, 15f);
-                int projType = Utils.SelectRandom(Main.rand, [ProjectileID.RocketI, ProjectileID.RocketIII, ProjectileID.RocketIV, ProjectileID.ClusterRocketI]);
-                Projectile proj = Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos + velocity, velocity, projType, Item.damage, Item.knockBack, player.whoAmI);
-                proj.DamageType = DamageClass.Melee;
+                Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos + velocity, velocity, ModContent.ProjectileType<Rocket>(), Item.damage, Item.knockBack, player.whoAmI);
             }
-
-            if (Main.rand.NextBool(20))
-            {
-                Vector2 velocity = (target.Center - player.Center).SafeNormalize(-Vector2.UnitY) * 12f;
-                Vector2 spawnPos = player.Center;
-                Projectile proj = Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos + velocity * 8f, velocity, ProjectileID.MiniNukeRocketI, Item.damage, Item.knockBack, player.whoAmI);
-                proj.DamageType = DamageClass.Melee;
-            }
-
             Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<SuperExplosion>(), Item.damage, Item.knockBack, player.whoAmI);
         }
 

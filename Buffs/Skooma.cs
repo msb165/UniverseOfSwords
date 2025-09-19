@@ -21,7 +21,6 @@ namespace UniverseOfSwordsMod.Buffs
             player.extraFall += 45;
             player.portalPhysicsFlag = true;
             player.noFallDmg = false;
-            player.AddBuff(BuffID.Tipsy, 400);
         }
     }
 }

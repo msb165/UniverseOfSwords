@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Buffs;
 using UniverseOfSwordsMod.Common;
+using UniverseOfSwordsMod.Common.GlobalItems;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 using static System.Net.Mime.MediaTypeNames;
@@ -43,6 +44,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.shootSpeed = 6f;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
+            Item.GetGlobalItem<ReflectionChance>().reflectChance = 10;
         }
 
         public override void HoldItem(Player player)
@@ -88,7 +90,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                     }
 
                     Vector2 spawnVel = (Main.MouseWorld - spawnPos).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
-                    Projectile.NewProjectile(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.5f, 1.25f), ModContent.ProjectileType<SOTUGreenBolt>(), damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.5f, 1.25f), ModContent.ProjectileType<SOTUGreenBolt>(), (int)(damage * 1.25), knockback, player.whoAmI);
                 }
             }
             return false;

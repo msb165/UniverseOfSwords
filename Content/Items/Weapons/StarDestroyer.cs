@@ -15,6 +15,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0f;
             // Tooltip.SetDefault("'Each time you swing this sword stars are being shattered to pieces'");
         }
 

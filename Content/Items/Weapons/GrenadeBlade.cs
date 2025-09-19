@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -35,7 +36,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             Vector2 newpos = target.Center + new Vector2(Main.rand.Next(-100, 100), -200f);
             Vector2 newVel = Vector2.Normalize(target.Center - newpos) * 10f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), newpos, newVel, ProjectileID.Grenade, Item.damage, Item.knockBack, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), newpos, newVel, ModContent.ProjectileType<Grenade>(), Item.damage, Item.knockBack, player.whoAmI);
         }
 
         public override void AddRecipes()

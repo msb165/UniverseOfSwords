@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -10,19 +11,19 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.width = 32;
-            Item.height = 32;
-            Item.scale = 1f;
+            Item.width = 24;
+            Item.height = 24;
+            Item.scale = 1.125f;
             Item.rare = ItemRarityID.LightRed;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 32;
+            Item.useTime = 64;
             Item.useAnimation = 32;
             Item.damage = 15;
             Item.knockBack = 6f;
-            Item.shoot = ProjectileID.WaterBolt;
-            Item.shootSpeed = 10f;
+            Item.shoot = ModContent.ProjectileType<WateryBolt>();
+            Item.shootSpeed = 2.5f;
             Item.UseSound = SoundID.Item1;
-            Item.value = 48500;
+            Item.value = Item.sellPrice(gold: 4, silver: 85);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }

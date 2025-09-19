@@ -12,6 +12,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.5f;
             // Tooltip.SetDefault("'Throw money at ALL your problems'");
         }
 

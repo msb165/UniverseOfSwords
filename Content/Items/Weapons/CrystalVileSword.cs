@@ -30,7 +30,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item101;
 			Item.shoot = ProjectileID.CrystalVileShardShaft;
-            Item.shootSpeed = 32f;
+            Item.shootSpeed = 24f;
             Item.value = Item.sellPrice(gold: 10);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.MeleeNoSpeed;
@@ -52,7 +52,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation.Y -= 1f * player.gravDir;
+            player.itemLocation = player.Center;
 		}
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

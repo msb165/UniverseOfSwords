@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
@@ -14,6 +15,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
     {
         public override void SetStaticDefaults()
         {
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.75f;
             // Tooltip.SetDefault("'Where you see an army, I see a graveyard'");
         }
 
@@ -34,6 +36,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
+            Item.noMelee = true;
+            Item.shootsEveryUse = true;
         }
 
         public override void HoldItem(Player player)
@@ -84,10 +88,9 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.Meowmere, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.InfernoFriendlyBlast, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.StarWrath, damage, knockback, player.whoAmI);
-            Projectile.NewProjectile(source, position, velocity, ProjectileID.VortexBeaterRocket, damage, knockback, player.whoAmI);
+            float adjustedItemScale = player.GetAdjustedItemScale(Item);
+            Projectile.NewProjectile(source, player.MountedCenter, new Vector2(player.direction, 0f), ModContent.ProjectileType<HorrormageddonEnergy>(), Item.damage, knockback, player.whoAmI, player.direction * player.gravDir, player.itemAnimationMax, adjustedItemScale);
+            NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
             return false;
         }
     }

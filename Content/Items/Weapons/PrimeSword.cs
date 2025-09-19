@@ -23,14 +23,12 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.scale = 1.25f;
             Item.rare = ItemRarityID.LightPurple;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 15;
-            Item.useAnimation = 15;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.damage = 65;
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item33;
             Item.value = 160000;
-            Item.shoot = ProjectileID.LaserMachinegunLaser;
-            Item.shootSpeed = 20f;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -50,8 +48,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             if (UniverseUtils.IsAValidTarget(target))
             {
                 Vector2 spawnPos = player.Center - Vector2.UnitY * 96f;
-                Vector2 newVel = (target.Center - spawnPos).SafeNormalize(Vector2.UnitY) * 12f;
-                Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, newVel.RotatedByRandom(MathHelper.ToRadians(5f)), ModContent.ProjectileType<MightBolt>(), Item.damage, Item.knockBack, player.whoAmI);
+                Vector2 newVel = (target.Center - spawnPos).SafeNormalize(Vector2.UnitY) * 6f;
+                Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, newVel, ModContent.ProjectileType<PrimeBolt>(), (int)(Item.damage * 0.75), Item.knockBack, player.whoAmI);
             }
         }
     }

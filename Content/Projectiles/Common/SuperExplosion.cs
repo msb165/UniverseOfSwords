@@ -32,7 +32,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item14 with { Volume = 0.5f }, Projectile.position);
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 16; i++)
             {
                 Vector2 spawnPos = Projectile.Center - Main.rand.NextVector2CircularEdge(100f, 100f);
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 2f);
@@ -40,7 +40,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 Dust dust2 = dust;
                 dust2.velocity *= 1.4f;
             }
-            for (int j = 0; j < 20; j++)
+            for (int j = 0; j < 40; j++)
             {
                 Vector2 spawnPos = Projectile.Center - Main.rand.NextVector2CircularEdge(200f, 200f);
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f, 100, default, 3f);

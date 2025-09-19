@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Buffs;
 using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Items.Weapons
 {
@@ -36,32 +37,39 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             player.itemLocation = player.Center;
         }
 
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 100);
+            target.AddBuff(BuffID.OnFire, 300);
+            target.AddBuff(BuffID.Midas, 360);
+            if (Main.rand.NextBool(4))
+            {
+                target.AddBuff(ModContent.BuffType<TrueSlow>(), 100);
+            }
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.DaybreakExplosion, Item.damage, 10f, player.whoAmI, ai1: 0.85f + Main.rand.NextFloat() * 1.15f);
+            }
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 200)
                 .AddIngredient(ItemID.HallowedBar, 4000)
                 .AddIngredient(ItemID.BrokenHeroSword, 16)
-                .AddIngredient(ItemID.EnchantedSword, 4)
-                .AddIngredient(ItemID.Arkhalis, 1)
+                .AddIngredient(ItemID.EnchantedSword)
+                .AddIngredient(ItemID.Arkhalis)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 200)
                 .AddIngredient(ItemID.HallowedBar, 4000)
                 .AddIngredient(ItemID.BrokenHeroSword, 16)
-                .AddIngredient(ItemID.EnchantedSword, 4)
-                .AddIngredient(ItemID.Terragrim, 1)
+                .AddIngredient(ItemID.EnchantedSword)
+                .AddIngredient(ItemID.Terragrim)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
-        }
-
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 100);
-            target.AddBuff(BuffID.OnFire, 300);
-            target.AddBuff(BuffID.Midas, 360);
-            target.AddBuff(ModContent.BuffType<TrueSlow>(), 60);
         }
     }
 }

@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwordsMod.Buffs;
 using UniverseOfSwordsMod.Common;
+using UniverseOfSwordsMod.Common.GlobalItems;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 using static Terraria.Player;
@@ -41,6 +42,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
+            Item.GetGlobalItem<ReflectionChance>().reflectChance = 50;
+            Item.ArmorPenetration = 500;
         }
 
         //public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;

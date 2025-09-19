@@ -15,15 +15,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 		
         public override void SetDefaults()
         { 
-            Item.width = 54;
-            Item.height = 54; 
-			Item.scale = 1.0F;
+            Item.width = 32;
+            Item.height = 32; 
+			Item.scale = 1f;
             Item.rare = ItemRarityID.Orange;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 30;
             Item.useAnimation = 30;           
             Item.damage = 12; 
-            Item.knockBack = 1.0F;
+            Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;
             Item.value = 6888;
             Item.autoReuse = true; 

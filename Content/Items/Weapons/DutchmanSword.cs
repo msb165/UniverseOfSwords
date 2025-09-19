@@ -11,13 +11,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void SetDefaults()
         { 
             Item.Size = new(64);
-			Item.scale = 1.1F;
+			Item.scale = 1.125f;
             Item.rare = ItemRarityID.LightPurple;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 25;
             Item.useAnimation = 25;           
             Item.damage = 40; 
-            Item.knockBack = 7.77F;
+            Item.knockBack = 7.75f;
             Item.UseSound = SoundID.Item1;
 			Item.shoot = ProjectileID.CannonballFriendly;
             Item.shootSpeed = 20f;
