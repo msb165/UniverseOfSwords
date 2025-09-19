@@ -1,12 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Build.Construction;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Net;
 using UniverseOfSwordsMod.Content.Projectiles.Common.Base;
 using UniverseOfSwordsMod.Utilities;
 
@@ -26,7 +30,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (UniverseUtils.IsAValidTarget(target))
+            if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
             {
                 for (int i = 0; i < 3; i++)
                 {
