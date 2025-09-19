@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 using static System.Net.Mime.MediaTypeNames;
@@ -16,7 +17,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void SetStaticDefaults()
         {
             /* Tooltip.SetDefault("Left click to shoot multiple projectiles that deal lower damage"
-			    + "\nRight click to shoot big projectile that deals higher damage"); */
+                + "\nRight click to shoot big projectile that deals higher damage"); */
             ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
         }
 
@@ -37,6 +38,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.rare = ItemRarityID.Pink;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -60f), Vector2.UnitY * 6f);
+            }
         }
 
         public override bool AltFunctionUse(Player player) => true;
