@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameInput;
+using UniverseOfSwordsMod.Buffs;
 
 namespace UniverseOfSwordsMod
 {
@@ -46,7 +47,7 @@ namespace UniverseOfSwordsMod
             {
                 if (Main.rand.NextBool(8) && drawInfo.shadow == 0f)
                 {
-                    int dust = Dust.NewDust(drawInfo.Position - Vector2.One * 2f, Player.width + 4, Player.height + 4, Mod.Find<ModDust>("EmperorBlaze").Type, Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 100, default, 3f);
+                    int dust = Dust.NewDust(drawInfo.Position - Vector2.One * 2f, Player.width + 4, Player.height + 4, ModContent.DustType<Content.Dusts.EmperorBlaze>(), Player.velocity.X * 0.4f, Player.velocity.Y * 0.4f, 100, default, 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 0.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;

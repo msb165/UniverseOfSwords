@@ -48,15 +48,15 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.Resize(260, 260);
             for (int i = 0; i < 4; i++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default(Color), 1.5f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
             }
             for (int j = 0; j < 30; j++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 0, default(Color), 2.5f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 0, default, 2.5f);
                 Main.dust[dust].noGravity = true;
                 Dust dust2 = Main.dust[dust];
                 dust2.velocity *= 3f;
-                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 100, default(Color), 1.5f);
+                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 100, default, 1.5f);
                 dust2 = Main.dust[dust];
                 dust2.velocity *= 2f;
                 Main.dust[dust].noGravity = true;

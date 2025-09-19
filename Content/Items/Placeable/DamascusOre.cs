@@ -1,5 +1,6 @@
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
+using UniverseOfSwordsMod.Content.Tiles;
 
 namespace UniverseOfSwordsMod.Content.Items.Placeable
 {
@@ -21,7 +22,7 @@ namespace UniverseOfSwordsMod.Content.Items.Placeable
             Item.rare = ItemRarityID.Green; // Item Tier
             Item.autoReuse = true; // Do you want to torture people with clicking? Set to false
             Item.consumable = true; // Will consume the item when placed.
-            Item.createTile = Mod.Find<ModTile>("DamascusOreTile").Type;
+            Item.createTile = ModContent.TileType<DamascusOreTile>();
             Item.maxStack = 999; // The maximum number you can have of this item.
         }
     }

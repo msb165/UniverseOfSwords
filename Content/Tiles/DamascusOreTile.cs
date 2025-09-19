@@ -4,6 +4,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using UniverseOfSwordsMod.Content.Dusts;
 
 namespace UniverseOfSwordsMod.Content.Tiles
 {
@@ -16,7 +17,7 @@ namespace UniverseOfSwordsMod.Content.Tiles
             Main.tileLighted[Type] = true; // ???
             Main.tileBlockLight[Type] = true; // Emits Light
 		    HitSound = SoundID.Tink;
-			DustType = Mod.Find<ModDust>("DamascusSparkle").Type;
+			DustType = ModContent.DustType<DamascusSparkle>();
 			
 			//ItemDrop/* tModPorter Note: Removed. Tiles and walls will drop the item which places them automatically. Use RegisterItemDrop to alter the automatic drop if necessary. */ = Mod.Find<ModItem>("DamascusOre").Type; // What item drops after destorying the tile
             LocalizedText name = CreateMapEntryName();
