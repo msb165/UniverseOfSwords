@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -31,7 +27,6 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.timeLeft = 36000;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            //Projectile.manualDirectionChange = true;
             Projectile.netImportant = true;
             Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.friendly = true;
@@ -47,18 +42,42 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Timer++;
             if (Main.myPlayer == Projectile.owner && Player.controlUseTile && Timer >= 8f && Projectile.localAI[0] == 1f || (Main.myPlayer == Projectile.owner && Player.Distance(Projectile.Center) > 800f))
             {
-                Projectile.aiStyle = ProjAIStyleID.Boomerang;
-                Projectile.tileCollide = false;
                 Projectile.ai[2] = 1f;
-                return;
+                Projectile.netUpdate = true;
+            }
+            if ((Main.myPlayer == Projectile.owner && Player.Distance(Projectile.Center) > 1200f))
+            {
+                Projectile.Kill();
             }
             if (Projectile.ai[2] == 1f)
             {
+                BoomerangBehaviour();
                 return;
             }
+            NormalBehaviour();
+        }
+
+        public void BoomerangBehaviour()
+        {
+            if (Projectile.soundDelay == 0)
+            {
+                Projectile.soundDelay = 16;
+                SoundEngine.PlaySound(SoundID.Item1, Projectile.position);
+            }
+            Projectile.tileCollide = false;
+            Projectile.rotation += 0.4f * Projectile.direction;
+            Projectile.velocity = Projectile.Center.DirectionTo(Player.Center) * 8f;
+            if (Projectile.Hitbox.Intersects(Player.Hitbox))
+            {
+                Projectile.Kill();
+            }
+        }
+
+        public void NormalBehaviour()
+        {
             Projectile.rotation = MathHelper.PiOver2 + MathHelper.PiOver4;
             Projectile.velocity.Y = UniverseUtils.Easings.EaseInBack(Timer / 50f) * 50f;
-            // Prevents the projectile from getting stuck if there is solid tiles above the player.
+            // Prevents the projectile from getting stuck if there are solid tiles above the player.
             if (Projectile.Center.Y >= Player.position.Y && Projectile.localAI[0] == 0f)
             {
                 Projectile.localAI[0] = 1f;
@@ -66,7 +85,6 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.tileCollide = Projectile.localAI[0] == 1f;
             Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.SpectreStaff, 0, -8f, Scale: 2f);
             dust.noGravity = true;
-
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -81,14 +99,12 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 SoundEngine.PlaySound(SoundID.DD2_GhastlyGlaiveImpactGhost, Projectile.position);
                 SoundEngine.PlaySound(SoundID.Item37 with { Pitch = -0.25f }, Projectile.position);
                 SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact, Projectile.position);
-                Projectile.Resize(26, 64);
                 for (int i = 0; i < 30; i++)
                 {
-                    Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width / 2, Projectile.height, DustID.SpectreStaff, 0f, -8f, Scale: 3.5f);
+                    Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height * 2, DustID.SpectreStaff, 0f, -8f, Scale: 3.5f);
                     dust2.noGravity = true;
                     dust2.velocity *= 1.5f;
                 }
-                Projectile.Resize(26, 26);
                 Projectile.ai[1] = 1f;
             }
             Projectile.position += Projectile.velocity;
@@ -112,7 +128,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Vector2 origin = Projectile.aiStyle == ProjAIStyleID.Boomerang ? new Vector2(12f * Projectile.scale, Projectile.width * 2f * Projectile.scale) : new Vector2(Projectile.width * 2f, 12f);
+            Vector2 origin = Projectile.ai[2] == 1f ? new Vector2(12f * Projectile.scale, Projectile.width * 2f * Projectile.scale) : new Vector2(Projectile.width * 2f, 12f);
             Color drawColor = Projectile.GetAlpha(lightColor);
             Color trailColor = drawColor;
             SpriteEffects spriteEffects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
