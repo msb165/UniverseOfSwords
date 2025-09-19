@@ -5,6 +5,7 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Common.GlobalItems;
 using UniverseOfSwordsMod.Content.Projectiles.Common;
 using UniverseOfSwordsMod.Utilities;
 
@@ -59,6 +60,21 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
                 Dust dust = Dust.NewDustPerfect(Vector2.Lerp(Projectile.Center, Projectile.Center + rotation.ToRotationVector2() * 180f, 0.1f * i), DustID.LifeDrain, Vector2.Zero);
                 dust.velocity = (rotation + MathHelper.PiOver4).ToRotationVector2() * Main.rand.NextFloat(0.5f, 1.25f);
                 dust.noGravity = true;
+            }
+
+            if (Main.myPlayer == Projectile.owner)
+            {
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
+                        proj.velocity = -proj.oldVelocity;
+                        proj.friendly = true;
+                        proj.hostile = false;
+                        proj.reflected = true;
+                    }
+                }
             }
 
             SetPlayerValues();
