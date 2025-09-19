@@ -23,10 +23,10 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
 
 		public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 400);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
+            CreateRecipe()
+				.AddIngredient(ModContent.ItemType<SwordMatter>(), 400)
+                .AddTile(TileID.Anvils)
+                .Register();
 	    }
     }
 }

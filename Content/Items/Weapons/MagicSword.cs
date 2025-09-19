@@ -47,10 +47,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Starfury, 1)
+                .AddIngredient(ItemID.Starfury)
                 .AddIngredient(ModContent.ItemType<MasterSword>())
                 .AddIngredient(ItemID.HellstoneBar, 15)
-                .AddIngredient(ItemID.MagicMissile, 1)
+                .AddIngredient(ItemID.MagicMissile)
                 .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
                 .AddTile(TileID.Anvils)
                 .Register();
