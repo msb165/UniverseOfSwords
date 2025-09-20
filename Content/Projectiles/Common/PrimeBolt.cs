@@ -52,6 +52,14 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             }
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                target.immune[Projectile.owner] = 3;
+            }
+        }
+
         public override void OnKill(int timeLeft)
         {
             Projectile.Damage();

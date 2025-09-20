@@ -26,7 +26,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(platinum: 1);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            Item.holdStyle = 999;
+            Item.holdStyle = 0;
         }
 
         public override void UseItemFrame(Player player)
@@ -52,6 +52,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void HoldItem(Player player)
         {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<FlyingSword>()] == 0)
             {
                 Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero, ModContent.ProjectileType<FlyingSword>(), Item.damage * 2, 4f, player.whoAmI, ai0: MathHelper.Pi);
@@ -68,11 +69,12 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Vector2 newVel = (player.Center - target.Center).SafeNormalize(Vector2.UnitY) * 4f;
             for (int i = 0; i < 3; i++)
             {
-                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - Vector2.UnitY * 64f + newVel, newVel, ModContent.ProjectileType<GreenSaw>(), Item.damage, Item.knockBack, player.whoAmI);
+                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - Vector2.UnitY * 64f + newVel, newVel, ModContent.ProjectileType<GreenSaw>(), Item.damage * 2, Item.knockBack, player.whoAmI);
             }
             target.AddBuff(BuffID.Poisoned, 1000);
             target.AddBuff(BuffID.CursedInferno, 1000);
             target.AddBuff(ModContent.BuffType<TrueSlow>(), 1000);
+            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 1000);
         }
 
         public override void AddRecipes()

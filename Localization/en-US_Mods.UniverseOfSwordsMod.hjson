@@ -46,6 +46,11 @@ Buffs: {
 		DisplayName: True Slowness
 		Description: ""
 	}
+
+	SuperVenom: {
+		DisplayName: Super Venom
+		Description: Mods.UniverseOfSwordsMod.Buffs.SuperVenom.Description
+	}
 }
 
 Items: {

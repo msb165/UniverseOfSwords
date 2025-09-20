@@ -36,7 +36,7 @@ namespace UniverseOfSwordsMod.Common.GlobalItems
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if ((item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed) && item.useStyle == ItemUseStyleID.Swing && !item.noUseGraphic)
+            if ((item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed) && item.useStyle == ItemUseStyleID.Swing)
             {
                 string coloredText = "[c/AC1CEE:p][c/9C0CDE:a][c/8C0CBE:r][c/7C0CAE:r][c/6C0C9E:y] [c/AC1CEE:c][c/9C0CDE:h][c/8C0CBE:a][c/7C0CAE:n][c/6C0C9E:c][c/6C0C9E:e]";
                 TooltipLine reflectionChance = new(Mod, "ReflectChance", $"[c/BC2CFE:{reflectChance}%] {coloredText}");

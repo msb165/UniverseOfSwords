@@ -6,6 +6,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwordsMod.Buffs;
 using UniverseOfSwordsMod.Utilities;
 
 namespace UniverseOfSwordsMod.Content.Projectiles.Common
@@ -130,10 +131,12 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (UniverseUtils.IsAValidTarget(target))
+            if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
             {
-                target.immune[Projectile.owner] = 6;
+                target.immune[Projectile.owner] = 3;
+                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.SeaGreen, Projectile.owner, Projectile.damage, lerpToWhite: 0.75f);
             }
+            target.AddBuff(ModContent.BuffType<SuperVenom>(), 300);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

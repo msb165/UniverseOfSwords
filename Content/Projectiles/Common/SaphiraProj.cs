@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,7 +39,21 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnKill(int timeLeft)
         {
-            base.OnKill(timeLeft);
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Item10 with { Volume = 0.3f }, Projectile.position);
+            int amount = Main.rand.Next(4, 10);
+            for (int i = 0; i < amount; i++)
+            {
+                int dust = Dust.NewDust(Projectile.Center, 0, 0, DustID.DungeonSpirit, 0f, 0f, 100);
+                Dust dust2 = Main.dust[dust];
+                dust2.velocity *= 1.6f;
+                Main.dust[dust].velocity.Y -= 1f;
+                dust2 = Main.dust[dust];
+                dust2.velocity += -Projectile.velocity * (Main.rand.NextFloat() * 2f - 1f) * 0.5f;
+                Main.dust[dust].scale = 2f;
+                Main.dust[dust].fadeIn = 0.5f;
+                Main.dust[dust].noGravity = true;
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)

@@ -19,23 +19,30 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.Size = new(170);
+            Item.Size = new(51);
+            Item.scale = 1.5f;
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 11;
             Item.useAnimation = 11;
             Item.damage = 100;
-            Item.knockBack = 3f;
+            Item.knockBack = 4f;
             Item.UseSound = SoundID.Item74;
             Item.value = 0;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.MeleeNoSpeed;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
+
+        public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            player.itemLocation = player.Center;
+            if (Main.rand.NextBool(2))
+            {
+                UniverseUtils.SpawnRotatedDust(player, DustID.InfernoFork, 1.5f, 32, 200);
+            }
         }
+
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -44,7 +51,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             target.AddBuff(BuffID.Midas, 360);
             if (Main.rand.NextBool(4))
             {
-                target.AddBuff(ModContent.BuffType<TrueSlow>(), 100);
+                target.AddBuff(ModContent.BuffType<TrueSlow>(), 60);
             }
             if (UniverseUtils.IsAValidTarget(target))
             {
