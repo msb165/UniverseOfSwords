@@ -35,8 +35,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 Vector2 projVel = Vector2.Normalize(Projectile.velocity) * 2f;
                 for (int i = 0; i < projAmount; i++)
                 {
-                    Vector2 spawnVel = Vector2.Normalize(Utils.RandomVector2(Main.rand, -100f, 101f));
-                    spawnVel += projVel;
+                    Vector2 spawnVel = Vector2.Normalize(Utils.RandomVector2(Main.rand, -100f, 101f)) + projVel;
                     spawnVel.Normalize();
                     spawnVel *= velLength;
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, spawnVel, Type, Projectile.damage, Projectile.knockBack, Projectile.owner, -1f);
