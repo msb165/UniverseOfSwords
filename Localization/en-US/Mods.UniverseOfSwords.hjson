@@ -49,7 +49,7 @@ Buffs: {
 
 	SuperVenom: {
 		DisplayName: Super Venom
-		Description: Mods.UniverseOfSwordsMod.Buffs.SuperVenom.Description
+		Description: ""
 	}
 }
 
@@ -86,17 +86,52 @@ Items: {
 
 	DranBody: {
 		DisplayName: Dran Body
-		Tooltip: ""
+		Tooltip:
+			'''
+			"These hands have taken so many lives..."
+			Maximum life increased by 1000
+			50% increased damage
+			100% increased melee damage
+			Increased minion capacity by 8
+			Increased sentries capacity by 6
+			Armor piercing increased to 300
+			Grants immunity to most debuffs
+			Immunity to lava
+			Grants Night Owl and Gills buffs
+			'''
 	}
 
 	DranHelmet: {
 		DisplayName: Dran Helmet
-		Tooltip: ""
+		Tooltip:
+			'''
+			"These jaws know only hunger for the next soul"
+			50% increased critical chance
+			Maximum life increased by 1000
+			50% increased damage
+			Reduces mana usage by 90%
+			Reduces ammo usage by 20%
+			Reduces throwing usage by 50%
+			Increased mana regeneration
+			Grants Night Owl and Gills buffs
+			'''
 	}
 
 	DranLeggings: {
 		DisplayName: Dran Leggings
-		Tooltip: ""
+		Tooltip:
+			'''
+			"These feet travel down the path of absolute carnage"
+			Maximum life increased by 1000
+			50% increased damage
+			100% increased movement speed
+			Immunity to knockabck
+			Grants water walking
+			Armor piercing increased to 300
+			Grants immunity to most debuffs
+			Immunity to lava
+			Grants Night Owl and Gills buffs
+			'''
 	}
 
 	GreenDamascusChestplate: {
@@ -151,12 +186,33 @@ Items: {
 
 	HaloOfHorrors: {
 		DisplayName: Halo Of Horrors
-		Tooltip: ""
+		Tooltip:
+			'''
+			"The fearsome power of the Dungeon Guardian is now yours!"
+			100 defense
+			100% increased armor penetration
+			Maximum life increased by 2000
+			Provides ultimate health regeneration
+			15% increased damage
+			Curses the wearer with infinite Potion Sickness debuff
+			30% decreased melee speed
+			'''
 	}
 
 	LegendaryWarriorGauntlet: {
 		DisplayName: Legendary Warrior Gauntlet
-		Tooltip: ""
+		Tooltip:
+			'''
+			Legendary gauntlet that grants wearer ultimate melee skills
+			30 defense
+			Highly increased melee damage
+			30% increased melee critical chance
+			Greatly increased life regeneration
+			Increases maximum life by 200
+			20% increased endurance
+			Grants immunity to most debuffs
+			Grants Spelunker, Thorns and Titan potion effects
+			'''
 	}
 
 	LesserMeleePowerPotion: {
@@ -226,7 +282,7 @@ Items: {
 
 	SwordShard: {
 		DisplayName: Sword Shard
-		Tooltip: ""
+		Tooltip: Shard of a lost sword
 	}
 
 	UpgradeMatter: {
@@ -636,7 +692,7 @@ Items: {
 
 	GlacialCracker: {
 		DisplayName: Glacial Cracker
-		Tooltip: ""
+		Tooltip: '''"How did you manage to already break it?"'''
 	}
 
 	Glamdring: {
@@ -691,7 +747,7 @@ Items: {
 
 	GrenadeBlade: {
 		DisplayName: Grenade Blade
-		Tooltip: ""
+		Tooltip: '''"Some madman strapped a grenade to a sword to increase its damage. And now someone even crazier is wielding it as a weapon!"'''
 	}
 
 	HallowSolutionSpreader: {
@@ -736,7 +792,7 @@ Items: {
 
 	IceBreaker: {
 		DisplayName: Ice Breaker
-		Tooltip: ""
+		Tooltip: <right> to drop it on the ground
 	}
 
 	IceSword: {
@@ -761,43 +817,14 @@ Items: {
 
 	Inflation: {
 		DisplayName: Inflation
-		Tooltip: ""
+		Tooltip: '''"Your greed knows no bounds, does it?"'''
 	}
 
 	InnosWrath: {
 		DisplayName: Innos Wrath
-		Tooltip: ""
+		Tooltip: Pulses with light energy of Innos
 	}
 
-	JesterArrowSword: {
-		DisplayName: Jester Arrow Sword
-		Tooltip: ""
-	}
-
-	KokiriSword: {
-		DisplayName: Kokiri Sword
-		Tooltip: ""
-	}
-
-	LavaSword: {
-		DisplayName: Lava Sword
-		Tooltip: ""
-	}
-
-	Longclaw: {
-		DisplayName: Longclaw
-		Tooltip: ""
-	}
-
-	LuminiteArrowSword: {
-		DisplayName: Luminite Arrow Sword
-		Tooltip: ""
-	}
-
-	LuminiteBulletSword: {
-		DisplayName: Luminite Bullet Sword
-		Tooltip: ""
-	}
 
 	Machine: {
 		DisplayName: Machine
@@ -871,7 +898,7 @@ Items: {
 
 	NatureSword: {
 		DisplayName: Nature Sword
-		Tooltip: ""
+		Tooltip: '''"Sword made out of only pure ingredients given from Mother Nature"'''
 	}
 
 	Nightlight: {
@@ -925,7 +952,7 @@ Items: {
 	}
 
 	PekkaSword: {
-		DisplayName: Pekka Sword
+		DisplayName: Robot's Blade
 		Tooltip: ""
 	}
 
@@ -935,13 +962,13 @@ Items: {
 	}
 
 	PianoSword1: {
-		DisplayName: Piano Sword1
-		Tooltip: ""
+		DisplayName: Beethoven Beater
+		Tooltip: '''"Moonlight Sonata - Beethoven"'''
 	}
 
 	PianoSword2: {
-		DisplayName: Piano Sword2
-		Tooltip: ""
+		DisplayName: Gershwin Gasher
+		Tooltip: '''"Rhapsody in Blue - Gershwin"'''
 	}
 
 	PianoSword3: {
@@ -950,8 +977,8 @@ Items: {
 	}
 
 	PianoSword4: {
-		DisplayName: Piano Sword4
-		Tooltip: ""
+		DisplayName: Liszt Lasher
+		Tooltip: '''"Piano sonata in B minor - Liszt"'''
 	}
 
 	PinkIceSword: {
@@ -1225,62 +1252,93 @@ Items: {
 
 	SwordOfTheUniverse: {
 		DisplayName: Sword Of The Universe
-		Tooltip: ""
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV2: {
-		DisplayName: Sword Of The Universe V2
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV3: {
-		DisplayName: Sword Of The Universe V3
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV4: {
-		DisplayName: Sword Of The Universe V4
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV5: {
-		DisplayName: Sword Of The Universe V5
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV6: {
-		DisplayName: Sword Of The Universe V6
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV7: {
-		DisplayName: Sword Of The Universe V7
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV8: {
-		DisplayName: Sword Of The Universe V8
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	SwordOfTheUniverseV9: {
-		DisplayName: Sword Of The Universe V9
-		Tooltip: ""
-	}
-
-	Tamerlein: {
-		DisplayName: Tamerlein
-		Tooltip: ""
+		DisplayName: Sword Of The Universe
+		Tooltip:
+			'''
+			"This sword doesn't swing. It lifts the Universe towards the blade"
+			Has changeable forms
+			'''
 	}
 
 	TheBrain: {
 		DisplayName: The Brain
-		Tooltip: ""
+		Tooltip: '''"Sword of the Crimson"'''
 	}
 
 	TheEater: {
 		DisplayName: The Eater
-		Tooltip: ""
+		Tooltip: '''"Sword of the Corruption"'''
 	}
 
 	TheForce: {
@@ -1292,14 +1350,14 @@ Items: {
 		DisplayName: The Master Of Coin
 		Tooltip:
 			'''
-			Has a chance of spawning a gold portal uppon killing an enemy
+			Has a chance of spawning a gold portal uppon contact
 			Inflicts Midas
 			'''
 	}
 
 	TheNightmareAmalgamation: {
 		DisplayName: The Nightmare Amalgamation
-		Tooltip: ""
+		Tooltip: '''"The source of your nightmares"'''
 	}
 
 	TheStinger: {
@@ -1453,7 +1511,7 @@ Items: {
 	}
 
 	MeleeBonus: {
-		DisplayName: Melee Bonus
+		DisplayName: Melee Booster
 		Tooltip: ""
 	}
 
@@ -1468,7 +1526,7 @@ Items: {
 	}
 
 	MeleeBonus2: {
-		DisplayName: Melee Bonus2
+		DisplayName: Melee Booster
 		Tooltip: ""
 	}
 
@@ -1481,6 +1539,21 @@ Items: {
 		DisplayName: Black Bar
 		Tooltip: ""
 	}
+
+	YellowHeart: {
+		DisplayName: Yellow Heart
+		Tooltip: ""
+	}
+
+	IchorBlade: {
+		DisplayName: Ichor Blade
+		Tooltip: ""
+	}
+
+	ZenithShort: {
+		DisplayName: Zenith
+		Tooltip: A shorter ranged version of Zenith
+	}
 }
 
 Projectiles: {
@@ -1488,7 +1561,7 @@ Projectiles: {
 	BeamOfTheUniverse.DisplayName: Beam Of The Universe
 	BeliarLightning.DisplayName: Beliar Lightning
 	Corrupt.DisplayName: Corrupt
-	DoubleBladedLightsaberProjectile.DisplayName: Double Bladed Lightsaber Projectile
+	DoubleBladedLightsaberProjectile.DisplayName: Double Bladed Lightsaber
 	FlareCore.DisplayName: Flare Core
 	Frozen.DisplayName: Frozen
 	GreenSaw.DisplayName: Green Vortex
@@ -1515,7 +1588,7 @@ Projectiles: {
 	Soul1.DisplayName: Soul
 	Soul2.DisplayName: Soul
 	Soul3.DisplayName: Soul
-	Tier2CProjectile.DisplayName: Tier2 C Projectile
+	Tier2CProjectile.DisplayName: Crimson
 	TrueTerrablade.DisplayName: True Terrablade
 	Venom.DisplayName: Venom
 	VugarMutater.DisplayName: Vugar Mutater
@@ -1572,9 +1645,8 @@ Projectiles: {
 	EmeraldBolt.DisplayName: Emerald Bolt
 	RubyBolt.DisplayName: Ruby Bolt
 	SapphireBolt.DisplayName: Sapphire Bolt
-	SiolverCoin.DisplayName: Siolver Coin
 	TopazBolt.DisplayName: Topaz Bolt
-	TwinsProj.DisplayName: Twins Proj
+	TwinsProj.DisplayName: Twins Bolt
 	FlamesBlast.DisplayName: Flames Blast
 	FlamesBolt.DisplayName: Flames Bolt
 	Note.DisplayName: Note
@@ -1582,7 +1654,7 @@ Projectiles: {
 	GemPulse.DisplayName: Gem Pulse
 	MightBolt.DisplayName: Might Bolt
 	StarDestroyerEnergy.DisplayName: Star
-	MagicProj.DisplayName: Magic Proj
+	MagicProj.DisplayName: Magic
 	NightmareBlast.DisplayName: Nightmare Blast
 	SuperBeam.DisplayName: Super Beam
 	SharkronTornado.DisplayName: Sharkron Tornado
@@ -1607,6 +1679,39 @@ Projectiles: {
 	Grenade.DisplayName: Grenade
 	PinkCrystalShard.DisplayName: Pink Crystal Shard
 	SkyProj.DisplayName: Sky Proj
+	ChlorophyteBolt.DisplayName: Chlorophyte Bolt
+	BladesOfBalance.DisplayName: Blades Of Balance
+	SilverCoin.DisplayName: Silver Coin
+	RedBeamV3.DisplayName: Red Beam V3
+	CrystalExcaliburEnergy.DisplayName: Crystal Excalibur Energy
+	StarDestroyerProj.DisplayName: Star Destroyer Proj
+	BaseCustomSwing.DisplayName: Base Custom Swing
+	Inflation.DisplayName: Inflation
+	SwordOfTheUniverseV9.DisplayName: Sword Of The Universe V9
+	BaseShortSword.DisplayName: Base Short Sword
+	BaseVilethorn.DisplayName: Base Vilethorn
+	StoneShortsword.DisplayName: Stone Shortsword
+	RazorpineProj.DisplayName: Razorpine Proj
+	Seed.DisplayName: Seed
+	CrystalVileShardShaft.DisplayName: Crystal Vile Shard Shaft
+	CrystalVileShardTip.DisplayName: Crystal Vile Shard Tip
+	Bat.DisplayName: Bat
+	SmolderBlade.DisplayName: Smolder Blade
+	Snowball.DisplayName: Snowball
+	VilethornBase.DisplayName: Vilethorn Base
+	ViltethornTip.DisplayName: Viltethorn Tip
+	IchorFlurry.DisplayName: Ichor Flurry
+	TrueGemSword.DisplayName: True Gem Sword
+	PoisonFang.DisplayName: Poison Fang
+	VenomFang.DisplayName: Venom Fang
+	MaelstormTornado.DisplayName: Maelstorm Tornado
+	WraithProj.DisplayName: Wraith
+	SwordOfTheUniverseV8.DisplayName: Sword Of The Universe
+	SwordOfTheUniverseV5.DisplayName: Sword Of The Universe
+	SwordOfTheUniverseV6.DisplayName: Sword Of The Universe
+	SwordOfTheUniverseV7.DisplayName: Sword Of The Universe
+	SwordOfTheUniverseV4.DisplayName: Sword Of The Universe
+	InfluxWaverEnergy.DisplayName: Influx Waver Energy
 }
 
 Configs: {
@@ -1615,19 +1720,47 @@ Configs: {
 
 		Headers: {
 			Misc: Misc
-			General: General Header
+			General: General
 		}
 
 		enableHoldStyle: {
-			Label: Custom hold animation for swords
+			Label: Custom Hold Animation for Swords
 			Tooltip: ""
 		}
 
 		enableVanillaChanges: {
-			Label: enable Vanilla Changes
-			Tooltip: ""
+			Label: Reworks for Vanilla Weapons
+			Tooltip:
+				'''
+				Enables changes to a lot of vanilla melee weapons
+				[c/AF4BFF:Note: Reloading is required]
+				'''
+		}
+
+		starterSwords: {
+			Label: Starter Swords
+			Tooltip: Enables the replacement of [i:3507] and [i:3501] with one of the following weapons: [i:UniverseOfSwords/DirtSword] [i:UniverseOfSwords/StoneSword] [i:UniverseOfSwords/StoneShortsword]
 		}
 	}
 }
 
-NPCs.Nazgul.DisplayName: Nazgul
+DranArmor.SetBonus: 75% increased endurance
+
+NPCs: {
+	Nazgul.DisplayName: Nazgul
+
+	Swordsman: {
+		DisplayName: Swordsman
+
+		TownNPCMood: {
+			Content: I am content.
+			NoHome: I hate not having a home.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
+		}
+	}
+}
