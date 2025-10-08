@@ -2,39 +2,23 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Items.Weapons;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Placeable;
+using UniverseOfSwords.Content.Items.Weapons;
 
-namespace UniverseOfSwordsMod.Common.GlobalItems
+namespace UniverseOfSwords.Common.GlobalItems
 {
     public class GlobalItemLoot : GlobalItem
     {
         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
             Conditions.IsHardmode hardmode = new();
+            if (ItemID.Sets.BossBag[item.type] || ItemID.Sets.IsFishingCrate[item.type] || ItemID.Sets.IsFishingCrateHardmode[item.type])
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 10, 1, 3));
+            }
             switch (item.type)
             {
-                case ItemID.CorruptFishingCrate:
-                case ItemID.CrimsonFishingCrate:
-                case ItemID.DungeonFishingCrate:
-                case ItemID.FloatingIslandFishingCrate:
-                case ItemID.FrozenCrate:
-                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 25, 1, 3));
-                    break;
-                case ItemID.GoldenCrate:
-                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 25, 1, 3));
-                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<MasterSword>(), 30));
-                    break;
-                case ItemID.GoldenCrateHard:
-                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 25, 1, 3));
-                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<MasterSword>(), 15));
-                    break;
-                case ItemID.CorruptFishingCrateHard:
-                case ItemID.CrimsonFishingCrateHard:
-                case ItemID.DungeonFishingCrateHard:
-                case ItemID.FloatingIslandFishingCrateHard:
-                case ItemID.FrozenCrateHard:
-                    break;
                 case ItemID.EyeOfCthulhuBossBag:
                     itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<CthulhuJudge>()));
                     break;
@@ -66,6 +50,10 @@ namespace UniverseOfSwordsMod.Common.GlobalItems
                     break;
                 case ItemID.MoonLordBossBag:
                     itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<StarMaelstorm>(), 30));
+                    break;
+                case ItemID.PlanteraBossBag:
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Executioner>()));
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<BlackBar>(), 1, 15, 30));
                     break;
             }
         }

@@ -2,9 +2,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Bonerang : ModProjectile
     {
@@ -33,12 +33,13 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         Player Player => Main.player[Projectile.owner];
         public ref float Timer => ref Projectile.ai[0];
+        public ref float Timer2 => ref Projectile.localAI[0];
         public override void AI()
         {
-            float ai1 = Projectile.ai[1] + 65f;
             Timer++;
-            Projectile.localAI[0]++;
-            float remapValue = Utils.Remap(Projectile.localAI[0], Projectile.ai[1] * 0.4f, ai1, 0f, 1f);
+            Timer2++;
+            float ai1 = Projectile.ai[1] + 65f;
+            float remapValue = Utils.Remap(Timer2, Projectile.ai[1] * 0.4f, ai1, 0f, 1f);
             Projectile.Center = Player.RotatedRelativePoint(Player.Center) - Projectile.velocity + Projectile.velocity * remapValue * remapValue * 77f;
             Projectile.rotation += 0.4f * Projectile.direction;
             if (Projectile.alpha >= 0)

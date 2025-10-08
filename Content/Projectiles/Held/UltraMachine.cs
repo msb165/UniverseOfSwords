@@ -6,13 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
     public class UltraMachine : ModProjectile
     {
@@ -58,6 +60,21 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
             if (Player.noItems || !Player.active)
             {
                 Projectile.Kill();
+            }
+
+            if (Main.myPlayer == Projectile.owner)
+            {
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
+                        proj.velocity = -proj.oldVelocity;
+                        proj.friendly = true;
+                        proj.hostile = false;
+                        proj.reflected = true;
+                    }
+                }
             }
         }
 

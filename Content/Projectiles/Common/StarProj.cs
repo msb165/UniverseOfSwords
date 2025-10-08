@@ -12,9 +12,9 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
+using UniverseOfSwords.Content.Dusts;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class StarProj : ModProjectile
     {

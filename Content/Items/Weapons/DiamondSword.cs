@@ -3,12 +3,12 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
-using static UniverseOfSwordsMod.Content.Projectiles.Common.GemBolt.GemType;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
+using static UniverseOfSwords.Content.Projectiles.Common.GemBolt.GemType;
 
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class DiamondSword : ModItem
     {

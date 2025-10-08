@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 
-namespace UniverseOfSwordsMod.Content.Tiles
+namespace UniverseOfSwords.Content.Tiles
 {
     public class DamascusBarTile : ModTile
     {

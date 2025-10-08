@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class Biter : ModItem
     {

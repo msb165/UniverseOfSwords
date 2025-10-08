@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class DraculaProj : ModProjectile
     {
@@ -31,6 +28,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.ignoreWater = true;
             Projectile.noEnchantmentVisuals = true;
             Projectile.extraUpdates = 1;
+            Projectile.tileCollide = false;
         }
 
         public override void AI()
@@ -41,7 +39,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (UniverseUtils.IsAValidTarget(target))
+            if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
             {
                 UniverseUtils.Spawn.VampireHeal(damageDone, Main.player[Projectile.owner].Center, target, Main.player[Projectile.owner]);
             }
@@ -62,12 +60,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = TextureAssets.Projectile[Type].Value;
-            Vector2 origin = texture.Size() / 2;
-            Color drawColor = Color.White with { A = 40 } * Projectile.Opacity;
-            SpriteEffects spriteEffects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-
-            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0f);
+            UniverseUtils.Drawing.DrawWithAfterImages(Projectile, Color.White with { A = 40 } * Projectile.Opacity);
             return false;
         }
     }

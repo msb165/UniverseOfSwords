@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Dusts
+namespace UniverseOfSwords.Content.Dusts
 {
     public class VugarMutater : ModDust
     {

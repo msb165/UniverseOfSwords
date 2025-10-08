@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SmolderBlade : ModItem
     {
@@ -15,7 +15,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.height = 42;
             Item.scale = 1.5f;
             Item.rare = ItemRarityID.LightRed;
-            Item.useStyle = ItemUseStyleID.Thrust;
+            Item.useStyle = ItemUseStyleID.Rapier;
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.damage = 30;
@@ -23,16 +23,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 50);
             Item.autoReuse = true;
-            Item.DamageType = DamageClass.Melee;
-        }
-
-        public override void MeleeEffects(Player player, Rectangle hitbox)
-        {
-            if (Main.rand.NextBool(1))
-            {
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Flare, 0f, 0f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
-            }
+            Item.DamageType = DamageClass.MeleeNoSpeed;
+            Item.noUseGraphic = true;
+            Item.noMelee = true;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Common.SmolderBlade>();
+            Item.shootSpeed = 2.5f;
         }
 
         public override void AddRecipes()
@@ -42,12 +37,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<SwordMatter>(), 15)
                 .AddTile(TileID.Anvils)
                 .Register();
-        }
-
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(BuffID.OnFire, 300);
-            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.Volcano, Item.damage, Item.knockBack, player.whoAmI);
         }
     }
 }

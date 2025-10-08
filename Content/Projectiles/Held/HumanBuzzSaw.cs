@@ -6,10 +6,11 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Items.Weapons;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held     //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace UniverseOfSwords.Content.Projectiles.Held     //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class HumanBuzzSaw : ModProjectile
     {
@@ -32,25 +33,23 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held     //We need this to bas
             Projectile.noEnchantmentVisuals = true;
         }
         Player Player => Main.player[Projectile.owner];
-
         public override void AI()
         {
-            //-------------------------------------------------------------Sound-------------------------------------------------------
             Projectile.soundDelay--;
-            if (Projectile.soundDelay <= 0)//this is the proper sound delay for this type of weapon
+            if (Projectile.soundDelay <= 0)
             {
-                Projectile.soundDelay = 50;    //this is the proper sound delay for this type of weapon
+                Projectile.soundDelay = 50; 
                 SoundEngine.PlaySound(SoundID.Item22, Projectile.position);
                 SoundEngine.PlaySound(SoundID.Item23, Projectile.position);
             }
-            //-----------------------------------------------How the projectile works---------------------------------------------------------------------
+
             if (!Player.channel || Player.noItems || Player.CCed)
             {
                 Projectile.Kill();
             }
+
             Vector2 speed = Vector2.Normalize(Main.MouseWorld - Player.Center);
             Projectile.Center = Player.MountedCenter + speed * 4f;
-            //Projectile.position.X += Player.width / 2 * Player.direction;  //this is the projectile width sptrite direction from the playr
             Projectile.spriteDirection = Player.direction;
             Projectile.rotation += 0.3f * Player.direction; //this is the projectile rotation/spinning speed
             if (Projectile.rotation > MathHelper.TwoPi)
@@ -61,19 +60,35 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held     //We need this to bas
             {
                 Projectile.rotation += MathHelper.TwoPi;
             }
+            if (Main.myPlayer == Projectile.owner)
+            {
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
+                        proj.velocity = -proj.oldVelocity;
+                        proj.friendly = true;
+                        proj.hostile = false;
+                        proj.reflected = true;
+                    }
+                }
+            }
+            SetPlayerValues();
+        }
+
+        public void SetPlayerValues()
+        {
+            Player.SetDummyItemTime(2);
             Player.heldProj = Projectile.whoAmI;
-            Player.itemTime = 2;
-            Player.itemAnimation = 2;
-            Player.itemRotation = Projectile.rotation;
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!UniverseUtils.IsAValidTarget(target))
+            if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
             {
-                return;
+                NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
             }
-            NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
         }
 
 

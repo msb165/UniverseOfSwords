@@ -9,10 +9,10 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class GolemLaser : ModProjectile
     {
@@ -43,6 +43,11 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Ichor, 300);
+        }
+
+        public override void OnKill(int timeLeft)
+        {
+            Projectile.Damage();
         }
 
         public override bool PreDraw(ref Color lightColor)

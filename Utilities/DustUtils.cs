@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 
-namespace UniverseOfSwordsMod.Utilities
+namespace UniverseOfSwords.Utilities
 {
     public partial class UniverseUtils
     {

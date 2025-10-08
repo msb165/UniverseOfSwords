@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwords.Content.Items.Placeable;
 
-namespace UniverseOfSwordsMod.Content.Items.Tools
+namespace UniverseOfSwords.Content.Items.Tools
 {
     public class DamascusHamaxe : ModItem
     {

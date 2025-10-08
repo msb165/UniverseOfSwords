@@ -3,11 +3,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class AncientKatana : ModItem
     {
@@ -38,7 +38,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -96f), new Vector2(4f, 4f));
+                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -96f), new Vector2(3f * player.direction, 4f));
             }
         }
 

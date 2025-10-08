@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class ScarletFire : ModProjectile
     {

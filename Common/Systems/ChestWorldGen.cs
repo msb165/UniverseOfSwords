@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
+using UniverseOfSwords.Content.Items.Weapons;
 
-namespace UniverseOfSwordsMod.Common.Systems
+namespace UniverseOfSwords.Common.Systems
 {
     public class ChestWorldGen : ModSystem
     {

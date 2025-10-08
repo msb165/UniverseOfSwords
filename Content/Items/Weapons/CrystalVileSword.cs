@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class CrystalVileSword : ModItem
     {
@@ -29,8 +29,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 64; 
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item101;
-			Item.shoot = ProjectileID.CrystalVileShardShaft;
-            Item.shootSpeed = 24f;
+			Item.shoot = ModContent.ProjectileType<CrystalVileShardShaft>();
+            Item.shootSpeed = 32f;
             Item.value = Item.sellPrice(gold: 10);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.MeleeNoSpeed;
@@ -57,8 +57,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-            proj.DamageType = DamageClass.MeleeNoSpeed;
+            Vector2 newVel = Vector2.Normalize(velocity) * 32f;
+            Projectile.NewProjectileDirect(source, position, newVel, type, damage, knockback, player.whoAmI);
             return false;
         }
     }

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Common.GlobalItems
+namespace UniverseOfSwords.Common.GlobalItems
 {
     public class ChangeArmRotation : GlobalItem
     {
@@ -14,9 +14,14 @@ namespace UniverseOfSwordsMod.Common.GlobalItems
                 float rotation = player.itemRotation - MathHelper.PiOver2 - MathHelper.PiOver4;
                 if (player.direction == -1)
                 {
-                    rotation -= MathHelper.PiOver4 * 2;
+                    rotation -= MathHelper.PiOver2;
                 }
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
+                if (player.gravDir == -1)
+                {
+                    rotation *= player.gravDir;
+                    rotation += MathHelper.PiOver2 * player.direction;
+                }
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation );
                 player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.ThreeQuarters, rotation);
             }
         }

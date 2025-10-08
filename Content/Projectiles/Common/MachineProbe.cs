@@ -9,11 +9,11 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Content.Items.Weapons;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class MachineProbe : ModProjectile
     {

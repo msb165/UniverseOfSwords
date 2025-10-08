@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UniverseOfSwordsMod.Utilities
+namespace UniverseOfSwords.Utilities
 {
     public partial class UniverseUtils
     {

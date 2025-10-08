@@ -4,12 +4,34 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
 
-namespace UniverseOfSwordsMod.Utilities
+namespace UniverseOfSwords.Utilities
 {
     public partial class UniverseUtils
     {
+        public struct Misc
+        {
+            public static NPC FindTargetWithinRange(Projectile proj, float maxRange, bool checkCanHit = false)
+            {
+                NPC result = null;
+                float range = maxRange;
+                foreach (NPC npc in Main.ActiveNPCs)
+                {
+                    if (npc.CanBeChasedBy() && proj.localNPCImmunity[npc.whoAmI] == 0 && (!checkCanHit || Collision.CanHitLine(proj.position, proj.width, proj.height, npc.position, npc.width, npc.height)))
+                    {
+                        float distance = proj.Distance(npc.Center);
+                        if (distance < range)
+                        {
+                            range = distance;
+                            result = npc;
+                        }
+                    }
+                }
+                return result;
+            }
+        }
+
         public struct Spawn
         {
             public static void SummonGenericSlash(Vector2 target, Color drawColor, int owner, int damage, int drawAlpha = 255, float lerpToWhite = 0f)
@@ -29,6 +51,11 @@ namespace UniverseOfSwordsMod.Utilities
 
             public static void VampireHeal(int dmg, Vector2 Position, Entity victim, Player owner)
             {
+                if (owner.moonLeech)
+                {
+                    return;
+                }
+
                 float healAmt = dmg * 0.075f;
                 if ((int)healAmt != 0 && !(Main.LocalPlayer.lifeSteal <= 0f))
                 {

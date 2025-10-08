@@ -3,12 +3,13 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class AntiInvader : ModItem
     {
@@ -32,6 +33,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.scale = 1.4f;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 6f);
+            }
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -48,18 +63,18 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
             if (target.life <= 0)
             {
-                Projectile.NewProjectileDirect(target.GetSource_Death(), target.Center, Vector2.Zero, ProjectileID.MonkStaffT3_AltShot, damageDone, Item.knockBack, player.whoAmI);
+                Projectile.NewProjectileDirect(target.GetSource_Death(), target.Center, Vector2.Zero, ProjectileID.MonkStaffT3_AltShot, (int)(damageDone * 1.5), Item.knockBack, player.whoAmI);
             }
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.MartianConduitPlating, 1000);
-            recipe.AddIngredient(null, "MartianSaucerCore", 1);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 200);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+             CreateRecipe()
+                .AddIngredient(ItemID.MartianConduitPlating, 1000)
+                .AddIngredient(ModContent.ItemType<MartianSaucerCore>())
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 200)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 }

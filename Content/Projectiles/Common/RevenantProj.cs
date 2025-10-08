@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class RevenantProj : ModProjectile
     {
@@ -65,11 +65,11 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 }
             }
 
-            if (attackTarget != -1)
+            if (attackTarget != -1 && Main.npc[attackTarget].active)
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 8;
                 Vector2 speed = Vector2.Normalize(Main.npc[attackTarget].Center - Projectile.Center);
-                float velMulti = Main.npc[attackTarget].velocity.Length() * 1.25f;
+                float velMulti = Main.npc[attackTarget].velocity.Length() * 2f;
                 if (MathF.Abs(velMulti) <= 1f)
                 {
                     velMulti = 6f;

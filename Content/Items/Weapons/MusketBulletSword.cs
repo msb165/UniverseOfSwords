@@ -4,11 +4,12 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class MusketBulletSword : ModItem
     {
@@ -19,8 +20,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 64;
-            Item.height = 64;
+            Item.width = 32;
+            Item.height = 32;
             Item.scale = 1.25f;
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -28,10 +29,24 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 25;
             Item.damage = 15;
             Item.knockBack = 3.5f;
-            Item.UseSound = SoundID.Item11;
+            Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 15);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 6f);
+            }
         }
 
         public override void AddRecipes()

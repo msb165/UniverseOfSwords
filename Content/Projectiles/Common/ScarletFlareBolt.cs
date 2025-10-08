@@ -6,9 +6,9 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class ScarletFlareBolt : ModProjectile
     {
@@ -85,9 +85,13 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnKill(int timeLeft)
         {
-            for (int k = 0; k < 10; k++)
+            for (int i = 4; i < 31; i++)
             {
-                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Firework_Red, Projectile.oldVelocity.X * 0.6f, Projectile.oldVelocity.Y * 0.1f);
+                Vector2 oldVel = Projectile.oldVelocity * (30f / i);
+                Dust dust = Dust.NewDustDirect(Projectile.position - oldVel, 8, 8, DustID.Clentaminator_Red, Projectile.oldVelocity.X, Projectile.oldVelocity.Y, 100, default, 1.25f);
+                dust.noGravity = true;
+                dust = Dust.NewDustDirect(Projectile.position - oldVel, 8, 8, DustID.Clentaminator_Red, Projectile.oldVelocity.X, Projectile.oldVelocity.Y, 100, default, 1f);
+                dust.noGravity = true;
             }
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
         }

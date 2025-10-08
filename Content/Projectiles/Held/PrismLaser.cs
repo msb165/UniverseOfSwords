@@ -6,7 +6,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
     public class PrismLaser : ModProjectile
     {
@@ -24,6 +24,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
             Projectile.tileCollide = false;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 17;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public Projectile LaserShooter => Main.projectile[(int)Projectile.ai[1]];

@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Rocket : ModProjectile
     {
@@ -24,7 +24,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.height = 14;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
         }
 
         public override void AI()
@@ -34,35 +34,20 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             {
                 for (int n = 0; n < 2; n++)
                 {
-                    float num23 = 0f;
-                    float num24 = 0f;
+                    float offsetX = 0f;
+                    float offsetY = 0f;
                     if (n == 1)
                     {
-                        num23 = Projectile.velocity.X * 0.5f;
-                        num24 = Projectile.velocity.Y * 0.5f;
+                        offsetX = Projectile.velocity.X * 0.5f;
+                        offsetY = Projectile.velocity.Y * 0.5f;
                     }
-                    int num25 = Dust.NewDust(new Vector2(Projectile.position.X + 3f + num23, Projectile.position.Y + 3f + num24) - Projectile.velocity * 0.5f, Projectile.width - 8, Projectile.height - 8, DustID.Torch, 0f, 0f, 100);
-                    Main.dust[num25].scale *= 2f + (float)Main.rand.Next(10) * 0.1f;
-                    Main.dust[num25].velocity *= 0.2f;
-                    Main.dust[num25].noGravity = true;
-                    if (Main.dust[num25].type == 152)
-                    {
-                        Main.dust[num25].scale *= 0.5f;
-                        Main.dust[num25].velocity += Projectile.velocity * 0.1f;
-                    }
-                    else if (Main.dust[num25].type == 35)
-                    {
-                        Main.dust[num25].scale *= 0.5f;
-                        Main.dust[num25].velocity += Projectile.velocity * 0.1f;
-                    }
-                    else if (Main.dust[num25].type == Dust.dustWater())
-                    {
-                        Main.dust[num25].scale *= 0.65f;
-                        Main.dust[num25].velocity += Projectile.velocity * 0.1f;
-                    }
-                    num25 = Dust.NewDust(new Vector2(Projectile.position.X + 3f + num23, Projectile.position.Y + 3f + num24) - Projectile.velocity * 0.5f, Projectile.width - 8, Projectile.height - 8, DustID.Smoke, 0f, 0f, 100, default, 0.5f);
-                    Main.dust[num25].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
-                    Main.dust[num25].velocity *= 0.05f;
+                    int dust = Dust.NewDust(new Vector2(Projectile.position.X + 3f + offsetX, Projectile.position.Y + 3f + offsetY) - Projectile.velocity * 0.5f, Projectile.width - 8, Projectile.height - 8, DustID.Torch, 0f, 0f, 100);
+                    Main.dust[dust].scale *= 2f + (float)Main.rand.Next(10) * 0.1f;
+                    Main.dust[dust].velocity *= 0.2f;
+                    Main.dust[dust].noGravity = true;
+                    dust = Dust.NewDust(new Vector2(Projectile.position.X + 3f + offsetX, Projectile.position.Y + 3f + offsetY) - Projectile.velocity * 0.5f, Projectile.width - 8, Projectile.height - 8, DustID.Smoke, 0f, 0f, 100, default, 0.5f);
+                    Main.dust[dust].fadeIn = 1f + (float)Main.rand.Next(5) * 0.1f;
+                    Main.dust[dust].velocity *= 0.05f;
                 }
             }
             if (Math.Abs(Projectile.velocity.X) < 15f && Math.Abs(Projectile.velocity.Y) < 15f)

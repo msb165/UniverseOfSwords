@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class SOTM : ModProjectile
     {
@@ -30,6 +30,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
             Projectile.tileCollide = false;          //Can the projectile collide with tiles?
             Projectile.extraUpdates = 1;            //Set to above 0 if you want the projectile to update multiple time in a frame
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 0;
         }
 
         public override void AI()

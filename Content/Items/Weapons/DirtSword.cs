@@ -1,16 +1,17 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class DirtSword : ModItem
     {
         public override void SetDefaults()
         { 
-            Item.width = 36;
-            Item.height = 36; 
-			Item.scale = 1f;
+            Item.width = 24;
+            Item.height = 24; 
+			Item.scale = 1.125f;
             Item.rare = ItemRarityID.White;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 30;
@@ -22,8 +23,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = false; 
             Item.DamageType = DamageClass.Melee;
 	    }
-	           
-		public override void AddRecipes()
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
+
+
+        public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.DirtBlock, 25)

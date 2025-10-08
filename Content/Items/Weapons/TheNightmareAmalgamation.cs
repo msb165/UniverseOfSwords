@@ -5,11 +5,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class TheNightmareAmalgamation : ModItem
     {
@@ -43,7 +43,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile.NewProjectile(source, position - Vector2.UnitY * 72f + velocity * 4f, velocity, type, damage, knockback, player.whoAmI);
+            //Projectile.NewProjectile(source, position - Vector2.UnitY * 72f + velocity, velocity, type, damage, knockback, player.whoAmI);
             return false;
         }
 
@@ -60,10 +60,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 return;
             }
-            Vector2 newPos = Main.rand.NextVector2CircularEdge(200f, 200f);
-            Vector2 newVel = (target.Center - newPos).SafeNormalize(Vector2.UnitY) * 4f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - newPos, newVel * Main.rand.NextFloat(0.9f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
-            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - newPos, newVel * Main.rand.NextFloat(0.9f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+            Vector2 newPos = Main.rand.NextVector2CircularEdge(199f, 199f);
+            Vector2 newVel = (target.Center - newPos).SafeNormalize(Vector2.UnitY) * 10f;
+            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - newPos, newVel * Main.rand.NextFloat(1f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - newPos, newVel * Main.rand.NextFloat(1f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
             Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<NightmareBlast>(), damageDone, Item.knockBack / 2, player.whoAmI, target.whoAmI);
             target.AddBuff(BuffID.ShadowFlame, 800);
             target.AddBuff(BuffID.Venom, 800);
@@ -77,7 +77,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<TheEater>())
                 .AddIngredient(ItemID.BeeKeeper)
                 .AddIngredient(ModContent.ItemType<FixedSwordOfPower>())
-                .AddIngredient(ItemID.BreakerBlade, 1)
+                .AddIngredient(ItemID.BreakerBlade)
                 .AddIngredient(ModContent.ItemType<PrimeSword>())
                 .AddIngredient(ModContent.ItemType<DestroyerSword>())
                 .AddIngredient(ModContent.ItemType<TwinsSword>())

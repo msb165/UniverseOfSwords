@@ -2,10 +2,10 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Projectiles.Held;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Held;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons      //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
+namespace UniverseOfSwords.Content.Items.Weapons      //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {
     public class HumanBuzzSaw : ModItem
     {

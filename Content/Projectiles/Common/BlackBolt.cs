@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class BlackBolt : ModProjectile
     {
@@ -28,6 +27,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.ignoreWater = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 8;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public override void AI()
@@ -50,18 +50,17 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 if (Projectile.alpha < 0)
                 {
                     Projectile.alpha = 0;
-                    float num119 = 16f;
-                    for (int num120 = 0; (float)num120 < num119; num120++)
+                    float amount = 16f;
+                    for (int i = 0; i < amount; i++)
                     {
-                        Vector2 spinningpoint7 = Vector2.UnitX * 0f;
-                        spinningpoint7 += -Vector2.UnitY.RotatedBy((float)num120 * ((float)Math.PI * 2f / num119)) * new Vector2(1f, 4f);
-                        spinningpoint7 = spinningpoint7.RotatedBy(Projectile.velocity.ToRotation());
-                        int num121 = Dust.NewDust(Projectile.Center, 0, 0, DustID.PurpleTorch);
-                        Main.dust[num121].scale = 1.5f;
-                        Main.dust[num121].noLight = true;
-                        Main.dust[num121].noGravity = true;
-                        Main.dust[num121].position = Projectile.Center + spinningpoint7;
-                        Main.dust[num121].velocity = Main.dust[num121].velocity * 4f + Projectile.velocity * 0.3f;
+                        Vector2 spinningpoint = -Vector2.UnitY.RotatedBy(i * (MathHelper.TwoPi / amount)) * new Vector2(1f, 4f);
+                        spinningpoint = spinningpoint.RotatedBy(Projectile.velocity.ToRotation());
+                        Dust dust = Dust.NewDustDirect(Projectile.Center, 0, 0, DustID.PurpleTorch);
+                        dust.scale = 1.5f;
+                        dust.noLight = true;
+                        dust.noGravity = true;
+                        dust.position = Projectile.Center + spinningpoint;
+                        dust.velocity = dust.velocity * 4f + Projectile.velocity * 0.3f;
                     }
                 }
             }
@@ -69,11 +68,6 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (UniverseUtils.IsAValidTarget(target))
-            {
-                Projectile.localNPCImmunity[target.whoAmI] = 8;
-                target.immune[Projectile.owner] = 0;
-            }
             target.AddBuff(BuffID.ShadowFlame, 300);
         }
 

@@ -1,14 +1,14 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
-using static UniverseOfSwordsMod.Content.Projectiles.Common.GemBolt.GemType;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
+using static UniverseOfSwords.Content.Projectiles.Common.GemBolt.GemType;
 
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class AmethystSword : ModItem
     {
@@ -27,13 +27,27 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(silver: 20);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 6f);
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             if (Main.rand.NextBool(2))
             {
-                UniverseUtils.SpawnRotatedDust(player, DustID.Enchanted_Pink, 1.5f, 16, 80);
+                UniverseUtils.SpawnRotatedDust(player, DustID.CrystalSerpent_Pink, 1.5f, 16, 80);
             }
         }
 

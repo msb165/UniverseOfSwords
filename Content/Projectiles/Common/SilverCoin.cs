@@ -3,11 +3,12 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
-    public class SiolverCoin : ModProjectile
+    public class SilverCoin : ModProjectile
     {
         public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.SilverCoin}";
 
@@ -37,23 +38,14 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             dust.position = Projectile.Center - Projectile.velocity;
             dust.velocity *= 0.3f;
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;           
-            
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 25f)
-            {
-                Projectile.alpha += 10;
-                if (Projectile.alpha >= 255)
-                {
-                    Projectile.active = false;
-                }
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.SimpleFadeOut(ai: 0, 25f);
         }
 
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);
-            Dust dust = Dust.NewDustPerfect(Projectile.position, ModContent.DustType<GoldCoin>());
+            Dust dust = Dust.NewDustPerfect(Projectile.position, DustID.SilverCoin);
             dust.noGravity = true;
             dust.velocity -= Projectile.velocity * 0.5f;
         }

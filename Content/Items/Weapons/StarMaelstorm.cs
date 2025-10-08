@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class StarMaelstorm : ModItem
     {
@@ -48,8 +48,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 Item.useTime = 40;
                 Item.useAnimation = 40;
                 Item.damage = 100;
-                Item.shoot = ProjectileID.DD2ApprenticeStorm;
-                Item.shootSpeed = 5f;
+                Item.shoot = ModContent.ProjectileType<MaelstormTornado>();
+                Item.shootSpeed = 2f;
                 Item.shootsEveryUse = false;
             }
             else
@@ -73,8 +73,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
             if (player.altFunctionUse == 2)
             {
-                Projectile.NewProjectile(source, player.Center, Vector2.UnitX * player.direction * velocity.Length(), ProjectileID.DD2ApprenticeStorm, damage, knockback, player.whoAmI);
-                Projectile.NewProjectile(source, player.Center, -Vector2.UnitX * player.direction * velocity.Length(), ProjectileID.DD2ApprenticeStorm, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, Vector2.UnitX * player.direction * velocity.Length(), ModContent.ProjectileType<MaelstormTornado>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, -Vector2.UnitX * player.direction * velocity.Length(), ModContent.ProjectileType<MaelstormTornado>(), damage, knockback, player.whoAmI);
             }
 
             return false;

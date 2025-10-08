@@ -3,11 +3,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class CalculatorSword : ModItem
     {

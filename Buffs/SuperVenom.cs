@@ -1,10 +1,10 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common.GlobalNPCs;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common.GlobalNPCs;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Buffs
+namespace UniverseOfSwords.Buffs
 {
     public class SuperVenom : ModBuff
     {

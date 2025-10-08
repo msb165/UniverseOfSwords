@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
+using UniverseOfSwords.Content.Items.Weapons;
 
-namespace UniverseOfSwordsMod.Content.Items.Consumables
+namespace UniverseOfSwords.Content.Items.Consumables
 {
 	public class RevenantBag : ModItem
 	{

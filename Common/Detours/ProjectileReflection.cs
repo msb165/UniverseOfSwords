@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common.GlobalItems;
+using UniverseOfSwords.Common.GlobalItems;
 
-namespace UniverseOfSwordsMod.Common.Detours
+namespace UniverseOfSwords.Common.Detours
 {
     public partial class DetourChanges : ModSystem
     {

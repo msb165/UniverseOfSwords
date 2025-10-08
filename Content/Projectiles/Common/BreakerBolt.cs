@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class BreakerBolt : ModProjectile
     {
@@ -30,6 +33,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 dust.noGravity = true;
                 dust.velocity *= 0.6f;
             }
+            Projectile.SimpleFadeOut(ai: 0, maxTime: 30f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -50,7 +54,20 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override bool PreDraw(ref Color lightColor)
         {
-            return base.PreDraw(ref lightColor);
+            Texture2D texture = TextureAssets.Projectile[Type].Value;
+            Vector2 origin = new(texture.Width, 0f);
+            Color drawColor = Color.White with { A = 80 } * Projectile.Opacity;
+            Color trailColor = drawColor;
+            SpriteEffects spriteEffects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            for (int i = 0; i < Projectile.oldPos.Length; i++)
+            {
+                trailColor *= 0.7f;
+                Main.spriteBatch.Draw(texture, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, trailColor, Projectile.oldRot[i], origin, Projectile.scale, spriteEffects, 0f);
+            }
+
+            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0f);
+            return false;
         }
     }
 }

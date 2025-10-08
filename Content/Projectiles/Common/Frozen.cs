@@ -6,9 +6,10 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Frozen : ModProjectile
     {
@@ -35,17 +36,12 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-
-            if (Projectile.ai[0]++ >= 30f)
+            if (Projectile.velocity.Length() > 4f)
             {
-                Projectile.alpha += 10;
-                if (Projectile.alpha >= 255)
-                {
-                    Projectile.active = false;
-                }
+                Projectile.velocity *= 0.94f;
             }
-
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.SimpleFadeOut(ai: 0, maxTime: 30f);
             for (int i = 0; i < 3; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.VugarMutater>());

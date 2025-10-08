@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class Inflation : ModItem
     {
@@ -24,16 +25,31 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.knockBack = 10f;
             Item.useTime = 62;
             Item.useAnimation = 62;
-            Item.damage = 240;
+            Item.damage = 90;
             Item.DamageType = DamageClass.Melee;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(gold: 2000);
             Item.autoReuse = true;
             Item.holdStyle = 0;
+            Item.channel = true;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Held.Inflation>();
+            Item.shootSpeed = 1f;
+            Item.noMelee = true;
+        }
+
+        public override bool CanShoot(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
+
+        int swingDirection = 1;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            swingDirection *= -1;
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai1: swingDirection);
+            return false;
         }
 
         public override void HoldItem(Player player)
         {
+            Item.noUseGraphic = player.ItemAnimationActive;
             Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
 
@@ -69,7 +85,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ItemID.GoldCoin, 2000)
                 .AddIngredient(ItemID.GoldenCrate, 10)
-                .AddIngredient(ItemID.GoldBrick, 999)
+                .AddIngredient(ItemID.GoldBrick, 1000)
                 .AddIngredient(ItemID.GoldBroadsword, 10)
                 .AddIngredient(ItemID.GoldBar, 500)
                 .AddTile(TileID.Anvils)
@@ -77,7 +93,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ItemID.GoldCoin, 2000)
                 .AddIngredient(ItemID.GoldenCrateHard, 10)
-                .AddIngredient(ItemID.PlatinumBrick, 999)
+                .AddIngredient(ItemID.PlatinumBrick, 1000)
                 .AddIngredient(ItemID.PlatinumBroadsword, 10)
                 .AddIngredient(ItemID.PlatinumBar, 500)
                 .AddTile(TileID.Anvils)

@@ -1,10 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class BarbarianSword : ModItem
     {
@@ -17,15 +18,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         { 
             Item.width = 58;
             Item.height = 58; 
-			Item.scale = 1f;
+			Item.scale = 1.125f;
             Item.rare = ItemRarityID.Blue;            
-            Item.useStyle = ItemUseStyleID.Swing;             
+            Item.useStyle = ItemUseStyleID.HoldUp;             
             Item.useTime = 24;
             Item.useAnimation = 24;           
             Item.damage = 20; 
             Item.knockBack = 3f;
             Item.UseSound = SoundID.Item1;
-            Item.value = 15000;			
+            Item.value = Item.sellPrice(silver: 15);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
 	    }
@@ -33,21 +34,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
        	public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             player.itemLocation.Y -= 1f * player.gravDir;
-		}
-		
-		public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.IronBroadsword, 1);
-            recipe.AddIngredient(null, "UpgradeMatter", 1);
-            recipe.AddTile(TileID.Anvils);			
-            recipe.Register();
-			
-			recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.LeadBroadsword, 1);
-			recipe.AddIngredient(null, "UpgradeMatter", 1);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
-	    }
+		}	
     }
 }

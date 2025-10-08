@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace UniverseOfSwordsMod.Common
+namespace UniverseOfSwords.Common
 {
     public class UniverseConfig : ModConfig
     {
@@ -10,6 +10,9 @@ namespace UniverseOfSwordsMod.Common
         [Header("General")]
         [DefaultValue(false)]
         public bool enableVanillaChanges;
+
+        [DefaultValue(true)]
+        public bool starterSwords;
 
         [Header("Misc")]
         [DefaultValue(true)]

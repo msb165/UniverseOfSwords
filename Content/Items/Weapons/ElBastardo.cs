@@ -1,8 +1,9 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class ElBastardo : ModItem
     {
@@ -26,5 +27,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
     }
 }

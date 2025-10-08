@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class MagnetSword : ModItem
     {
@@ -17,8 +17,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 64;
-            Item.height = 64;
+            Item.width = 48;
+            Item.height = 48;
             Item.scale = 1.125f;
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -48,7 +48,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 return;
             }
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Vector2 spawnPos = Main.rand.NextVector2Circular(200f, 200f);
                 Vector2 spawnVel = spawnPos.SafeNormalize(Vector2.UnitY);
@@ -60,7 +60,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 }
                 Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, spawnVel, ModContent.ProjectileType<MagnetSphereBall>(), hit.Damage, Item.knockBack, player.whoAmI);
             }
-
         }
     }
 }

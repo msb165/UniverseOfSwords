@@ -5,11 +5,11 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common.GlobalItems;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
     public class ScarletFlareGreatsword : ModProjectile
     {
@@ -38,12 +38,13 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
         Player Player => Main.player[Projectile.owner];
         ref float Timer => ref Projectile.ai[0];
         int delay = 60;
+
         public override void AI()
         {
             Timer++;
             Projectile.Center = Player.Center;
             Projectile.spriteDirection = Projectile.direction;
-            Projectile.rotation += MathHelper.Clamp(MathHelper.Lerp(0f, 0.2f * Player.direction, UniverseUtils.Easings.EaseInBack(Timer * 0.025f)), -0.25f, 0.25f);
+            Projectile.rotation += MathHelper.Clamp(MathHelper.Lerp(0f, 0.2f * Player.direction, UniverseUtils.Easings.EaseInBack(Timer * 0.025f) * 1.5f), -0.25f, 0.25f);
             if (Projectile.soundDelay == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item45 with { Volume = 0.75f }, Projectile.position);
@@ -66,7 +67,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && !proj.friendly && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
                     {
                         SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
                         proj.velocity = -proj.oldVelocity;
@@ -106,14 +107,14 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!UniverseUtils.IsAValidTarget(target))
+            if (!UniverseUtils.IsAValidTarget(target) && !Projectile.CanHitWithMeleeWeapon(target))
             {
                 return;
             }
-            int rand = Main.rand.Next(2); //Generates an integer from 0 to 1
+            int rand = Main.rand.Next(2);
             if (rand == 0)
             {
-                target.AddBuff(BuffID.OnFire, 700); //On Fire! debuff for 3 seconds
+                target.AddBuff(BuffID.OnFire, 700); 
             }
             else if (rand == 1)
             {
@@ -126,7 +127,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
                 {
                     Vector2 spawnPos = Main.rand.NextVector2CircularEdge(200f, 200f);
                     Vector2 spawnVel = Vector2.Normalize(Player.Center - target.Center - spawnPos);
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center + spawnVel * 200f, -spawnVel * 16f, ModContent.ProjectileType<FlareCore>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), target.Center + spawnVel * 200f, -spawnVel * 16f, ModContent.ProjectileType<FlareCore>(), Projectile.damage / 2, Projectile.knockBack, Projectile.owner, ai1: target.whoAmI);
                 }
                 NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
             }

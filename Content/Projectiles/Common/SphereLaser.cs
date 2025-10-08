@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class SphereLaser : ModProjectile
     {
@@ -20,6 +20,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.DamageType = DamageClass.Melee;
             Projectile.extraUpdates = 100;
             Projectile.timeLeft = 100;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public override void AI()

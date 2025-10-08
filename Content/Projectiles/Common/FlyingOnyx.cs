@@ -1,18 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class FlyingOnyx : ModProjectile
     {
@@ -37,6 +33,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override bool? CanDamage() => false;
 
+        Player Player => Main.player[Projectile.owner];
+
         public override void AI()
         {
             NPC npc = Main.npc[(int)TargetIndex];
@@ -52,15 +50,14 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             if (Main.myPlayer == Projectile.owner && Timer % 25f == 0f)
             {
                 SoundEngine.PlaySound(SoundID.Item36, Projectile.position);
-                Vector2 spawnVel = Vector2.Normalize(npc.Center - Projectile.Center) * 16f;
-                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center + spawnVel, spawnVel, ModContent.ProjectileType<BlackBolt>(), Projectile.damage / 2, 4f, Projectile.owner);
-                proj.DamageType = DamageClass.Melee;
+                Vector2 spawnVel = Vector2.Normalize(npc.Center - Projectile.Center) * 16f * Player.GetTotalAttackSpeed(DamageClass.Melee);
+                Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center + spawnVel, spawnVel, ModContent.ProjectileType<BlackBolt>(), Projectile.damage / 2, 4f, Projectile.owner);
             }
         }
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+            Texture2D texture = TextureAssets.Projectile[Type].Value;
             Color drawColor = Projectile.GetAlpha(lightColor);
             Vector2 drawOrigin = texture.Size() / 2;
             SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None;

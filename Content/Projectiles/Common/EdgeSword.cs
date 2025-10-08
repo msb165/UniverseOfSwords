@@ -4,10 +4,10 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class EdgeSword : ModProjectile
     {
@@ -41,7 +41,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
             for (int i = 0; i < 3; i++)
             {
-                Dust dust = Dust.NewDustPerfect(Projectile.position, DustID.RedTorch, Vector2.Zero, 100);
+                Dust dust = Dust.NewDustPerfect(Projectile.position, DustID.LifeDrain, Vector2.Zero, 100, Scale: 1.25f);
                 dust.position = Projectile.Center - Projectile.velocity / 3f * i;
                 dust.noGravity = true;
             }
@@ -75,7 +75,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         {
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, Alpha: 100);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.LifeDrain, Alpha: 100, Scale: 2.5f);
                 dust.velocity *= 4f;
                 dust.noGravity = true;
             }

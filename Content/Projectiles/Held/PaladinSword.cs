@@ -1,20 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
-using static UniverseOfSwordsMod.Content.Projectiles.Held.DeusExcalibur;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
     internal class PaladinSword : ModProjectile
     {
@@ -86,6 +82,21 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
                 Player.reuseDelay = 2;
             }
 
+            if (Main.myPlayer == Projectile.owner)
+            {
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
+                        proj.velocity = -proj.oldVelocity;
+                        proj.friendly = true;
+                        proj.hostile = false;
+                        proj.reflected = true;
+                    }
+                }
+            }
+
             SetPlayerValues();
         }
 
@@ -155,6 +166,10 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
                 Projectile.Kill();
                 return;
             }
+            else
+            {
+                Projectile.SimpleFadeOut(ai: 0, 60f);
+            }
             Projectile.direction = Player.direction;
             Projectile.rotation += 0.3f * Projectile.direction;
             Projectile.velocity *= 0.98f;
@@ -163,7 +178,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (CurrentState is AIState.Throw or AIState.Retract && Main.myPlayer == Projectile.owner && Projectile.ai[2] == 0f)
+            if (CurrentState is AIState.Throw or AIState.Retract && Main.myPlayer == Projectile.owner && Projectile.ai[2] == 0f && UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target))
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -172,7 +187,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
                 }
                 Projectile.ai[2] = 1f;
             }
-            else if (CurrentState is AIState.Swing_Left or AIState.Swing_Right && Main.myPlayer == Projectile.owner)
+            else if (CurrentState is AIState.Swing_Left or AIState.Swing_Right && Main.myPlayer == Projectile.owner && UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target))
             {
                 NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);                
             }

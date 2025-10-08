@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Tools
+namespace UniverseOfSwords.Content.Items.Tools
 {
 	public class DamascusPickaxe : ModItem
 	{

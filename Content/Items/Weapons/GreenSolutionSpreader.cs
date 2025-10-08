@@ -5,10 +5,11 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Projectiles.Held;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Held;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class GreenSolutionSpreader : ModItem
     {
@@ -30,7 +31,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.shootSpeed = 1f;
             Item.value = Item.sellPrice(gold: 2, silver: 25);
             Item.autoReuse = true;
-            Item.DamageType = DamageClass.MeleeNoSpeed;
+            Item.DamageType = DamageClass.Default;
             Item.useAmmo = AmmoID.Solution;
             Item.channel = true;
             Item.noMelee = true;

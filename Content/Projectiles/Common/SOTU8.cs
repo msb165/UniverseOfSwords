@@ -5,7 +5,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class SOTU8 : ModProjectile
     {
@@ -53,7 +53,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 dust2 = dust;
                 dust2.scale *= 0.9f;
             }
-            if (Projectile.owner == Main.myPlayer)
+            if (Main.myPlayer == Projectile.owner)
             {
                 for (int j = 0; j < 10; j++)
                 {

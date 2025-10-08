@@ -1,31 +1,24 @@
 using System;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Accessories;
-using UniverseOfSwordsMod.Content.Items.Consumables;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Items.Placeable;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwords.Content.Items.Accessories;
+using UniverseOfSwords.Content.Items.Consumables;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Placeable;
+using UniverseOfSwords.Content.Items.Weapons;
 
-namespace UniverseOfSwordsMod.Common.GlobalNPCs
+namespace UniverseOfSwords.Common.GlobalNPCs
 {
     public class UniverseOfSwordsModGlobalNPC : GlobalNPC
     {
 
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
-            if (Main.rand.NextBool(2))
-            {
-                shop[nextSlot] = ModContent.ItemType<Skooma>();
-                nextSlot++;
-            }
             if (Main.rand.NextBool(5))
             {
-                shop[nextSlot] = ModContent.ItemType<PianoSword1>();
+                shop[nextSlot] = ModContent.ItemType<Skooma>();
                 nextSlot++;
             }
         }
@@ -33,17 +26,16 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
             Conditions.IsHardmode hardMode = new();
-            Conditions.IsPreHardmode notHardMode = new();
-            Conditions.DownedPlantera downedPlantera = new();
             Conditions.NotExpert isNotExpert = new();            
 
-            if (npc.lifeMax > 5 && !npc.immortal && !npc.boss && !NPCID.Sets.CountsAsCritter[npc.type])
+            if (npc.lifeMax > 5 && !npc.immortal && !NPCID.Sets.CountsAsCritter[npc.type])
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 20, 1, 12));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 4, 2, 15));
             }
 
             if (npc.boss)
             {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 2, 5, 30));
                 npcLoot.Add(ItemDropRule.ByCondition(hardMode, ModContent.ItemType<UpgradeMatter>(), 10, 1, 6));
             }
 
@@ -89,13 +81,10 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
                     npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<SolBlade>(), 100));
                     break;
                 case NPCID.CultistBoss:
-                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<Doomsday>()));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Doomsday>()));
                     break;
                 case NPCID.MoonLordCore:
                     npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<StarMaelstorm>(), 30));
-                    break;
-                case NPCID.BigMimicJungle:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<RottenSword>(), 10));
                     break;
                 case NPCID.BigMimicHallow:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CrystalVileSword>(), 10));
@@ -119,11 +108,11 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScarletFlareCore>(), 4));
                     break;
                 case NPCID.GreekSkeleton:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CaesarSword>(), 4));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CaesarSword>(), 6));
                     break;
                 case NPCID.BlackRecluse:
                 case NPCID.BlackRecluseWall:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSword>(), 5));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PoisonSword>(), 6));
                     break;
                 case NPCID.Vampire:
                 case NPCID.VampireBat:
@@ -134,7 +123,6 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
                 case NPCID.LunarTowerVortex:
                 case NPCID.LunarTowerStardust:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<BeliarClaw>(), 5));
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<InnosWrath>(), 6));
                     break;
                 case NPCID.GoblinSummoner:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PhantomScimitar>(), 6));
@@ -158,10 +146,10 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FeatherDuster>(), 3));
                     break;
                 case NPCID.Frankenstein:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FingerOfDoom>(), 4));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FingerOfDoom>(), 5));
                     break;
                 case NPCID.Stylist:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Extase>(), 4));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Extase>(), 10));
                     break;
                 case NPCID.GraniteGolem:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WitherBane>(), 4));
@@ -198,8 +186,10 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
                 case NPCID.GoblinPeon:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<GoblinKnife>(), 15));
                     break;
+                case NPCID.IchorSticker:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IchorBlade>(), 25));
+                    break;
             }
         }
-
     }
 }

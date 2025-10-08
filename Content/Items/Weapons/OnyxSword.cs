@@ -3,12 +3,13 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class OnyxSword : ModItem
     {
@@ -31,30 +32,25 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 5, silver: 10);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
-            Item.holdStyle = 999;
+            Item.holdStyle = 0;
         }
 
-        public override void AddRecipes()
+        public override void HoldItem(Player player)
         {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
-                .AddIngredient(ItemID.OnyxBlaster)
-                .AddIngredient(ItemID.SoulofNight, 10)
-                .AddTile(TileID.MythrilAnvil)
-                .Register();
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -64f), new Vector2(0f, 4f));
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 6f);
             }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            UniverseUtils.SpawnRotatedDust(player, DustID.PurpleTorch, 2f);
+            UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Purple, end: (int)(84 * Item.scale));
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -77,6 +73,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             }
 
             Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, Vector2.Zero, ModContent.ProjectileType<FlyingOnyx>(), Item.damage, Item.knockBack, player.whoAmI, target.whoAmI);
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
+                .AddIngredient(ItemID.OnyxBlaster)
+                .AddIngredient(ItemID.SoulofNight, 10)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 }

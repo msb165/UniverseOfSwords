@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Common.Detours
+namespace UniverseOfSwords.Common.Detours
 {
     public partial class DetourChanges : ModSystem
     {
@@ -14,6 +14,7 @@ namespace UniverseOfSwordsMod.Common.Detours
         {
             On_Player.ItemCheck_GetMeleeHitbox += On_Player_ItemCheck_GetMeleeHitbox;
             On_Player.ItemCheck_OwnerOnlyCode += AddProjectileReflection;
+            On_NPC.AI_001_Slimes_GenerateItemInsideBody += On_NPC_AI_001_Slimes_GenerateItemInsideBody;
         }
     }
 }

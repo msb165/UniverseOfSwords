@@ -10,13 +10,13 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Content.Items.Weapons;
+using UniverseOfSwords.Content.Projectiles.Common;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
-    internal class SwordOfTheMultiverse : ModProjectile
+    public class SwordOfTheMultiverse : ModProjectile
     {
         public override string Texture => ModContent.GetInstance<Items.Weapons.SwordOfTheMultiverse>().Texture;
 
@@ -59,7 +59,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
                 Projectile.scale = 1.25f - MathHelper.SmoothStep(0f, 1.25f, Projectile.ai[0] * 0.0125f);
             }
 
-            if (Projectile.owner == Main.myPlayer && Projectile.ai[0] == 0f)
+            if (Main.myPlayer == Projectile.owner && Projectile.ai[0] == 0f)
             {
                 Vector2 newVel = (Main.MouseWorld - Player.Center).SafeNormalize(Vector2.Zero) * 10f;
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + newVel, newVel, ModContent.ProjectileType<SOTM>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

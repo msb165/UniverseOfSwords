@@ -5,10 +5,10 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class PianoSword4 : ModItem
     {
@@ -20,8 +20,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 132;
-            Item.height = 132;
+            Item.width = 66;
+            Item.height = 66;
             Item.scale = 1f;
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -29,31 +29,27 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 30;
             Item.damage = 88;
             Item.knockBack = 3f;
-            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/PianoYellow");
+            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwords)}/Assets/Sounds/Item/PianoYellow") with { PitchVariance = 0.5f };
             Item.shoot = ProjectileID.HolyArrow;
-            Item.shootSpeed = 5f;
+            Item.shootSpeed = 3f;
             Item.value = Item.sellPrice(gold: 12);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            player.itemLocation.X -= 1f * player.direction;
-            player.itemLocation.Y -= 1f * player.direction;
-        }
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.PearlwoodPiano, 1);
-            recipe.AddIngredient(ItemID.MartianPiano, 1);
-            recipe.AddIngredient(ItemID.CrystalPiano, 1);
-            recipe.AddIngredient(ItemID.SpookyPiano, 1);
-            recipe.AddIngredient(ItemID.FleshPiano, 1);
-            recipe.AddIngredient(ItemID.LihzahrdPiano, 1);
-            recipe.AddIngredient(ItemID.SteampunkPiano, 1);
-            recipe.AddIngredient(ItemID.GoldenPiano, 1);
+            recipe.AddIngredient(ItemID.PearlwoodPiano);
+            recipe.AddIngredient(ItemID.MartianPiano);
+            recipe.AddIngredient(ItemID.CrystalPiano);
+            recipe.AddIngredient(ItemID.SpookyPiano);
+            recipe.AddIngredient(ItemID.FleshPiano);
+            recipe.AddIngredient(ItemID.LihzahrdPiano);
+            recipe.AddIngredient(ItemID.SteampunkPiano);
+            recipe.AddIngredient(ItemID.GoldenPiano);
             recipe.AddTile(TileID.Sawmill);
             recipe.Register();
         }

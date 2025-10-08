@@ -1,21 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class CopperCoin : ModProjectile
     {
-        public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.GoldCoin}";
+        public override string Texture => $"Terraria/Images/Projectile_{ProjectileID.CopperCoin}";
 
         public override void SetStaticDefaults()
         {
@@ -43,17 +38,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             dust.position = Projectile.Center - Projectile.velocity;
             dust.velocity *= 0.3f;
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;           
-            
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 25f)
-            {
-                Projectile.alpha += 10;
-                if (Projectile.alpha >= 255)
-                {
-                    Projectile.active = false;
-                }
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Projectile.SimpleFadeOut(ai: 0, 25f);
         }
 
         public override void OnKill(int timeLeft)

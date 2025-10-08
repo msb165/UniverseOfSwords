@@ -4,9 +4,10 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SnowballShooter : ModItem
     {
@@ -26,29 +27,30 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(silver: 80);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.scale = 1.25f;
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             for (int i = 0; i < 4; i++)
             {
-                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(45f)) * Main.rand.NextFloat(1f, 1.25f), ProjectileID.SnowBallFriendly, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(45f)) * Main.rand.NextFloat(1f, 1.25f), ModContent.ProjectileType<Snowball>(), damage, knockback, player.whoAmI);
             }
             if (Main.rand.NextBool(8))
             {
-                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(45f)) * 0.125f, ProjectileID.RocketSnowmanI, damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(15f)) * 0.125f, ModContent.ProjectileType<Rocket>(), damage, knockback, player.whoAmI);
             }
             return false;
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.SnowmanCannon, 1);
-            recipe.AddIngredient(null, "Orichalcon", 1);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 100);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.SnowmanCannon)
+                .AddIngredient(ModContent.ItemType<Orichalcon>())
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 200)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
     }
 }

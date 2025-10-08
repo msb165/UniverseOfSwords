@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class PianoSword1 : ModItem
     {
@@ -18,16 +18,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 122;
-            Item.height = 122;
-            Item.scale = 1.25f;
+            Item.width = 61;
+            Item.height = 61;
+            Item.scale = 1f;
             Item.rare = ItemRarityID.Green;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.damage = 8;
             Item.knockBack = 3f;
-            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/PianoGreen");
+            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwords)}/Assets/Sounds/Item/PianoGreen");
             Item.shoot = ProjectileID.WoodenArrowFriendly;
             Item.shootSpeed = 3f;
             Item.value = 40000;

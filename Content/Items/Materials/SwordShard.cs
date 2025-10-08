@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Materials
+namespace UniverseOfSwords.Content.Items.Materials
 {
 	public class SwordShard : ModItem
 	{
@@ -20,13 +20,5 @@ namespace UniverseOfSwordsMod.Content.Items.Materials
 			Item.value = 0;
 			Item.rare = ItemRarityID.LightRed;
 		}
-
-		public override void AddRecipes()
-        {
-            CreateRecipe()
-				.AddIngredient(ModContent.ItemType<SwordMatter>(), 400)
-                .AddTile(TileID.Anvils)
-                .Register();
-	    }
     }
 }

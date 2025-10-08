@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class CthulhuJudge : ModItem
     {
@@ -19,11 +19,11 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         { 
             Item.width = 58;
             Item.height = 60; 
-			Item.scale = 1f;
+			Item.scale = 1.125f;
             Item.rare = ItemRarityID.Orange;            
             Item.useStyle = ItemUseStyleID.Swing;             
-            Item.useTime = 30;
-            Item.useAnimation = 30;           
+            Item.useTime = 28;
+            Item.useAnimation = 28;           
             Item.damage = 26; 
             Item.knockBack = 6.5f;
             Item.UseSound = SoundID.Item1;
@@ -39,7 +39,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<EyeOfCthulhu>()] < 1)
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<EyeOfCthulhu>()] < 1 && player.active)
             {
                 Vector2 newVel = Vector2.Normalize(Utils.RandomVector2(Main.rand, -100f, 101f));
                 Projectile.NewProjectileDirect(Projectile.GetSource_None(), player.Center, newVel, ModContent.ProjectileType<EyeOfCthulhu>(), Item.damage / 2, 4f, player.whoAmI);

@@ -5,9 +5,11 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class FlareCore : ModProjectile
     {
@@ -36,6 +38,10 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void AI()
         {
+            if (Projectile.ai[1] != -1f && Main.npc[(int)Projectile.ai[1]].active)
+            {
+                Projectile.position += Main.npc[(int)Projectile.ai[1]].velocity;
+            }
             if (Projectile.ai[0] == 0f)
             {
                 for (int i = 0; i < 10; i++)
@@ -45,7 +51,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                     dust.position = Projectile.Center + spawnRot;
                     dust.velocity = spawnRot.SafeNormalize(Vector2.UnitY);
                     dust.noGravity = true;
-                    dust.scale = 1.0f;
+                    dust.scale = 1f;
                 }
                 Projectile.ai[0] = 1f;
             }
@@ -56,21 +62,25 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 dust.position = Projectile.Center + Main.rand.NextVector2Square(-Projectile.width / 2 + 2, Projectile.width / 2 - 2) - Projectile.velocity / 3f * i;
                 dust.velocity *= 0.1f;
                 dust.noGravity = true;
-                dust.scale = 1.0f;
+                dust.scale = 1f;
             }
+            Projectile.SimpleFadeOut(ai: 2, 10f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player owner = Main.player[Projectile.owner];
-            int rand = Main.rand.Next(2); //Generates an integer from 0 to 1
-            if (rand == 0)
+            if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
             {
-                target.AddBuff(BuffID.OnFire, 700); //On Fire! debuff for 3 seconds
-            }
-            else if (rand == 1)
-            {
-                owner.Heal(5);
+                int rand = Main.rand.Next(2);
+                if (rand == 0)
+                {
+                    target.AddBuff(BuffID.OnFire, 700);
+                }
+                else if (rand == 1)
+                {
+                    UniverseUtils.Spawn.VampireHeal(damageDone, target.Center, target, owner);
+                }
             }
         }
 
@@ -80,9 +90,12 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.Damage();
             for (int i = 0; i < 20; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.LifeDrain);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.LifeDrain, Scale: 2.5f);
                 dust.velocity *= 1.5f;
                 dust.noGravity = true;
+                Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.LifeDrain, Scale: 1.5f);
+                dust2.velocity *= 1.5f;
+                dust2.noGravity = true;
             }
         }
 

@@ -2,12 +2,12 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class BigCrunch : ModItem
     {
@@ -38,14 +38,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction * -player.direction, player.gravDir * -110f), 96, 96, DustID.Clentaminator_Green, 0, 0, 127, default, 1f);
+                float rotation = player.itemRotation - MathHelper.PiOver4 * player.gravDir;
                 if (player.direction == -1)
                 {
-                    dust.position.X -= 64f;
+                    rotation -= MathHelper.PiOver2 * player.gravDir;
                 }
+                Dust dust = Dust.NewDustPerfect(player.Center + rotation.ToRotationVector2() * 80f * Item.scale, DustID.Clentaminator_Green, Vector2.Zero, Alpha: 127, newColor: default, Scale: 1f);
                 dust.noGravity = true;
                 dust.velocity = Main.rand.NextVector2Circular(2f, 4f) - Vector2.UnitY;
-                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation);
+                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation * player.gravDir);
                 UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -64f), new Vector2(0f, 4f));
             }
         }
@@ -71,10 +72,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - Vector2.UnitY * 64f + newVel, newVel, ModContent.ProjectileType<GreenSaw>(), Item.damage * 2, Item.knockBack, player.whoAmI);
             }
-            target.AddBuff(BuffID.Poisoned, 1000);
-            target.AddBuff(BuffID.CursedInferno, 1000);
             target.AddBuff(ModContent.BuffType<TrueSlow>(), 1000);
-            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 1000);
+            target.AddBuff(ModContent.BuffType<SuperVenom>(), 1000);
         }
 
         public override void AddRecipes()

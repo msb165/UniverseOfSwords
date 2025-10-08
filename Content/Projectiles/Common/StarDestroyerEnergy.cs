@@ -1,20 +1,11 @@
-﻿using Microsoft.Build.Construction;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Chat;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Net;
-using UniverseOfSwordsMod.Content.Projectiles.Common.Base;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Base;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class StarDestroyerEnergy : BaseEnergySwing
     {
@@ -45,9 +36,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                     {
                         spawnVel.Y = 20f;
                     }
-                    spawnVel = Vector2.Normalize(spawnVel) * 16f + (Vector2.One * Main.rand.Next(-40, 41) * 0.02f);
-                    Projectile proj = Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos, spawnVel, ProjectileID.LunarFlare, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    proj.DamageType = DamageClass.Melee;
+                    spawnVel = Vector2.Normalize(spawnVel) * 10f + (Vector2.One * Main.rand.Next(-40, 41) * 0.02f);
+                    Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos, spawnVel, ModContent.ProjectileType<StarDestroyerProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
             }
         }

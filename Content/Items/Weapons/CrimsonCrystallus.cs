@@ -3,11 +3,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class CrimsonCrystallus : ModItem
     {
@@ -58,7 +58,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<Crystallus>(), 1)
+                .AddIngredient(ModContent.ItemType<Crystallus>())
                 .AddIngredient(ItemID.CrimtaneBar, 12)
                 .AddIngredient(ItemID.TissueSample, 8)
                 .AddTile(TileID.Anvils)

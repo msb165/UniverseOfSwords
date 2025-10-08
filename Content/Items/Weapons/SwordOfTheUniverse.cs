@@ -6,14 +6,14 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Common.GlobalItems;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SwordOfTheUniverse : ModItem
     {
@@ -27,8 +27,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 274;
-            Item.height = 274;
+            Item.width = 80;
+            Item.height = 80;
             Item.scale = 1f;
             Item.rare = ItemRarityID.Red;
             Item.crit = 16;
@@ -79,7 +79,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (player.altFunctionUse != 2)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 6; j++)
                 {
                     float f = Main.rand.NextFloat() * MathHelper.TwoPi;
                     Vector2 spawnPos = position - Vector2.UnitY * 16f + f.ToRotationVector2() * Main.rand.NextFloat(20f, 61f);
@@ -90,7 +90,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                     }
 
                     Vector2 spawnVel = (Main.MouseWorld - spawnPos).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
-                    Projectile.NewProjectile(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.5f, 1.25f), ModContent.ProjectileType<SOTUGreenBolt>(), (int)(damage * 1.25), knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.5f, 1.25f), ModContent.ProjectileType<SOTUGreenBolt>(), (int)(damage * 2), knockback, player.whoAmI);
                 }
             }
             return false;
@@ -102,13 +102,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 return;
             }
-            target.AddBuff(BuffID.Midas, 360);
-            target.AddBuff(BuffID.Ichor, 360);
-            target.AddBuff(BuffID.Frostburn, 360);
-            target.AddBuff(BuffID.OnFire, 360);
-            target.AddBuff(BuffID.Poisoned, 360);
-            target.AddBuff(BuffID.CursedInferno, 360);
             target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
+            target.AddBuff(ModContent.BuffType<SuperVenom>(), 360);
         }
 
         public override void AddRecipes()

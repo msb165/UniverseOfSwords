@@ -3,11 +3,13 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Placeable;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class RedFlareLongsword : ModItem
     {
@@ -15,7 +17,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             // DisplayName.SetDefault("Scarlet Flare Longsword");
             /* Tooltip.SetDefault("Fires scarlet flare waves and ignites enemies with Scarlet flames"
-				+ "\n'Ignite your foes in scarlet flames'"); */
+                + "\n'Ignite your foes in scarlet flames'"); */
         }
 
         public override void SetDefaults()
@@ -27,7 +29,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;
-            Item.damage = 74;
+            Item.damage = 92;
             Item.knockBack = 5f;
             Item.shoot = ModContent.ProjectileType<ScarletFlareBolt>();
             Item.shootSpeed = 6f;
@@ -62,21 +64,26 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.HellstoneBar, 25);
-            recipe.AddIngredient(ItemID.RedTorch, 25);
-            recipe.AddIngredient(ItemID.Ruby, 50);
-            recipe.AddIngredient(ItemID.SoulofFright, 20);
-            recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
-            recipe.AddIngredient(ModContent.ItemType<DeathSword>());
-            recipe.AddIngredient(null, "DamascusBar", 20);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.HellstoneBar, 25)
+                .AddIngredient(ItemID.RedTorch, 25)
+                .AddIngredient(ItemID.Ruby, 50)
+                .AddIngredient(ItemID.SoulofFright, 20)
+                .AddIngredient(ModContent.ItemType<BlackBar>(), 5)
+                .AddIngredient(ItemID.BrokenHeroSword)
+                .AddIngredient(ModContent.ItemType<DeathSword>())
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 200)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.OnFire, 500);
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                UniverseUtils.Spawn.VampireHeal(damageDone, target.Center, target, player);
+            }
         }
     }
 }

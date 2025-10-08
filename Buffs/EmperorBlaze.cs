@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common.GlobalNPCs;
+using UniverseOfSwords.Common.GlobalNPCs;
 
-namespace UniverseOfSwordsMod.Buffs
+namespace UniverseOfSwords.Buffs
 {
 	public class EmperorBlaze : ModBuff
 	{

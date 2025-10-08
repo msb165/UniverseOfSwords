@@ -5,14 +5,14 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Common.GlobalItems;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static Terraria.Player;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SwordOfTheMultiverse : ModItem
     {
@@ -25,8 +25,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 250;
-            Item.height = 250;
+            Item.width = 200;
+            Item.height = 200;
             Item.rare = ItemRarityID.Expert;
             Item.crit = 65;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -59,7 +59,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation = player.Center + new Vector2(12f * -player.direction, 14f);
+            player.itemLocation = player.Center + new Vector2(12f * -player.direction, 0f);
         }
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
@@ -98,7 +98,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 1000);
+            target.AddBuff(ModContent.BuffType<TrueSlow>(), 1000);
         }
     }
 }

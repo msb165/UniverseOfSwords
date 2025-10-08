@@ -1,12 +1,9 @@
 using Terraria;
-using System;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
 
-namespace UniverseOfSwordsMod.Content.Items.Accessories
+namespace UniverseOfSwords.Content.Items.Accessories
 {
     public class LegendaryWarriorGauntlet : ModItem
     {
@@ -44,6 +41,7 @@ namespace UniverseOfSwordsMod.Content.Items.Accessories
             player.AddBuff(BuffID.Spelunker, 5);
             player.AddBuff(BuffID.Titan, 5);
             player.AddBuff(BuffID.Thorns, 5);
+            player.meleeScaleGlove = true;
             player.buffImmune[BuffID.Bleeding] = true;
             player.buffImmune[BuffID.BrokenArmor] = true;
             player.buffImmune[BuffID.Burning] = true;

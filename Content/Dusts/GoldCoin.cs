@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Dusts
+namespace UniverseOfSwords.Content.Dusts
 {
     public class GoldCoin : ModDust
     {

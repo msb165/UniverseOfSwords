@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
 
-namespace UniverseOfSwordsMod.Content.Items.Armor
+namespace UniverseOfSwords.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class DamascusBreastplate : ModItem
@@ -31,11 +31,12 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "4 extra defense, 4% increased melee damage, 3% increased melee speed, 4% increased melee critical chance";
+			player.setBonus = "4 extra defense, 4% increased melee damage, 3% increased melee speed, 4% increased melee critical chance, 5% damage reduction";
 			player.GetDamage(DamageClass.Melee) += 0.04f;
 		    player.statDefense += 4;
 			player.GetAttackSpeed(DamageClass.Melee) += 0.03f;
 			player.GetCritChance(DamageClass.Melee) += 4;
+			player.endurance += 0.05f;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -47,7 +48,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(null, "DamascusBar", 20);
-			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 60);
+			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 40);
             recipe.AddTile(TileID.Anvils);			
 			recipe.Register();
 		}

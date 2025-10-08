@@ -5,10 +5,10 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class PianoSword2 : ModItem
     {
@@ -20,20 +20,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 128;
-            Item.height = 128;
+            Item.width = 60;
+            Item.height = 60;
             Item.scale = 1f;
             Item.rare = ItemRarityID.Cyan;
             Item.crit = 6;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 60;
             Item.useAnimation = 30;
-            Item.damage = 44;
+            Item.damage = 18;
             Item.knockBack = 8f;
-            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/PianoBlue");
+            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwords)}/Assets/Sounds/Item/PianoBlue");
             Item.shoot = ProjectileID.Mushroom;
-            Item.shootSpeed = 5f;
-            Item.value = 80000;
+            Item.shootSpeed = 3f;
+            Item.value = Item.sellPrice(silver: 80);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }

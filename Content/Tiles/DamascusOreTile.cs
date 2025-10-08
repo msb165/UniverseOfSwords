@@ -4,9 +4,9 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using UniverseOfSwordsMod.Content.Dusts;
+using UniverseOfSwords.Content.Dusts;
 
-namespace UniverseOfSwordsMod.Content.Tiles
+namespace UniverseOfSwords.Content.Tiles
 {
     public class DamascusOreTile : ModTile
     {

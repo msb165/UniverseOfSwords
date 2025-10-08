@@ -1,20 +1,17 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class CopperCoinSword : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // Tooltip.SetDefault("Shoots copper coins");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 56;
@@ -30,6 +27,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(copper: 99);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -72f), Vector2.Zero);
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -45,22 +56,26 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             }
             Vector2 spawnPos = Main.rand.NextVector2CircularEdge(200f, 200f);
             Vector2 spawnVel = spawnPos.SafeNormalize(Vector2.UnitY) * 10f;
-            if (Collision.SolidTiles(target.Center - spawnPos, 8, 8))
+            for (int i = 0; i < 20; i++)
             {
+                if (!Collision.SolidTiles(target.Center - spawnPos, 16, 16))
+                {
+                    break;
+                }
                 spawnPos = Main.rand.NextVector2CircularEdge(200f, 200f);
                 spawnVel = spawnPos.SafeNormalize(Vector2.UnitY) * 10f;
             }
-            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnPos, spawnVel, ProjectileID.CopperCoin, Item.damage, Item.knockBack, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnPos, spawnVel, ModContent.ProjectileType<CopperCoin>(), Item.damage, Item.knockBack, player.whoAmI);
         }
 
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.CopperCoin, 99);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 10);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.CopperCoin, 99)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 10)
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
     }
 }

@@ -2,10 +2,10 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class Doomsday : ModItem
     {
@@ -13,7 +13,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         { 
             Item.width = 66;
             Item.height = 70; 
-			Item.scale = 1.125f;
+			Item.scale = 1.25f;
             Item.rare = ItemRarityID.Yellow;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 20;   

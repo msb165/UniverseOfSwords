@@ -5,11 +5,11 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class MagnetSphereBall : ModProjectile
     {
@@ -25,6 +25,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.Size = new(38);
             Projectile.timeLeft = 900;
             Projectile.light = 0.5f;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public override void AI()
@@ -84,12 +85,12 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 selectedTarget = targetIndexes[selectedTarget];
                 Vector2 targetPos = Main.npc[selectedTarget].Center;
                 Projectile.localAI[0]++;
-                if (Projectile.localAI[0] > 8f)
+                if (Projectile.localAI[0] > 12f)
                 {
                     Projectile.localAI[0] = 0f;
                     Vector2 vector = Projectile.Center + Projectile.velocity * 4f;
                     Vector2 targetVel = Vector2.Normalize(targetPos - vector) * 6f;
-                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), vector, targetVel, ModContent.ProjectileType<SphereLaser>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromAI(), vector, targetVel, ModContent.ProjectileType<SphereLaser>(), Projectile.damage / 10, Projectile.knockBack, Projectile.owner);
                 }
             }
         }
@@ -109,6 +110,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override bool PreDraw(ref Color lightColor)
         {
+            Main.instance.LoadProjectile(ProjectileID.StardustTowerMark);
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             Texture2D texture2 = TextureAssets.Projectile[ProjectileID.StardustTowerMark].Value;
             int frameHeight = texture.Height / Main.projFrames[Type];

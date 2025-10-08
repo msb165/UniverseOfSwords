@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SuperInflation : ModItem
     {
@@ -54,7 +54,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             for (int i = 0; i < 10; i++)
             {
                 float offset = i - (10f - 1f) / 2f;
-                Projectile.NewProjectileDirect(source, position + velocity, velocity.RotatedBy(piOverTen * offset), type, damage / 5, knockback, player.whoAmI);
+                Projectile.NewProjectileDirect(source, position + velocity, velocity.RotatedBy(piOverTen * offset), type, damage / 5, knockback, player.whoAmI, ai1: 1f);
             }
 
             return false;

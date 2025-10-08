@@ -6,9 +6,9 @@ using Terraria.GameContent.Generation;
 using System.Collections.Generic;
 using Terraria.WorldBuilding;
 using Terraria.IO;
-using UniverseOfSwordsMod.Content.Tiles;
+using UniverseOfSwords.Content.Tiles;
 
-namespace UniverseOfSwordsMod
+namespace UniverseOfSwords
 {
     public class UniverseOfSwordsWorld : ModSystem
     {

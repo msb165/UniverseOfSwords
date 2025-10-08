@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class StoneSword : ModItem
     {
@@ -15,15 +15,15 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 		
         public override void SetDefaults()
         {
-            Item.width = 35;
-            Item.height = 35; 
-			Item.scale = 0.8F;
+            Item.width = 32;
+            Item.height = 32; 
+			Item.scale = 1f;
             Item.rare = ItemRarityID.Blue;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 30;
             Item.useAnimation = 30;           
             Item.damage = 7; 
-            Item.knockBack = 2.0F;
+            Item.knockBack = 5f;
             Item.UseSound = SoundID.Item1;
             Item.value = 100;
             Item.autoReuse = false; 
@@ -37,10 +37,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         
 		public override void AddRecipes()
 	    {
-            Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.StoneBlock, 20);
-            recipe.AddTile(TileID.WorkBenches);			
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.StoneBlock, 20)
+                .AddTile(TileID.WorkBenches)
+                .Register();
 	    }
     }
 }

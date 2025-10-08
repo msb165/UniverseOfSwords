@@ -6,10 +6,10 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class GreenSaw : ModProjectile
     {
@@ -133,8 +133,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         {
             if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
             {
-                target.immune[Projectile.owner] = 3;
-                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.SeaGreen, Projectile.owner, Projectile.damage, lerpToWhite: 0.75f);
+                target.immune[Projectile.owner] = 1;
+                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Green, Projectile.owner, Projectile.damage, lerpToWhite: 0.5f);
             }
             target.AddBuff(ModContent.BuffType<SuperVenom>(), 300);
         }

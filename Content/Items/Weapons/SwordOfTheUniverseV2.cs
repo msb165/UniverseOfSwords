@@ -1,17 +1,14 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Common.GlobalItems;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SwordOfTheUniverseV2 : ModItem
     {
@@ -24,8 +21,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 140;
-            Item.height = 140;
+            Item.width = 70;
+            Item.height = 70;
             Item.scale = 1f;
             Item.rare = ItemRarityID.Red;
             Item.crit = 16;
@@ -74,14 +71,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 return;
             }
-            target.AddBuff(BuffID.Midas, 360);
-            target.AddBuff(BuffID.Ichor, 360);
-            target.AddBuff(BuffID.Frostburn, 360);
-            target.AddBuff(BuffID.OnFire, 360);
-            target.AddBuff(BuffID.Poisoned, 360);
-            target.AddBuff(BuffID.CursedInferno, 360);
             target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
-            target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 360);
+            target.AddBuff(ModContent.BuffType<SuperVenom>(), 360);
             for (int i = 0; i < 3; i++)
             {
                 Vector2 spawnPos = player.Center + Main.rand.NextVector2Circular(300f, 300f);
@@ -97,7 +88,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<PrismSword>())
                 .AddIngredient(ModContent.ItemType<EdgeLord>())
                 .AddIngredient(ModContent.ItemType<SuperInflation>())
-                .AddIngredient(ModContent.ItemType<CosmoStorm>())
                 .AddIngredient(ModContent.ItemType<GlacialCracker>())
                 .AddIngredient(ItemID.Arkhalis)
                 .AddTile(TileID.LunarCraftingStation)
@@ -108,7 +98,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ModContent.ItemType<PrismSword>())
                 .AddIngredient(ModContent.ItemType<EdgeLord>())
                 .AddIngredient(ModContent.ItemType<SuperInflation>())
-                .AddIngredient(ModContent.ItemType<CosmoStorm>())
                 .AddIngredient(ModContent.ItemType<GlacialCracker>())
                 .AddIngredient(ItemID.Terragrim)
                 .AddTile(TileID.LunarCraftingStation)

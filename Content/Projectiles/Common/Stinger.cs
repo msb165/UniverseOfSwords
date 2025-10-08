@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Stinger : ModProjectile
     {
         public override string Texture => $"{UniverseUtils.VanillaTexturesPath}Projectile_{ProjectileID.Stinger}";
         public override void SetStaticDefaults()
         {
-            base.SetStaticDefaults();
+            ProjectileID.Sets.TrailingMode[Type] = 2;
         }
 
         public override void SetDefaults()
@@ -29,7 +29,9 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override void AI()
         {
             Projectile.velocity.Y += 0.2f;
-            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.JungleSpore, Alpha: 100);
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.JungleSpore, Alpha: 100);
+            dust.noGravity = true;
         }
 
 
@@ -43,6 +45,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             for (int i = 0; i < 20; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.JungleSpore, Alpha: 100);
+                dust.noGravity = true;
                 dust.velocity *= 2f;
             }
         }

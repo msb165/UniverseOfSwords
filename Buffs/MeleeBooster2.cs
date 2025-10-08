@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Buffs
+namespace UniverseOfSwords.Buffs
 {
     public class MeleeBooster2 : ModBuff
     {

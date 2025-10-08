@@ -1,17 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class GoldenCoin : ModProjectile
     {
@@ -31,29 +26,29 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.penetrate = 1;
             Projectile.alpha = 0;
             Projectile.timeLeft = 600;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.extraUpdates = 1;
         }
 
         public override void AI()
         {
+            if (Projectile.velocity.Length() > 3.5f)
+            {
+                Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 3.5f;
+            }
+            if (Projectile.ai[1] == 1f)
+            {
+
+            }
             Dust dust = Dust.NewDustPerfect(Projectile.position, ModContent.DustType<GoldCoin>());
             dust.noGravity = true;
             dust.alpha = Projectile.alpha;
             dust.position = Projectile.Center - Projectile.velocity;
             dust.velocity *= 0.3f;
 
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;           
-            
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 25f)
-            {
-                Projectile.alpha += 10;
-                if (Projectile.alpha >= 255)
-                {
-                    Projectile.active = false;
-                }
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+
+            Projectile.SimpleFadeOut(ai: 0, maxTime: 25);
         }
 
         public override void OnKill(int timeLeft)

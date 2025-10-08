@@ -3,12 +3,12 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
-using static UniverseOfSwordsMod.Content.Projectiles.Common.GemBolt.GemType;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
+using static UniverseOfSwords.Content.Projectiles.Common.GemBolt.GemType;
 
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class EmeraldSword : ModItem
     {
@@ -31,8 +31,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            UniverseUtils.SpawnRotatedDust(player, DustID.GemEmerald, 1.5f, 16, 90);
+            UniverseUtils.SpawnRotatedDust(player, DustID.PortalBolt, 1.25f, (int)(16 * Item.scale), (int)(60 * Item.scale), color: Color.DarkSeaGreen);
         }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {

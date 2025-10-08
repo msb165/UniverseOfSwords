@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace UniverseOfSwordsMod.Content.Items.Placeable
+namespace UniverseOfSwords.Content.Items.Placeable
 {
     public class DamascusBar : ModItem
     {
@@ -10,6 +10,7 @@ namespace UniverseOfSwordsMod.Content.Items.Placeable
         {
             // DisplayName.SetDefault("Damascus Bar");
             // Tooltip.SetDefault("'Material for creating powerful swords'");
+            Item.ResearchUnlockCount = 25;
         }
 
         public override void SetDefaults()
@@ -25,7 +26,7 @@ namespace UniverseOfSwordsMod.Content.Items.Placeable
             Item.autoReuse = true; // Do you want to torture people with clicking? Set to false
             Item.consumable = true; // Will consume the item when placed.
             Item.createTile = Mod.Find<ModTile>("DamascusBarTile").Type;
-            Item.maxStack = 99; // The maximum number you can have of this item.
+            Item.maxStack = Item.CommonMaxStack; // The maximum number you can have of this item.
         }
 
         public override void AddRecipes()

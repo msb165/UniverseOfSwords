@@ -11,11 +11,11 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Utilities;
-using static UniverseOfSwordsMod.Utilities.UniverseUtils;
+using UniverseOfSwords.Content.Items.Weapons;
+using UniverseOfSwords.Utilities;
+using static UniverseOfSwords.Utilities.UniverseUtils;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
     public class SuperSolutionSpreader : ModProjectile
     {

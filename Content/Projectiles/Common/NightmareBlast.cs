@@ -8,10 +8,10 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class NightmareBlast : ModProjectile
     {

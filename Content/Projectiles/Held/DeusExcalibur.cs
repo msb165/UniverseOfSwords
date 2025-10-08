@@ -1,20 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
     public class DeusExcalibur : ModProjectile
     {
@@ -47,7 +42,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 17;
             Projectile.penetrate = -1;
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.extraUpdates = 2;
             Projectile.timeLeft = 32;
             Projectile.noEnchantmentVisuals = true;
@@ -79,6 +74,20 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
                 Player.reuseDelay = 2;
             }
             Lighting.AddLight(Projectile.Center, Color.White.ToVector3());
+            if (Main.myPlayer == Projectile.owner)
+            {
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
+                        proj.velocity = -proj.oldVelocity;
+                        proj.friendly = true;
+                        proj.hostile = false;
+                        proj.reflected = true;
+                    }
+                }
+            }
             SetPlayerValues();
         }
 
@@ -86,7 +95,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
         {
             float fromValue = Timer / 10f;
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
-            Projectile.Center = Player.Center + Projectile.velocity * MathHelper.Lerp(-8f, 64f, MathF.Sin(fromValue));
+            Projectile.Center = Player.Center + Vector2.Normalize(Projectile.velocity) * 2f * MathHelper.Lerp(-8f, 64f, MathF.Sin(fromValue));
             Projectile.scale = 2f - MathHelper.SmoothStep(1.25f, 0f, MathF.Sin(Projectile.ai[0] / 10f));
             Projectile.Opacity = 1f - MathHelper.SmoothStep(1f, 0f, MathF.Sin(Timer / 10f));
         }
@@ -112,12 +121,11 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!UniverseUtils.IsAValidTarget(target))
+            if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
             {
-                return;
+                UniverseUtils.Spawn.VampireHeal(hit.Damage, target.Center, target, Player);
+                NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
             }
-            UniverseUtils.Spawn.VampireHeal(hit.Damage, target.Center, target, Player);
-            NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

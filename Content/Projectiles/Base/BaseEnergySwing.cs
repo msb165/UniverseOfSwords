@@ -1,20 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common.GlobalItems;
-using UniverseOfSwordsMod.Utilities;
-using static UniverseOfSwordsMod.Utilities.UniverseUtils.Drawing;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Utilities;
+using static UniverseOfSwords.Utilities.UniverseUtils.Drawing;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common.Base
+namespace UniverseOfSwords.Content.Projectiles.Base
 {
     public class BaseEnergySwing : ModProjectile
     {
@@ -139,7 +135,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common.Base
             Rectangle rectangle = texture.Frame(1, 4);
             Vector2 drawOrigin = rectangle.Size() / 2f;
             float scale = Projectile.scale * 1.1f;
-            SpriteEffects effects = (!(Projectile.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None;
+            SpriteEffects effects = !(Projectile.ai[0] >= 0f) ? SpriteEffects.FlipVertically : SpriteEffects.None;
             float projTime = Projectile.localAI[0] / Projectile.ai[1];
             float num3 = Utils.Remap(projTime, 0f, 0.6f, 0f, 1f) * Utils.Remap(projTime, 0.6f, 1f, 1f, 0f);
             float fromValue = Lighting.GetColor(Projectile.Center.ToTileCoordinates()).ToVector3().Length() / MathF.Sqrt(3f);

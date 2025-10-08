@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class InnosWrath : ModItem
     {
@@ -25,7 +25,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 100;
             Item.knockBack = 12f;
             Item.UseSound = SoundID.Item1;
-            Item.value = 611500;
+            Item.value = Item.buyPrice(gold: 6);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -39,8 +39,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             target.AddBuff(BuffID.Midas, 360);
             target.AddBuff(BuffID.Ichor, 360);
-            target.AddBuff(BuffID.Frostburn, 360);
-            target.AddBuff(BuffID.OnFire, 360);
+            target.AddBuff(BuffID.Venom, 360);
         }
     }
 }

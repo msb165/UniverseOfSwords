@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwords.Content.Items.Placeable;
 
-namespace UniverseOfSwordsMod.Content.Items
+namespace UniverseOfSwords.Content.Items
 {
 	[AutoloadEquip(EquipType.Wings)]
 	public class DranWingsSecond : ModItem

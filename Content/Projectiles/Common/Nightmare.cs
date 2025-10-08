@@ -1,15 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Nightmare : ModProjectile
     {
@@ -27,16 +26,19 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.scale = 1f;
             Projectile.friendly = true;
             Projectile.alpha = 255;
-            Projectile.penetrate = -1;                      
+            Projectile.penetrate = 1;                      
             Projectile.DamageType = DamageClass.Melee;                   
             Projectile.tileCollide = false;            
             Projectile.ignoreWater = true;
             Projectile.extraUpdates = 1;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 20;
+            Projectile.scale = 0.5f;
         }
 
-        int attackTarget = -1;
+        public int attackTarget = -1;
+        float velocityLength = 0f;
+
         public override void AI()
         {
             Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Purple);
@@ -45,6 +47,18 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
             Projectile.spriteDirection = Projectile.direction;
             Projectile.rotation = MathHelper.WrapAngle(Projectile.velocity.ToRotation());
+
+
+            if (Projectile.velocity.Length() > 10f)
+            {
+                Projectile.velocity *= 0.94f;
+            }
+
+            if (Projectile.localAI[0] == 0f)
+            {
+                velocityLength = Projectile.velocity.Length();
+                Projectile.localAI[0] = 1f;
+            }
 
             if (Projectile.ai[0] == 0f && Projectile.alpha > 0)
             {
@@ -58,28 +72,26 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
             if (Projectile.ai[0] >= 1f)
             {
-                Projectile.SimpleFadeOut(ai: 0, 20f);
+                Projectile.SimpleFadeOut(ai: 0, 60f);
             }
-
-            FindNPCAndApplySpeed();
+            FindNPCAndApplySpeed(velocityLength);
             FindFrame();
         }
 
-        public void FindNPCAndApplySpeed()
+        public void FindNPCAndApplySpeed(float multiplier)
         {
-            foreach (NPC npc in Main.ActiveNPCs)
+            NPC npc = UniverseUtils.Misc.FindTargetWithinRange(Projectile, 200f);
+            if (npc != null)
             {
-                if (npc.CanBeChasedBy(this) && attackTarget == -1 && npc.Distance(Projectile.Center) < 200f)
-                {
-                    attackTarget = npc.whoAmI;
-                }
+                attackTarget = npc.whoAmI;
+                Projectile.netUpdate = true;
             }
 
-            if (attackTarget != -1)
+            if (attackTarget != -1 && Main.npc[attackTarget].active)
             {
                 Projectile.timeLeft = 2;
                 Vector2 speed = Vector2.Normalize(Main.npc[attackTarget].Center - Projectile.Center);
-                Projectile.velocity = (Projectile.velocity * 40f + speed * 10f) / 41f;
+                Projectile.velocity = (Projectile.velocity * 30f + speed * multiplier) / 31f;
             }
         }
 
@@ -97,11 +109,12 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void OnKill(int timeLeft)
         {
+            Projectile.Damage();
             for (int k = 0; k < 10; k++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.PurpleTorch, Projectile.oldVelocity.X * 0.1f, Projectile.oldVelocity.Y * 0.1f);
                 dust.noGravity = true;
-                dust.scale = 2f;
+                dust.scale = 2.5f;
                 dust.velocity *= 4f;
             }
             SoundEngine.PlaySound(SoundID.Dig, Projectile.position);

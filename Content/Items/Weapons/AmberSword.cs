@@ -1,14 +1,13 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
-using static UniverseOfSwordsMod.Content.Projectiles.Common.GemBolt.GemType;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
+using static UniverseOfSwords.Content.Projectiles.Common.GemBolt.GemType;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class AmberSword : ModItem
     {
@@ -24,11 +23,24 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 30);
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
         }
 
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(16f * player.direction, -24f), new Vector2(2f * player.direction, 4f));
+            }
+        }
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            UniverseUtils.SpawnRotatedDust(player, DustID.AmberBolt, 1.5f, 16, 90);
+            UniverseUtils.SpawnRotatedDust(player, DustID.GemAmber, 1.3f, 16, 90, alpha: 200, color: Color.White with { A = 0});
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

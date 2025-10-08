@@ -5,12 +5,12 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class MechanicalSoul : ModItem
     {
@@ -102,7 +102,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                         continue;
                     }
 
-                    Vector2 spawnVel = (Main.MouseWorld - spawnPos).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
+                    Vector2 spawnVel = (Main.MouseWorld - spawnPos).SafeNormalize(Vector2.UnitY) * 3.25f;
                     Projectile.NewProjectile(source, spawnPos + spawnVel, spawnVel * Main.rand.NextFloat(0.9f, 1.26f), Utils.SelectRandom(Main.rand, [ModContent.ProjectileType<Soul1>(), ModContent.ProjectileType<Soul2>(), ModContent.ProjectileType<Soul3>()]), damage / 3, knockback, player.whoAmI);
                 }
             }
@@ -123,7 +123,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<Nightlight>(), 1)
+                .AddIngredient(ModContent.ItemType<Nightlight>())
                 .AddIngredient(ItemID.HallowedBar, 30)
                 .AddIngredient(ItemID.SoulofMight, 15)
                 .AddIngredient(ItemID.SoulofFright, 15)

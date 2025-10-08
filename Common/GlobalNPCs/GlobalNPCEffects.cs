@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Content.Dusts;
 
-namespace UniverseOfSwordsMod.Common.GlobalNPCs
+namespace UniverseOfSwords.Common.GlobalNPCs
 {
     public class GlobalNPCEffects : GlobalNPC
     {
@@ -18,6 +17,19 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
             slow = false;
             sVenom = false;
         }
+
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            if (sVenom)
+            {
+                modifiers.Defense.Flat -= 80;
+            }
+            if (eBlaze)
+            {
+                modifiers.Defense.Flat -= 5;
+            }
+        }
+
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
@@ -39,7 +51,7 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
                 {
                     npc.lifeRegen = 0;
                 }
-                npc.lifeRegen -= 240;
+                npc.lifeRegen -= 2000;
                 if (damage < 200)
                 {
                     damage = 200;
@@ -51,7 +63,7 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
         {
             if (slow)
             {
-                npc.velocity = npc.velocity.SafeNormalize(Vector2.Zero) * 3f;
+                npc.velocity = npc.velocity.SafeNormalize(Vector2.Zero);
             }
         }
 
@@ -63,7 +75,19 @@ namespace UniverseOfSwordsMod.Common.GlobalNPCs
             }
             if (sVenom)
             {
-                drawColor = Color.Green;
+                drawColor = Color.Lerp(drawColor, Color.Lime, 0.25f);
+                if (Main.rand.Next(8) < 6)
+                {
+                    Dust dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Clentaminator_Green, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1f);
+                    dust.noGravity = true;
+                    dust.velocity *= 0.5f;
+                    dust.velocity.Y -= 0.5f;
+                    if (Main.rand.NextBool(8))
+                    {
+                        dust.noGravity = false;
+                        dust.scale *= 0.7f;
+                    }
+                }
             }
             if (eBlaze)
             {

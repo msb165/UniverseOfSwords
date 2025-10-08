@@ -11,7 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class TrueRuneWave : ModProjectile
     {
@@ -94,11 +94,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         {
             float _ = 0f;
             Vector2 velocity = Projectile.velocity.SafeNormalize(Vector2.UnitY).RotatedBy(-MathHelper.PiOver2) * Projectile.scale;
-            if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center - velocity * 40f, Projectile.Center + velocity * 40f, 16f * Projectile.scale, ref _))
-            {
-                return true;
-            }
-            return false;
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center - velocity * 40f, Projectile.Center + velocity * 40f, 16f * Projectile.scale, ref _);
         }
 
         public override bool PreDraw(ref Color lightColor)

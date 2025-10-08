@@ -1,14 +1,15 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held    
+namespace UniverseOfSwords.Content.Projectiles.Held    
 {
     public class DoubleBladedLightsaberProjectile : ModProjectile
     {
@@ -56,7 +57,21 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
             Projectile.position.X += Player.width / 2 * Player.direction;  
             Projectile.spriteDirection = Player.direction;
             // Slowly increase rotation with a cap of 2f
-            Projectile.rotation = MathHelper.WrapAngle(MathHelper.Lerp(0f, 2f, rotation * Player.direction)); 
+            Projectile.rotation = MathHelper.WrapAngle(MathHelper.Lerp(0f, 2f, rotation * Player.direction));
+            if (Main.myPlayer == Projectile.owner)
+            {
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
+                        proj.velocity = -proj.oldVelocity;
+                        proj.friendly = true;
+                        proj.hostile = false;
+                        proj.reflected = true;
+                    }
+                }
+            }
             SetPlayerValues();
         }
 
@@ -64,16 +79,15 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
         {
             Player.SetDummyItemTime(2);
             Player.heldProj = Projectile.whoAmI;
-            Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2 - MathHelper.PiOver4);
+            //Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2 - MathHelper.PiOver4);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (!UniverseUtils.IsAValidTarget(target))
+            if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
             {
-                return;
+                NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
             }
-            NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

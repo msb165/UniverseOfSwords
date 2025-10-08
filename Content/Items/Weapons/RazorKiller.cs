@@ -5,11 +5,12 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class RazorKiller : ModItem
     {
@@ -48,16 +49,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 return;
             }
             Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitY) * 10f;
-            for (int i = 0; i < 3; i++) //Replace 2 with number of projectiles
+            for (int i = 0; i < 2; i++) //Replace 2 with number of projectiles
             {
-                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center, newVel, ProjectileID.PineNeedleFriendly, Item.damage, hit.Knockback, player.whoAmI);
+                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center, newVel.RotatedByRandom(MathHelper.ToRadians(15f)), ModContent.ProjectileType<RazorpineProj>(), Item.damage, hit.Knockback, player.whoAmI);
             }
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.Razorpine, 1);
+            recipe.AddIngredient(ItemID.Razorpine);
             recipe.AddIngredient(null, "Orichalcon", 1);
             recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 100);
             recipe.AddTile(TileID.MythrilAnvil);

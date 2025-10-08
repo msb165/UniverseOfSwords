@@ -5,7 +5,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace UniverseOfSwordsMod.Content.Tiles
+namespace UniverseOfSwords.Content.Tiles
 {
 	public class HaloOfHorrors : ModTile
 	{

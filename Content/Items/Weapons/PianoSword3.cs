@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class PianoSword3 : ModItem
     {
@@ -27,7 +27,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 30;
             Item.damage = 66;
             Item.knockBack = 3.0F;
-            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/PianoRed");
+            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwords)}/Assets/Sounds/Item/PianoRed");
             Item.shoot = ProjectileID.FallingStar;
             Item.shootSpeed = 15;
             Item.value = Item.sellPrice(gold: 10);

@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Buffs
+namespace UniverseOfSwords.Buffs
 {
     public class Skooma : ModBuff
     {

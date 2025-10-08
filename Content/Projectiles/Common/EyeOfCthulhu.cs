@@ -5,10 +5,10 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Items.Weapons;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class EyeOfCthulhu : ModProjectile
     {
@@ -53,7 +53,8 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         Player Player => Main.player[Projectile.owner];
         public override void AI()
         {
-            if (Main.myPlayer == Projectile.owner && Player.HeldItem.type != ModContent.ItemType<CthulhuJudge>())
+            int item = ModContent.ItemType<CthulhuJudge>();
+            if (Main.myPlayer == Projectile.owner && Player.HeldItem.type != item || !Player.active)
             {
                 Projectile.Kill();
             }

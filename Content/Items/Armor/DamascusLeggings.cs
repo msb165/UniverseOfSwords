@@ -1,10 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Placeable;
 
-namespace UniverseOfSwordsMod.Content.Items.Armor
+namespace UniverseOfSwords.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Legs)]
 	public class DamascusLeggings : ModItem
@@ -34,7 +34,7 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 		{
 			Recipe recipe = CreateRecipe();
 			recipe.AddIngredient(ModContent.ItemType<DamascusBar>(), 15);
-			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 65);
+			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 45);
             recipe.AddTile(TileID.Anvils);			
 			recipe.Register();
 		}

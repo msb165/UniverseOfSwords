@@ -1,11 +1,14 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class PoisonSword : ModItem
     {
@@ -18,26 +21,37 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 30;
             Item.knockBack = 5.6F;
             Item.damage = 48;
-            Item.shoot = ProjectileID.PoisonFang;
-            Item.shootSpeed = 5f;
+            Item.shoot = ModContent.ProjectileType<PoisonFang>();
+            Item.shootSpeed = 3.5f;
             Item.UseSound = SoundID.Item43;
             Item.value = 100000;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 6f);
+            }
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float spread = 10f * 0.0174f; //Replace 45 with whatever spread you want
-            float baseSpeed = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
-            double startAngle = Math.Atan2(velocity.X, velocity.Y) - spread / 2;
-            double deltaAngle = spread / 2f;
-            double offsetAngle;
-            for (int i = 0; i < 3; i++) //Replace 2 with number of projectiles
+            float piOverTen = MathHelper.ToRadians(3f);
+            for (int i = 0; i < 3; i++)
             {
-                offsetAngle = startAngle + deltaAngle * i;
-                Projectile.NewProjectile(source, position.X, position.Y, baseSpeed * (float)Math.Sin(offsetAngle), baseSpeed * (float)Math.Cos(offsetAngle), Item.shoot, damage, knockback, player.whoAmI);
+                float offset = i - (3f - 1f) / 2f;
+                Projectile.NewProjectileDirect(source, position + velocity, velocity.RotatedBy(piOverTen * offset), type, damage / 5, knockback, player.whoAmI);
             }
+
             return false;
         }
 

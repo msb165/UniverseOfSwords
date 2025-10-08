@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SwordOfTheEmperor : ModItem
     {
@@ -43,7 +43,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             }
         }
 
-
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(ModContent.BuffType<EmperorBlaze>(), 100);
@@ -55,7 +54,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             }
             if (UniverseUtils.IsAValidTarget(target))
             {
-                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.DaybreakExplosion, Item.damage, 10f, player.whoAmI, ai1: 0.85f + Main.rand.NextFloat() * 1.15f);
+                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.DaybreakExplosion, (int)(Item.damage * 0.85f + Main.rand.NextFloat() * 1.15f), 10f, player.whoAmI, ai1: 0.85f + Main.rand.NextFloat() * 1.15f);
             }
         }
 

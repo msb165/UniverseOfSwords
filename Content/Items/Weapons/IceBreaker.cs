@@ -4,14 +4,14 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Common.GlobalItems;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class IceBreaker : ModItem
     {
@@ -31,7 +31,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 20;
             Item.damage = 61;
             Item.knockBack = 7f;
-            Item.UseSound = SoundID.Item28;
+            Item.UseSound = SoundID.Item28 with { Volume = 0.6f };
             Item.value = 300200;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
@@ -91,10 +91,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 float numberProjectiles = 1 + Main.rand.Next(3);
                 Vector2 position = player.Center;
-                Vector2 velocity = (Main.MouseWorld - position).SafeNormalize(Vector2.Zero) * 10f;
+                Vector2 velocity = Vector2.Normalize(target.Center - player.Center) * 10f;
                 for (int i = 0; i < numberProjectiles; i++)
                 {
-                    Projectile.NewProjectile(target.GetSource_OnHit(target), position + velocity, velocity.RotatedByRandom(MathHelper.ToRadians(15f)) * Main.rand.NextFloat(0.5f, 1.2f), ModContent.ProjectileType<BreakerBolt>(), Item.damage, Item.knockBack, player.whoAmI);
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), position + velocity.RotatedByRandom(MathHelper.ToRadians(90f)), velocity * Main.rand.NextFloat(0.5f, 1.2f), ModContent.ProjectileType<BreakerBolt>(), Item.damage, Item.knockBack, player.whoAmI);
                 }
             }
         }

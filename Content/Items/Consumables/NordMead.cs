@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
+using UniverseOfSwords.Buffs;
 
-namespace UniverseOfSwordsMod.Content.Items.Consumables
+namespace UniverseOfSwords.Content.Items.Consumables
 {
     public class NordMead : ModItem
     {

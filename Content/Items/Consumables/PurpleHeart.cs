@@ -9,7 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Consumables
+namespace UniverseOfSwords.Content.Items.Consumables
 {
     public class PurpleHeart : ModItem
     {
@@ -25,6 +25,7 @@ namespace UniverseOfSwordsMod.Content.Items.Consumables
         public override void SetDefaults()
         {
             Item.Size = new(18);
+            Item.alpha = 80;
         }
 
         public override bool OnPickup(Player player)

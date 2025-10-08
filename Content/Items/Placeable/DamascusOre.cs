@@ -1,8 +1,8 @@
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Tiles;
+using UniverseOfSwords.Content.Tiles;
 
-namespace UniverseOfSwordsMod.Content.Items.Placeable
+namespace UniverseOfSwords.Content.Items.Placeable
 {
     public class DamascusOre : ModItem
     {

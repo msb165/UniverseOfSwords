@@ -11,9 +11,9 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     internal class AquaticusProj : ModProjectile
     {
@@ -32,7 +32,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.friendly = true;
             Projectile.penetrate = 1;
             Projectile.alpha = 255;
-            Projectile.timeLeft = 60;
+            Projectile.timeLeft = 30;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
             Projectile.noEnchantmentVisuals = true;

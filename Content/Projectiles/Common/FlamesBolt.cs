@@ -1,15 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class FlamesBolt : ModProjectile
     {
         public override string Texture => UniverseUtils.TexturesPath + "Empty";
+
+        public override void SetStaticDefaults()
+        {
+            ProjectileID.Sets.TrailCacheLength[Type] = 20;
+            ProjectileID.Sets.TrailingMode[Type] = 2;
+        }
 
         public override void SetDefaults()
         {
@@ -49,6 +57,25 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
                 dust.position = Projectile.Center + Main.rand.NextVector2Square(-10f, 11f);
                 dust.velocity = spawnVel;
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Main.instance.LoadNPC(NPCID.Shimmerfly);
+            Texture2D value = TextureAssets.Npc[NPCID.Shimmerfly].Value;
+            Rectangle sourceRect = value.Frame(4, 5, 2);
+            Vector2 glowOrigin = sourceRect.Size() / 2;
+            Color drawColor = Color.Orange with { A = 0 } * Projectile.Opacity;
+            Color glowColor = drawColor;
+            SpriteEffects spriteEffects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+
+            for (int i = 0; i < Projectile.oldPos.Length; i++)
+            {
+                glowColor *= 0.9f;
+                Main.spriteBatch.Draw(value, Projectile.oldPos[i] + Projectile.Size / 2 - Projectile.velocity - Main.screenPosition, sourceRect, glowColor, Projectile.rotation, glowOrigin, Projectile.scale * 1.25f, spriteEffects, 0f);
+            }
+
+            return false;
         }
     }
 }

@@ -6,10 +6,10 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Tier2CProjectile : ModProjectile
     {
@@ -34,6 +34,10 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void AI()
         {
+            if (Projectile.velocity.Length() > 3f)
+            {
+                Projectile.velocity *= 0.94f;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.SimpleFadeOut(ai: 0, 30f);
 

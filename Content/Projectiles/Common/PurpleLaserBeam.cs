@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
+using UniverseOfSwords.Content.Dusts;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class PurpleLaserBeam : ModProjectile
     {
@@ -33,6 +33,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.alpha = 255;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 21;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public override void AI()

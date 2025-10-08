@@ -5,11 +5,11 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class SOTUGreenBolt : ModProjectile
     {
@@ -50,16 +50,18 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
             }
-            for (int j = 0; j < 30; j++)
+            for (int j = 0; j < 15; j++)
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 0, default, 2.5f);
-                Main.dust[dust].noGravity = true;
-                Dust dust2 = Main.dust[dust];
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 0, default, 2.5f);
+                dust.position = Projectile.Center - Main.rand.NextVector2Circular(200f, 200f);
+                dust.noGravity = true;
+                Dust dust2 = dust;
                 dust2.velocity *= 3f;
-                dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 100, default, 1.5f);
-                dust2 = Main.dust[dust];
+                dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 100, default, 1.5f);
+                dust2 = dust;
+                dust2.position = Projectile.Center - Main.rand.NextVector2CircularEdge(200f, 200f);
                 dust2.velocity *= 2f;
-                Main.dust[dust].noGravity = true;
+                dust.noGravity = true;
             }
             Projectile.Damage();
         }

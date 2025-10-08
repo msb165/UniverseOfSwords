@@ -2,9 +2,9 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwords.Content.Items.Placeable;
 
-namespace UniverseOfSwordsMod.Content.Items.Armor
+namespace UniverseOfSwords.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class DranHelmet : ModItem

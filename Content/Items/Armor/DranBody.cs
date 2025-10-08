@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Placeable;
+using UniverseOfSwords.Content.Items.Placeable;
 
-namespace UniverseOfSwordsMod.Content.Items.Armor
+namespace UniverseOfSwords.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Body)]
 	public class DranBody : ModItem
@@ -47,8 +48,16 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 			recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
-		
-		public override void UpdateEquip(Player player)
+
+        public override bool IsArmorSet(Item head, Item body, Item legs) => head.type == ModContent.ItemType<DranHelmet>() && legs.type == ModContent.ItemType<DranLeggings>();
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = (string)Language.GetOrRegister("Mods.UniverseOfSwords.DranArmor.SetBonus");
+			player.endurance += 0.75f;
+        }
+
+        public override void UpdateEquip(Player player)
 		{
 			player.statLifeMax2 += 1000;
 			player.GetDamage(DamageClass.Melee) += 1f;

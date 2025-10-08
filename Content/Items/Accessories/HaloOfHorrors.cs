@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Accessories
+namespace UniverseOfSwords.Content.Items.Accessories
 {
     public class HaloOfHorrors : ModItem
     {

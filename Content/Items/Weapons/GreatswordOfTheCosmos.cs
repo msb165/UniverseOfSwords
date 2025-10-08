@@ -4,10 +4,10 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class GreatswordOfTheCosmos : ModItem
     {
@@ -58,7 +58,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                         spawnVel.Y = 20f;
                     }
                     spawnVel = Vector2.Normalize(spawnVel) * 10f;
-                    Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, spawnVel, ProjectileID.Meteor1, Item.damage * 2, Item.knockBack, player.whoAmI, 0f, Main.rand.NextFloat(1f, 2f));
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, spawnVel, ProjectileID.Meteor1, Item.damage, Item.knockBack, player.whoAmI, 0f, Main.rand.NextFloat(1f, 2f));
                 }
             }
         }
@@ -66,21 +66,20 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.StarWrath, 1)
-            .AddIngredient(ModContent.ItemType<Saphira>())
-            .AddIngredient(ItemID.FragmentSolar, 30)
-            .AddIngredient(ItemID.FragmentVortex, 30)
-            .AddIngredient(ItemID.FragmentNebula, 30)
-            .AddIngredient(ItemID.FragmentStardust, 30)
-            .AddIngredient(ModContent.ItemType<PowerOfTheGalactic>())
-            .AddIngredient(ItemID.MeteorStaff, 1)
-            .AddIngredient(ItemID.MeteoriteBar, 100)
-            .AddIngredient(ItemID.HellstoneBar, 100)
-            .AddIngredient(null, "Orichalcon", 10)
-            .AddIngredient(ItemID.LunarBar, 50)
-            .AddIngredient(ModContent.ItemType<SwordMatter>(), 1500)
-            .AddTile(TileID.LunarCraftingStation)
-            .Register();
+                .AddIngredient(ItemID.StarWrath)
+                .AddIngredient(ModContent.ItemType<Saphira>())
+                .AddIngredient(ItemID.FragmentSolar, 30)
+                .AddIngredient(ItemID.FragmentVortex, 30)
+                .AddIngredient(ItemID.FragmentNebula, 30)
+                .AddIngredient(ItemID.FragmentStardust, 30)
+                .AddIngredient(ItemID.MeteorStaff)
+                .AddIngredient(ItemID.MeteoriteBar, 100)
+                .AddIngredient(ItemID.HellstoneBar, 100)
+                .AddIngredient(null, "Orichalcon", 10)
+                .AddIngredient(ItemID.LunarBar, 50)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 1500)
+                .AddTile(TileID.LunarCraftingStation)
+                .Register();
         }
     }
 }

@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class TheSwarm : ModItem
     {
@@ -22,7 +22,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 15;
             Item.knockBack = 5.0F;
             Item.shoot = ProjectileID.Bee;
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 1f;
             Item.UseSound = SoundID.Item1;
             Item.value = 38500;
             Item.autoReuse = true;

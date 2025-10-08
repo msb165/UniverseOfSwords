@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Common.GlobalItems
+namespace UniverseOfSwords.Common.GlobalItems
 {
     public class ReflectionChance : GlobalItem
     {
@@ -12,7 +12,7 @@ namespace UniverseOfSwordsMod.Common.GlobalItems
 
         public override void SetDefaults(Item entity)
         {
-            if ((entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed) && entity.useStyle == ItemUseStyleID.Swing && entity.axe == 0 && entity.pick == 0 && reflectChance == 0)
+            if ((entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed) && entity.useStyle == ItemUseStyleID.Swing && entity.axe <= 0 && entity.pick <= 0 && reflectChance == 0)
             {
                 reflectChance = 2;
             }

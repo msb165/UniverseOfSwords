@@ -2,9 +2,9 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class ShadowFlame : ModProjectile
     {

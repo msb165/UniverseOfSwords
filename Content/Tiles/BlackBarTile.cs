@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 
-namespace UniverseOfSwordsMod.Content.Tiles
+namespace UniverseOfSwords.Content.Tiles
 {
     public class BlackBarTile : ModTile
     {
@@ -16,7 +16,6 @@ namespace UniverseOfSwordsMod.Content.Tiles
             TileObjectData.addTile(Type);
 
             LocalizedText name = CreateMapEntryName();
-
             AddMapEntry(new Color(87, 38, 87), name); // Colour of Tile on Map
         }
     }

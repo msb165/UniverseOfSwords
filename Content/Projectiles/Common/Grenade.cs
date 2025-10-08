@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Grenade : ModProjectile
     {
@@ -42,7 +42,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.velocity.Y += 0.2f;
             for (int j = 0; j < 3; j++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.JungleSpore, Alpha: 100, Scale: 1.25f);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.JungleSpore, Alpha: 255, Scale: 1f);
                 dust.noGravity = true;
             }
         }

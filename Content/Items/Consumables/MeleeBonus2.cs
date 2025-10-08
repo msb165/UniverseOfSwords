@@ -7,9 +7,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
+using UniverseOfSwords.Buffs;
 
-namespace UniverseOfSwordsMod.Content.Items.Consumables
+namespace UniverseOfSwords.Content.Items.Consumables
 {
     public class MeleeBonus2 : ModItem
     {

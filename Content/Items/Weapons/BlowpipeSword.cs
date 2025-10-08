@@ -3,8 +3,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Projectiles.Common;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class BlowpipeSword : ModItem
     {
@@ -25,8 +26,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 16;
             Item.knockBack = 3.5F;
             Item.UseSound = SoundID.Item17;
-            Item.shoot = ProjectileID.Seed;
-            Item.shootSpeed = 3;
+            Item.shoot = ModContent.ProjectileType<Seed>();
+            Item.shootSpeed = 3f;
             Item.value = Item.sellPrice(silver: 40);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;

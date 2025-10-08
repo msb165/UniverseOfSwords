@@ -4,9 +4,10 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class VenomSword : ModItem
     {
@@ -20,10 +21,10 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 30;
             Item.knockBack = 4f;
             Item.damage = 63;
-            Item.shoot = ProjectileID.VenomFang;
+            Item.shoot = ModContent.ProjectileType<VenomFang>();
             Item.shootSpeed = 15f;
             Item.UseSound = SoundID.Item43;
-            Item.value = 200000;
+            Item.value = Item.sellPrice(gold: 2);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -41,10 +42,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             return false;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            player.itemLocation.Y -= 1f * player.gravDir;
-        }
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation.Y -= 1f * player.gravDir;
 
         public override void AddRecipes()
         {
@@ -55,6 +53,5 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
-
     }
 }

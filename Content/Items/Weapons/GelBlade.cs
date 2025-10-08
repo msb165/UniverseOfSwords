@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class GelBlade : ModItem
     {
@@ -35,16 +35,18 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             player.itemLocation.Y -= 1f * player.gravDir;
         }
 
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Slimed, 360);
+            target.AddBuff(BuffID.Slow, 360);
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Gel, 20)
                 .AddTile(TileID.WorkBenches)
                 .Register();
-        }
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(BuffID.Slimed, 360);
         }
     }
 }

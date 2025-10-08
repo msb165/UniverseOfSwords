@@ -1,13 +1,8 @@
-﻿using System;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Buffs;
 
-namespace UniverseOfSwordsMod.Content.Items.Consumables
+namespace UniverseOfSwords.Content.Items.Consumables
 {
     public class Skooma : ModItem
     {
@@ -15,11 +10,12 @@ namespace UniverseOfSwordsMod.Content.Items.Consumables
         {
             // DisplayName.SetDefault("Skooma");
             // Tooltip.SetDefault("Increases movement speed and jump height");
+            Item.ResearchUnlockCount = 25;
         }
 
         public override void SetDefaults()
         {
-            Item.UseSound = SoundID.Item3;                //this is the sound that plays when you use the item
+            Item.UseSound = SoundID.Item3;                
             Item.useStyle = ItemUseStyleID.DrinkLiquid;                 //this is how the item is holded when used
             Item.useTurn = true;
             Item.useAnimation = 17;

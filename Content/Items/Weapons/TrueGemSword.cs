@@ -1,35 +1,41 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
-using static System.Net.Mime.MediaTypeNames;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static Terraria.ModLoader.ModContent;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class TrueGemSword : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 58;
-            Item.height = 58;
+            Item.width = 40;
+            Item.height = 40;
             Item.scale = 1.25f;
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
             Item.useAnimation = 15;
-            //Item.shoot = ProjectileID.MagicMissile;
+            Item.shoot = ProjectileType<Projectiles.Held.TrueGemSword>();
+            Item.shootSpeed = 1f;
             Item.damage = 80;
-            Item.expert = true;
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 20);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.channel = true;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
         }
+
+        public override bool MeleePrefix() => true;
+
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
@@ -52,6 +58,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 .AddIngredient(ItemID.BrokenHeroSword)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
+        }
+
+        int swingDirection = 1;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            swingDirection *= -1;
+            Projectile.NewProjectile(source, position, Vector2.Normalize(velocity), Item.shoot, damage, knockback, player.whoAmI, ai1: swingDirection);
+            return false;
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
-using UniverseOfSwordsMod.Content.Items.Weapons;
+using UniverseOfSwords.Content.Items.Weapons;
 
-namespace UniverseOfSwordsMod.Utilities.Projectiles
+namespace UniverseOfSwords.Utilities.Projectiles
 {
     public static class GenericAI
     {
@@ -67,6 +67,38 @@ namespace UniverseOfSwordsMod.Utilities.Projectiles
             }
         }
 
+        public static void SolarEruptionAI(this Projectile proj, Player player, int ai = 0, float velocityOffset = 48f)
+        {
+            if (proj.localAI[0] == 0f)
+            {
+                proj.localAI[0] = proj.velocity.ToRotation();
+            }
+            float direction = (MathF.Cos(proj.localAI[0]) >= 0f).ToDirectionInt();
+            if (proj.ai[1] <= 0f)
+            {
+                direction *= -1f;
+            }
+            proj.ai[ai]++;
+            Vector2 spinningpoint = (direction * (proj.ai[ai] / 30f * MathHelper.TwoPi - MathHelper.PiOver2)).ToRotationVector2();
+            spinningpoint.Y *= MathF.Sin(proj.ai[1]);
+            if (proj.ai[1] <= 0f)
+            {
+                spinningpoint.Y *= -1f;
+            }
+            spinningpoint = spinningpoint.RotatedBy(proj.localAI[0]);
+            if (proj.ai[ai] < 30f)
+            {
+                proj.velocity += velocityOffset * spinningpoint;
+            }
+            else
+            {
+                proj.Kill();
+            }
+            proj.rotation = proj.velocity.ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4;
+            proj.spriteDirection = proj.direction;
+            proj.timeLeft = 2;
+            proj.Center = player.RotatedRelativePoint(player.MountedCenter, addGfxOffY: false) + Vector2.Normalize(proj.velocity) + Vector2.Normalize(proj.rotation.ToRotationVector2());
 
+        }
     }
 }

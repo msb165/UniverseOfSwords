@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class EctoplasmicRipper : ModItem
     {
@@ -54,7 +54,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             int healingAmt = hit.Damage / 8;
             player.statMana += healingAmt;
-            player.HealEffect(healingAmt, true);
+            player.ManaEffect(healingAmt);
         }
     }
 }

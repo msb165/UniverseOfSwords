@@ -6,10 +6,10 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Items.Weapons;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Held
+namespace UniverseOfSwords.Content.Projectiles.Held
 {
     internal class PrismSword : ModProjectile
     {
@@ -37,55 +37,55 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
         Player Player => Main.player[Projectile.owner];
         public override void AI()
         {
-            float num37 = 30f;
+            float time = 30f;
             if (Projectile.ai[0] > 90f)
             {
-                num37 = 15f;
+                time = 15f;
             }
             if (Projectile.ai[0] > 120f)
             {
-                num37 = 5f;
+                time = 5f;
             }
             Projectile.damage = (int)(float)(Player.GetTotalDamage(DamageClass.Melee).ApplyTo(Player.HeldItem.damage));
             Projectile.ai[0]++;
             Projectile.ai[1]++;
-            int num38 = 10;
-            bool flag9 = false;
-            if (Projectile.ai[0] % num37 == 0f)
+            int soundDelayAmount = 10;
+            bool shouldSpawn = false;
+            if (Projectile.ai[0] % time == 0f)
             {
-                flag9 = true;
+                shouldSpawn = true;
             }
             if (Projectile.ai[1] >= 1f)
             {
                 Projectile.ai[1] = 0f;
-                flag9 = true;
+                shouldSpawn = true;
                 if (Main.myPlayer == Projectile.owner)
                 {
                     float speed = Player.HeldItem.shootSpeed * Projectile.scale;
-                    Vector2 vector18 = Player.RotatedRelativePoint(Player.MountedCenter);
-                    Vector2 value6 = Main.MouseWorld - vector18;
-                    Vector2 value7 = value6;
-                    value7 = value7.SafeNormalize(-Vector2.UnitY);
-                    value7 = Vector2.Normalize(Vector2.Lerp(value7, Vector2.Normalize(Projectile.velocity), 0.92f));
-                    value7 *= speed;
-                    if (value7.X != Projectile.velocity.X || value7.Y != Projectile.velocity.Y)
+                    Vector2 position = Player.RotatedRelativePoint(Player.MountedCenter);
+                    Vector2 velocity = Main.MouseWorld - position;
+                    Vector2 alteredVelocity = velocity;
+                    alteredVelocity = alteredVelocity.SafeNormalize(-Vector2.UnitY);
+                    alteredVelocity = Vector2.Normalize(Vector2.Lerp(alteredVelocity, Vector2.Normalize(Projectile.velocity), 0.92f));
+                    alteredVelocity *= speed;
+                    if (alteredVelocity.X != Projectile.velocity.X || alteredVelocity.Y != Projectile.velocity.Y)
                     {
                         Projectile.netUpdate = true;
                     }
-                    Projectile.rotation = value6.ToRotation() + MathHelper.Lerp(-0.75f, 0.75f, MathF.Sin(Projectile.ai[0] * 0.1f)) + MathHelper.PiOver4;
+                    Projectile.rotation = velocity.ToRotation() + MathHelper.Lerp(-0.75f, 0.75f, MathF.Sin(Projectile.ai[0] * 0.1f)) + MathHelper.PiOver4;
                     Projectile.velocity = Projectile.rotation.ToRotationVector2();
                 }
             }
             if (Projectile.soundDelay <= 0)
             {
-                Projectile.soundDelay = num38;
+                Projectile.soundDelay = soundDelayAmount;
                 Projectile.soundDelay *= 4;
                 if (Projectile.ai[0] != 1f)
                 {
                     SoundEngine.PlaySound(SoundID.Item15, Projectile.position);
                 }
             }
-            if (flag9 && Main.myPlayer == Projectile.owner)
+            if (shouldSpawn && Main.myPlayer == Projectile.owner)
             {
                 if (Player.channel && !Player.noItems && !Player.CCed)
                 {
@@ -120,6 +120,13 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Held
             Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, rotation);
         }
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
+            {
+                NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
+            }
+        }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {

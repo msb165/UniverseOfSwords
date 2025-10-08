@@ -7,9 +7,9 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class GemBolt : ModProjectile
     {
@@ -31,13 +31,14 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.aiStyle = -1;
             Projectile.penetrate = 1;
             Projectile.friendly = true;
+            Projectile.DamageType = DamageClass.Melee;
             Projectile.timeLeft = 180;
         }
 
         public ref float DustSelected => ref Projectile.ai[0];
         
         int dustType = DustID.AmberBolt;
-
+        Player Player => Main.player[Projectile.owner];
         public override void AI()
         {
             switch (DustSelected)

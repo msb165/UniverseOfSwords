@@ -2,10 +2,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common.Base;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Projectiles.Base;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class EdgeLordEnergy : BaseEnergySwing
     {
@@ -16,7 +16,7 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
         public override float ScaleAdd => 2f;
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
+            if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
             {
                 target.AddBuff(BuffID.Ichor, 360);
                 target.AddBuff(BuffID.Weak, 360);

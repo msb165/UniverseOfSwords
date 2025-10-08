@@ -1,13 +1,17 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
+using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SwordOfTheUniverseV5 : ModItem
     {
@@ -20,28 +24,38 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 166;
-            Item.height = 166;
+            Item.width = 100;
+            Item.height = 100;
             Item.scale = 1f;
             Item.rare = ItemRarityID.Purple;
             Item.crit = 16;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 7;
+            Item.useTime = 15;
             Item.useAnimation = 15;
             Item.damage = 275;
             Item.knockBack = 20f;
-            Item.UseSound = new SoundStyle($"{nameof(UniverseOfSwordsMod)}/Assets/Sounds/Item/GiantExplosion");
+            Item.UseSound = SoundID.Item1 with { Pitch = -0.5f };
             Item.shoot = ModContent.ProjectileType<SOTUV5Projectile>();
             Item.shootSpeed = 15f;
-            Item.expert = true;
             Item.value = Item.sellPrice(platinum: 5);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.GetGlobalItem<ReflectionChance>().reflectChance = 10;
+            Item.noMelee = true;
+            Item.channel = true;
+            Item.noUseGraphic = true;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        public override bool MeleePrefix() => true;
+
+        public override bool CanShoot(Player player) => player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.Held.SwordOfTheUniverseV5>()] < 1;
+
+        int swingDirection = 1;
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            player.itemLocation = player.Center;
+            swingDirection *= -1;
+            Projectile.NewProjectile(source, position, Vector2.Normalize(velocity), ModContent.ProjectileType<Projectiles.Held.SwordOfTheUniverseV5>(), damage, knockback, player.whoAmI, ai1: swingDirection);
+            return false;
         }
 
         public override void AddRecipes()
@@ -77,29 +91,6 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             recipe = CreateRecipe(1);
             recipe.AddIngredient(null, "SwordOfTheUniverseV8");
             recipe.Register();
-        }
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            Vector2 spawnPos = Main.MouseWorld;
-            player.LimitPointToPlayerReachableArea(ref spawnPos);
-            Vector2 spawnVel = (spawnPos - player.MountedCenter + Main.rand.NextVector2Circular(150f, 150f)).SafeNormalize(Vector2.Zero) * Main.rand.Next(1, 150);
-            Projectile.NewProjectileDirect(source, spawnPos, spawnVel, ProjectileID.FinalFractal, damage, knockback, player.whoAmI, 100f);
-            return false;
-        }
-
-        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(BuffID.Midas, 360);
-            target.AddBuff(BuffID.Ichor, 360);
-            target.AddBuff(BuffID.Frostburn, 360);
-            target.AddBuff(BuffID.OnFire, 360);
-            target.AddBuff(BuffID.Poisoned, 360);
-            target.AddBuff(BuffID.CursedInferno, 360);
-            for (int i = 0; i < 10; i++)
-            {
-                //Projectile.NewProjectileDirect(target.GetSource_OnHit(target), target.Center, Vector2.UnitX.RotatedBy(-i * MathHelper.TwoPi / 10f * i, Vector2.Zero), ProjectileID.InfluxWaver, hit.Damage, Item.knockBack, player.whoAmI);
-            }
-        }
+        }          
     }
 }

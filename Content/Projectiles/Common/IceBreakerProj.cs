@@ -1,15 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Weapons;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Items.Weapons;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class IceBreakerProj : ModProjectile
     {
@@ -32,13 +33,20 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             Projectile.friendly = true;
             Projectile.penetrate = -1;
             Projectile.scale = 1f;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public ref float Timer => ref Projectile.ai[0];
+        public ref float Timer2 => ref Projectile.localAI[1];
         Player Player => Main.player[Projectile.owner];
 
         public override void AI()
         {
+            Timer2--;
+            if (Timer2 <= 30f)
+            {
+                Timer2 = 190f;
+            }
             Timer++;
             if (Main.myPlayer == Projectile.owner && Player.controlUseTile && Timer >= 8f && Projectile.localAI[0] == 1f || (Main.myPlayer == Projectile.owner && Player.Distance(Projectile.Center) > 800f))
             {
@@ -140,6 +148,22 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
             }
 
             Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, drawColor, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0f);
+
+            Color glowColor = Color.SkyBlue with { A = 100 };
+            Color glowColor2 = glowColor * 0.5f;
+            Vector2 glowPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
+            Texture2D glowTexture = TextureAssets.Extra[ExtrasID.SharpTears].Value;
+            Vector2 glowOrigin = glowTexture.Size() / 2f;
+            float scaleAndColorMultiplier = Utils.GetLerpValue(15f, 30f, Timer2, clamped: true) * Utils.GetLerpValue(240f, 200f, Timer2, clamped: true) * (1f + 0.2f * (float)MathF.Cos(Main.GlobalTimeWrappedHourly % 30f * MathHelper.TwoPi * 3f)) * 0.8f;
+            Vector2 star1Scale = new Vector2(0.5f, 3f) * scaleAndColorMultiplier;
+            Vector2 star2Scale = new Vector2(0.5f, 2f) * scaleAndColorMultiplier;
+            glowColor *= scaleAndColorMultiplier;
+            glowColor2 *= scaleAndColorMultiplier;
+            Main.EntitySpriteDraw(glowTexture, glowPos, null, glowColor, MathHelper.PiOver2, glowOrigin, star1Scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(glowTexture, glowPos, null, glowColor, 0f, glowOrigin, star2Scale, SpriteEffects.None);
+            Main.EntitySpriteDraw(glowTexture, glowPos, null, glowColor2, MathHelper.PiOver2, glowOrigin, star1Scale * 0.6f, SpriteEffects.None);
+            Main.EntitySpriteDraw(glowTexture, glowPos, null, glowColor2, 0f, glowOrigin, star2Scale * 0.6f, SpriteEffects.None);
+
             return false;
         }
     }

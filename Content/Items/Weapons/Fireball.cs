@@ -3,11 +3,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class Fireball : ModItem
     {
@@ -23,7 +23,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 31;
             Item.knockBack = 5f;
             Item.shoot = ModContent.ProjectileType<FireBreath>();
-            Item.shootSpeed = 3f;
+            Item.shootSpeed = 2.5f;
             Item.UseSound = SoundID.Item20;
             Item.value = Item.sellPrice(gold: 3);
             Item.autoReuse = true;
@@ -45,15 +45,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                Dust dust = Dust.NewDustDirect(player.Center + new Vector2(player.direction - 6f * -player.direction, player.gravDir * -48f), 32, 32, DustID.OrangeTorch, 0, 0, 127, default, 2f);
+                float rotation = player.itemRotation - MathHelper.PiOver4 * player.gravDir;
                 if (player.direction == -1)
                 {
-                    dust.position.X -= 34f;
+                    rotation -= MathHelper.PiOver2 * player.gravDir;
                 }
+                Dust dust = Dust.NewDustPerfect(player.Center + rotation.ToRotationVector2() * 30f * Item.scale, DustID.InfernoFork, Vector2.Zero, Alpha: 127, newColor: default, Scale: 1.25f);
                 dust.noGravity = true;
-                dust.velocity = Main.rand.NextVector2Circular(2f, 4f) - Vector2.UnitY;
-                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation);
-                UniverseUtils.CustomHoldStyle(player, new Vector2(32f * player.direction, -64f), new Vector2(0f, 4f));
+                dust.velocity = Main.rand.NextVector2Circular(4f, 10f) - Vector2.UnitY;
+                dust.velocity = dust.velocity.RotatedBy(-player.itemRotation * player.gravDir);
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), new Vector2(0f, 4f));
             }
         }
 

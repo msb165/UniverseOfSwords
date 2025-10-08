@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Dusts
+namespace UniverseOfSwords.Content.Dusts
 {
     public class EmperorBlaze : ModDust
     {

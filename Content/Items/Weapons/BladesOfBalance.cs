@@ -1,9 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Projectiles.Held;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class BladesOfBalance : ModItem
     {
@@ -15,49 +17,45 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void SetDefaults()
         {
             Item.damage = 51;
-			Item.crit = 2;
             Item.DamageType = DamageClass.Melee;
-            Item.width = 54;
-            Item.height = 54;
+            Item.Size = new(54);
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 7.0F;
+            Item.knockBack = 7f;
             Item.value = Item.sellPrice(gold: 5);
             Item.rare = ItemRarityID.LightPurple;
-			Item.scale = 1.2F;
+			Item.scale = 1.25f;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
             Item.useTurn = true;
+            Item.channel = true;
+            Item.noMelee = true;
+            Item.noUseGraphic = true;
+            Item.shoot = ModContent.ProjectileType<Projectiles.Held.BladesOfBalance>();
+            Item.shootSpeed = 1f;
         }
-		
-		public override void MeleeEffects(Player player, Rectangle hitbox)
-		{
-			if (Main.rand.Next(2) == 0)
-			{
 
-                int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.PinkTorch, 0f, 0f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity.X += player.direction * 0f;
-                Main.dust[dust].velocity.Y += 0.0f;
-                dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.VilePowder, 0f, 0f, 100, default, 2f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity.X += player.direction * 0f;
-                Main.dust[dust].velocity.Y += 0.0f;
-			}
-		}
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            float spin = (Main.rand.NextFloat() - 0.5f) * MathHelper.TwoPi;
+            Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI, 0f, spin);
+            return false;
+        }
 
 		public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 1);
-			recipe.AddIngredient(ItemID.FrostCore, 1);
-			recipe.AddIngredient(ItemID.LightShard, 1);
-			recipe.AddIngredient(ItemID.DarkShard, 1);
-			recipe.AddIngredient(ItemID.SoulofNight, 10);
-			recipe.AddIngredient(ItemID.SoulofLight, 10);
-            recipe.AddTile(TileID.MythrilAnvil);			
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.AncientBattleArmorMaterial)
+                .AddIngredient(ItemID.FrostCore)
+                .AddIngredient(ItemID.LightShard)
+                .AddIngredient(ItemID.DarkShard)
+                .AddIngredient(ItemID.SoulofNight, 10)
+                .AddIngredient(ItemID.SoulofLight, 10)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
 	    }
     }
 }

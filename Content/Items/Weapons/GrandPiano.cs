@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class GrandPiano : ModItem
     {
@@ -20,8 +20,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 142;
-            Item.height = 142;
+            Item.width = 70;
+            Item.height = 70;
             Item.scale = 1f;
             Item.rare = ItemRarityID.Orange;
             Item.crit = 10;
@@ -53,7 +53,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -62f), Vector2.Zero);
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -62f), new Vector2(2f * player.direction, 4f));
             }
         }
 
@@ -61,13 +61,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.LivingWoodPiano, 1)
-                .AddIngredient(ItemID.CactusPiano, 1)
-                .AddIngredient(ItemID.EbonwoodPiano, 1)
-                .AddIngredient(ItemID.RichMahoganyPiano, 1)
-                .AddIngredient(ItemID.PalmWoodPiano, 1)
-                .AddIngredient(ItemID.BorealWoodPiano, 1)
-                .AddIngredient(ItemID.Piano, 1)
+                .AddIngredient(ItemID.LivingWoodPiano)
+                .AddIngredient(ItemID.CactusPiano)
+                .AddIngredient(ItemID.EbonwoodPiano)
+                .AddIngredient(ItemID.RichMahoganyPiano)
+                .AddIngredient(ItemID.PalmWoodPiano)
+                .AddIngredient(ItemID.BorealWoodPiano)
+                .AddIngredient(ItemID.Piano)
                 .AddIngredient(ModContent.ItemType<PianoSword2>())
                 .AddIngredient(ModContent.ItemType<PianoSword4>())
                 .AddTile(TileID.Autohammer)

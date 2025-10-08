@@ -1,10 +1,12 @@
-using System;
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class WraithBlade : ModItem
     {
@@ -29,5 +31,16 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
         {
             player.itemLocation.Y -= 1f * player.gravDir;
         }
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!UniverseUtils.IsAValidTarget(target))
+            {
+                return;
+            }
+            Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 4f;
+            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ModContent.ProjectileType<WraithProj>(), (int)(damageDone * 0.75), hit.Knockback, player.whoAmI);
+        }
+
     }
 }

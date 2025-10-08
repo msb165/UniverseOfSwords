@@ -8,9 +8,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameInput;
-using UniverseOfSwordsMod.Buffs;
+using UniverseOfSwords.Buffs;
 
-namespace UniverseOfSwordsMod
+namespace UniverseOfSwords
 {
     public class UniversePlayer : ModPlayer
     {

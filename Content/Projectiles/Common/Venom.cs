@@ -5,11 +5,11 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Dusts;
-using UniverseOfSwordsMod.Utilities;
-using UniverseOfSwordsMod.Utilities.Projectiles;
+using UniverseOfSwords.Content.Dusts;
+using UniverseOfSwords.Utilities;
+using UniverseOfSwords.Utilities.Projectiles;
 
-namespace UniverseOfSwordsMod.Content.Projectiles.Common
+namespace UniverseOfSwords.Content.Projectiles.Common
 {
     public class Venom : ModProjectile
     {
@@ -33,6 +33,10 @@ namespace UniverseOfSwordsMod.Content.Projectiles.Common
 
         public override void AI()
         {
+            if (Projectile.velocity.Length() > 3.25f)
+            {
+                Projectile.velocity *= 0.94f;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.SimpleFadeOut(ai: 0, 30f);
         }

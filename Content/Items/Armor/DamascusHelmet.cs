@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Placeable;
 
-namespace UniverseOfSwordsMod.Content.Items.Armor
+namespace UniverseOfSwords.Content.Items.Armor
 {
 	[AutoloadEquip(EquipType.Head)]
 	public class DamascusHelmet : ModItem
@@ -32,8 +33,8 @@ namespace UniverseOfSwordsMod.Content.Items.Armor
 		public override void AddRecipes()
 		{
 			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(null, "DamascusBar", 10);
-			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 65);
+			recipe.AddIngredient(ModContent.ItemType<DamascusBar>(), 10);
+			recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 45);
             recipe.AddTile(TileID.Anvils);			
 			recipe.Register();
 		}

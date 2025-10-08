@@ -7,9 +7,9 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
-using UniverseOfSwordsMod.Content.Items.Weapons;
+using UniverseOfSwords.Content.Items.Weapons;
 
-namespace UniverseOfSwordsMod.Content.NPCs
+namespace UniverseOfSwords.Content.NPCs
 {
     public class Nazgul : ModNPC
     {

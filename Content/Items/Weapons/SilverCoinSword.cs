@@ -3,17 +3,15 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class SilverCoinSword : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // Tooltip.SetDefault("Shoots silver coins");
-        }
 
         public override void SetDefaults()
         {
@@ -27,11 +25,23 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.damage = 5;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item11;
-            Item.shoot = ProjectileID.SilverCoin;
-            Item.shootSpeed = 10;
             Item.value = Item.sellPrice(silver: 99);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -72f), Vector2.UnitX * 4f * player.direction);
+            }
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -42,21 +52,25 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             }
             Vector2 spawnPos = Main.rand.NextVector2CircularEdge(200f, 200f);
             Vector2 spawnVel = spawnPos.SafeNormalize(Vector2.UnitY) * 10f;
-            if (Collision.SolidTiles(target.Center - spawnPos, 8, 8))
+            for (int i = 0; i < 20; i++)
             {
+                if (!Collision.SolidTiles(target.Center - spawnPos, 16, 16))
+                {
+                    break;
+                }
                 spawnPos = Main.rand.NextVector2CircularEdge(200f, 200f);
                 spawnVel = spawnPos.SafeNormalize(Vector2.UnitY) * 10f;
             }
-            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnPos, spawnVel, ProjectileID.SilverCoin, Item.damage, Item.knockBack, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnPos, spawnVel, ModContent.ProjectileType<SilverCoin>(), Item.damage, Item.knockBack, player.whoAmI);
         }
 
         public override void AddRecipes()
         {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.SilverCoin, 99);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 20);
-            recipe.AddTile(TileID.WorkBenches);
-            recipe.Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.SilverCoin, 99)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 20)
+                .AddTile(TileID.WorkBenches)
+                .Register();
         }
     }
 }

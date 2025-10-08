@@ -3,11 +3,11 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Common;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class MagicMirrorBlade : ModItem
     {
@@ -30,6 +30,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.value = Item.sellPrice(silver: 50);
             Item.autoReuse = false;
             Item.holdStyle = 0;
+            Item.noMelee = true;
         }
 
         public override void HoldItem(Player player)
@@ -45,13 +46,13 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             }
         }
 
+        public override bool? UseItem(Player player)
+        {
+            return null;
+        }
+
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
-            // Each frame, make some dust
-            if (Main.rand.NextBool(2))
-            {
-                Dust.NewDust(player.position, player.width, player.height, DustID.MagicMirror, 0f, 0f, 150, default, 1.1f);
-            }
             // This sets up the itemTime correctly.
             if (player.itemTime == 0)
             {

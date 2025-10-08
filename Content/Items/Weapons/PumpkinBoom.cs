@@ -3,18 +3,18 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class PumpkinBoom : ModItem
     {
         public override void SetDefaults()
         {
-            Item.width = 64;
-            Item.height = 64;
-            Item.scale = 1f;
+            Item.width = 48;
+            Item.height = 48;
+            Item.scale = 1.25f;
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 20;
@@ -27,10 +27,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.DamageType = DamageClass.Melee;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
-        {
-            player.itemLocation.Y -= 1f * player.gravDir;
-        }
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -38,8 +35,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             {
                 return;
             }
-            Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 10f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ProjectileID.JackOLantern, damageDone, hit.Knockback, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ProjectileID.SolarWhipSwordExplosion, damageDone, hit.Knockback, player.whoAmI, ai1: 0.85f + Main.rand.NextFloat() * 1.15f);
         }
 
         public override void AddRecipes()

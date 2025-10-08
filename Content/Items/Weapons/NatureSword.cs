@@ -4,10 +4,11 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Items.Materials;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class NatureSword : ModItem
     {
@@ -27,8 +28,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.useAnimation = 25;
             Item.damage = 15;
             Item.knockBack = 6f;
-            Item.shoot = ProjectileID.VilethornBase;
-            Item.shootSpeed = 20f;
+            Item.shoot = ModContent.ProjectileType<VilethornBase>();
+            Item.shootSpeed = 32f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.buyPrice(silver: 50);
             Item.autoReuse = true;
@@ -45,8 +46,8 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            Projectile proj = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, player.whoAmI);
-            proj.DamageType = DamageClass.MeleeNoSpeed;
+            Vector2 newVel = Vector2.Normalize(velocity) * 32f;
+            Projectile.NewProjectileDirect(source, position, newVel, type, damage, knockback, player.whoAmI);
             return false;
         }
 

@@ -5,11 +5,12 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwordsMod.Content.Projectiles.Common;
-using UniverseOfSwordsMod.Utilities;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniverseOfSwordsMod.Content.Items.Weapons
+namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class Golem : ModItem
     {
@@ -20,14 +21,14 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 46;
-            Item.height = 64;
-            Item.scale = 1.25f;
+            Item.width = 34;
+            Item.height = 34;
+            Item.scale = 1.5f;
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 21;
-            Item.useAnimation = 21;
-            Item.damage = 90;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.damage = 95;
             Item.knockBack = 8f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(gold: 4);
@@ -37,15 +38,25 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
             Item.DamageType = DamageClass.Melee;
         }
 
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -54f), Vector2.UnitY * 4f);
+            }
+        }
+
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
             UniverseUtils.SpawnRotatedDust(player, DustID.Lihzahrd, 1f);
         }
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            return false;
-        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => false;
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -59,7 +70,7 @@ namespace UniverseOfSwordsMod.Content.Items.Weapons
                 float offset = j * (3f - 1f) / 2f;
                 Vector2 spawnOffset = spawnPos.RotatedBy(offset * MathHelper.TwoPi / 3f);
                 Vector2 spawnVel = Vector2.Normalize(Main.MouseWorld - player.Center - spawnOffset);
-                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + spawnOffset - Vector2.UnitY * 12f, spawnVel * 10f, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + spawnOffset - Vector2.UnitY * 12f, spawnVel * Item.shootSpeed, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
             }
         }
     }

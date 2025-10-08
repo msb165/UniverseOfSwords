@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace UniverseOfSwordsMod.Content.Items.Materials
+namespace UniverseOfSwords.Content.Items.Materials
 {
     public class Orichalcon : ModItem
     {
