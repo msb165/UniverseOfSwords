@@ -24,7 +24,7 @@ namespace UniverseOfSwords.Content.Items.Consumables
         public override bool OnPickup(Player player)
         {
             SoundEngine.PlaySound(SoundID.Grab);
-            player.AddBuff(ModContent.BuffType<MeleeBooster1>(), 360);
+            player.AddBuff(ModContent.BuffType<MeleeBooster1>(), 420);
             return false;
         }
     }
