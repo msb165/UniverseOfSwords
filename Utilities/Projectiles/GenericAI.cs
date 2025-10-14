@@ -9,21 +9,24 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using UniverseOfSwords.Content.Items.Weapons;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Utilities.Projectiles
 {
     public static class GenericAI
     {
         /// <summary>
-        /// Fades out the projectile after a certain period of time.
+        /// Fades out the projectile after a certain period of time and decreases damage and knockback.
         /// </summary>
 
-        public static void SimpleFadeOut(this Projectile proj, int ai, float maxTime)
+        public static void VampireKnivesAI(this Projectile proj, int ai, float maxTime)
         {
             proj.ai[ai]++;
             if (proj.ai[ai] > maxTime)
             {
                 proj.alpha += 10;
+                proj.damage = (int)(proj.damage * 0.9);
+                proj.knockBack = (int)(proj.knockBack * 0.9);
                 if (proj.alpha >= 255)
                 {
                     proj.active = false;
