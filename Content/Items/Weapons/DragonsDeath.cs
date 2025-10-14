@@ -19,7 +19,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
 		
         public override void SetDefaults()
         { 
-            Item.Size = new(128);
+            Item.Size = new(40);
             Item.rare = ItemRarityID.Lime;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 40;

@@ -19,10 +19,10 @@ namespace UniverseOfSwords.Content.Items.Weapons      //We need this to basicall
         {
             Item.damage = 24;
             Item.DamageType = DamageClass.Melee;     //This defines if it does Melee damage and if its effected by Melee increasing Armor/Accessories.
-            Item.width = 106;    //The size of the width of the hitbox in pixels.
-            Item.height = 106;    //The size of the height of the hitbox in pixels.
+            Item.width = 53;    //The size of the width of the hitbox in pixels.
+            Item.height = 53;    //The size of the height of the hitbox in pixels.
             Item.crit = 8;
-            Item.scale = 2.0F;
+            Item.scale = 1f;
             Item.useTime = 4;   //How fast the Weapon is used.
             Item.useAnimation = 4;     //How long the Weapon is used for.
             Item.channel = true;

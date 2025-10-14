@@ -19,8 +19,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 72;
-            Item.height = 72;
+            Item.width = 36;
+            Item.height = 36;
             Item.scale = 1.125f;
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -70,7 +70,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 spawnPos = Main.rand.NextVector2CircularEdge(200f, 200f);
                 spawnVel = spawnPos.SafeNormalize(Vector2.UnitY) * 10f;
             }
-            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnPos, spawnVel, ModContent.ProjectileType<GoldenCoin>(), Item.damage, Item.knockBack, player.whoAmI);
+            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnPos, spawnVel, ModContent.ProjectileType<GoldenCoin>(), Item.damage, Item.knockBack / 2, player.whoAmI, ai1: 1f);
             if (Main.rand.NextBool(2))
             {
                 target.AddBuff(BuffID.Midas, 100);

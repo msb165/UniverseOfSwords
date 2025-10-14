@@ -19,8 +19,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 132;
-            Item.height = 132;
+            Item.width = 60;
+            Item.height = 60;
             Item.scale = 1.4f;
             Item.rare = ItemRarityID.Red;
             Item.crit = 6;

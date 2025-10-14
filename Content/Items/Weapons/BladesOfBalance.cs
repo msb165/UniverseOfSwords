@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Held;
 
 namespace UniverseOfSwords.Content.Items.Weapons
@@ -18,7 +19,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             Item.damage = 51;
             Item.DamageType = DamageClass.Melee;
-            Item.Size = new(54);
+            Item.Size = new(34);
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -54,6 +55,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 .AddIngredient(ItemID.DarkShard)
                 .AddIngredient(ItemID.SoulofNight, 10)
                 .AddIngredient(ItemID.SoulofLight, 10)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
 	    }
