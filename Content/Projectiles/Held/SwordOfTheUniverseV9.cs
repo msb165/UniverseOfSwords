@@ -12,7 +12,7 @@ namespace UniverseOfSwords.Content.Projectiles.Held
     {
         public override string Texture => ModContent.GetInstance<Items.Weapons.SwordOfTheUniverseV9>().Texture;
 
-        public override float SwordLength => 200f;
+        public override float SwordLength => 270f;
 
         public override ref float SwingDirection => ref Projectile.ai[1];
 
