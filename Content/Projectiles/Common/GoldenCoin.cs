@@ -28,18 +28,17 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.timeLeft = 600;
             Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.extraUpdates = 1;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public override void AI()
         {
-            if (Projectile.velocity.Length() > 3.5f)
+            float maxVel = Projectile.ai[1] == 1f ? 7f : 3.5f;
+            if (Projectile.velocity.Length() > maxVel)
             {
-                Projectile.velocity = Vector2.Normalize(Projectile.velocity) * 3.5f;
+                Projectile.velocity *= 0.94f;
             }
-            if (Projectile.ai[1] == 1f)
-            {
 
-            }
             Dust dust = Dust.NewDustPerfect(Projectile.position, ModContent.DustType<GoldCoin>());
             dust.noGravity = true;
             dust.alpha = Projectile.alpha;
@@ -48,7 +47,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 25);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 30f);
         }
 
         public override void OnKill(int timeLeft)
