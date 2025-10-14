@@ -15,8 +15,7 @@ namespace UniverseOfSwords.Content.Items.Materials
 		
         public override void SetDefaults()
         {
-            Item.width = 64;
-            Item.height = 64; 
+            Item.Size = new(64);
             Item.rare = ItemRarityID.Orange;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 20;   
@@ -26,7 +25,6 @@ namespace UniverseOfSwords.Content.Items.Materials
             Item.UseSound = SoundID.Item1;
             Item.value = 0;				
             Item.autoReuse = false; 
-            Item.DamageType = DamageClass.Melee;
             Item.noMelee = true;
 	    }   
     }
