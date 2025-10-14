@@ -33,8 +33,13 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void AI()
         {
+            NPC npc = Main.npc[(int)Projectile.ai[1]];
+            if (Projectile.ai[2] == 1f && npc != null && npc.active)
+            {
+                Projectile.Center += npc.velocity;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.SimpleFadeOut(ai: 0, 30f);
+            Projectile.VampireKnivesAI(ai: 0, 30f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

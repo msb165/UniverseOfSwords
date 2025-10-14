@@ -64,7 +64,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust.noGravity = true;
                 dust.scale = 1f;
             }
-            Projectile.SimpleFadeOut(ai: 2, 10f);
+            Projectile.VampireKnivesAI(ai: 2, 10f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

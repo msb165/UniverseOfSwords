@@ -35,12 +35,16 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void AI()
         {
+            if (Projectile.velocity.Length() > 7f)
+            {
+                Projectile.velocity *= 0.94f;
+            }
             Projectile.SwordBeamAI();
             if (Projectile.ai[0] >= 16f)
             {
                 Projectile.velocity *= 0.95f;
             }
-            Projectile.SimpleFadeOut(ai: 0, 30f);
+            Projectile.VampireKnivesAI(ai: 0, 30f);
         }
 
         public override void OnKill(int timeLeft)

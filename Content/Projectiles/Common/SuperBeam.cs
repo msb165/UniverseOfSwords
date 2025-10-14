@@ -40,7 +40,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         public override void AI()
         {
             Projectile.SwordBeamAI();
-            Projectile.SimpleFadeOut(ai: 0, 30f);
+            Projectile.VampireKnivesAI(ai: 0, 30f);
         }
 
         public override void OnKill(int timeLeft)

@@ -37,7 +37,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             }
             FindFrame();
             MagnetSphere_TryAttacking();
-            Projectile.SimpleFadeOut(ai: 0, 45f);
+            Projectile.VampireKnivesAI(ai: 0, 45f);
         }
 
         public void FindFrame()

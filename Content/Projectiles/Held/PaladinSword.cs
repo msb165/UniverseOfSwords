@@ -168,7 +168,7 @@ namespace UniverseOfSwords.Content.Projectiles.Held
             }
             else
             {
-                Projectile.SimpleFadeOut(ai: 0, 60f);
+                Projectile.VampireKnivesAI(ai: 0, 60f);
             }
             Projectile.direction = Player.direction;
             Projectile.rotation += 0.3f * Projectile.direction;

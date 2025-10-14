@@ -37,7 +37,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.SimpleFadeOut(ai: 0, 3f);
+            Projectile.VampireKnivesAI(ai: 0, 3f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

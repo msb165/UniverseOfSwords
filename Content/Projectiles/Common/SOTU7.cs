@@ -36,7 +36,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void AI()
         {
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 15f);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 15f);
             Projectile.spriteDirection = Projectile.direction;
             Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Purple, Scale: 0.7f);
             dust.position = Projectile.Center - Projectile.velocity + Main.rand.NextVector2Square(-Projectile.width + 4f, Projectile.width - 4f);

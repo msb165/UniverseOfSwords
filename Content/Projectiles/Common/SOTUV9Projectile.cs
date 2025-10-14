@@ -48,7 +48,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
             if (Projectile.ai[0] >= 1f)
             {
-                Projectile.SimpleFadeOut(ai: 0, 60f);
+                Projectile.VampireKnivesAI(ai: 0, 60f);
             }
         }
 

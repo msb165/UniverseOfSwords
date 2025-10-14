@@ -41,7 +41,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
             if (Projectile.ai[1] == 1f)
             {
-                Projectile.SimpleFadeOut(ai: 0, maxTime: 1f);
+                Projectile.VampireKnivesAI(ai: 0, maxTime: 1f);
             }
         }
 

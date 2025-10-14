@@ -34,7 +34,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 30f);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 30f);
             Vector2 velocity = Projectile.velocity.SafeNormalize(Vector2.UnitY) * Projectile.scale;
             UniverseUtils.SpawnDustLine(Projectile.Center - velocity * 40f, Projectile.Center + velocity * 120f, Vector2.Zero, dustType: DustID.SpectreStaff);
         }

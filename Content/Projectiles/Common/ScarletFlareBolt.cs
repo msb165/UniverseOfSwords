@@ -46,7 +46,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust.scale = 1f;
             }
             Lighting.AddLight(Projectile.position, Color.Red.ToVector3() / 2);
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 20f);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 20f);
             FindFrame();
         }
 

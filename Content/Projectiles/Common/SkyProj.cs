@@ -67,7 +67,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust.velocity = -Projectile.oldVelocity.RotatedByRandom(MathHelper.ToRadians(45f)) * 0.1f;
             }
 
-            Projectile.SimpleFadeOut(ai: 0, 1f);
+            Projectile.VampireKnivesAI(ai: 0, 1f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

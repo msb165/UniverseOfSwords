@@ -43,7 +43,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             //    dust.position = Projectile.Center;
             //    dust.noGravity = true;
             //}
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 60f);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 60f);
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 

@@ -37,13 +37,13 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 Projectile.velocity *= 0.94f;
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.SimpleFadeOut(ai: 0, 30f);
+            Projectile.VampireKnivesAI(ai: 0, 30f);
 
             if (Main.rand.NextBool(2))
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Flare);
                 dust.noGravity = true;
-                dust.scale = 1.0f;
+                dust.scale = 1f;
             }
         }
 

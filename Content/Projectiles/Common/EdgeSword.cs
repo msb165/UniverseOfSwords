@@ -60,7 +60,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 Vector2 speed = Vector2.Normalize(Main.npc[attackTarget].Center - Projectile.Center);
                 Projectile.velocity = (Projectile.velocity * 20f + speed * 10f) / 21f;
             }
-            Projectile.SimpleFadeOut(ai: 0, 30f);
+            Projectile.VampireKnivesAI(ai: 0, 30f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

@@ -39,7 +39,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.spriteDirection = Projectile.direction;
-            Projectile.SimpleFadeOut(ai: 0, 15f);
+            Projectile.VampireKnivesAI(ai: 0, 15f);
         }
 
         public override void OnKill(int timeLeft)

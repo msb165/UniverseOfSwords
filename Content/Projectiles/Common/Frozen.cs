@@ -41,7 +41,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 Projectile.velocity *= 0.94f;
             }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 30f);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 30f);
             for (int i = 0; i < 3; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<Dusts.VugarMutater>());
