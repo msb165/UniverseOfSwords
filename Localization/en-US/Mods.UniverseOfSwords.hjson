@@ -825,7 +825,6 @@ Items: {
 		Tooltip: Pulses with light energy of Innos
 	}
 
-
 	Machine: {
 		DisplayName: Machine
 		Tooltip: ""
@@ -1512,7 +1511,7 @@ Items: {
 
 	MeleeBonus: {
 		DisplayName: Melee Booster
-		Tooltip: ""
+		Tooltip: 15% increased melee speed
 	}
 
 	PurpleHeart: {
@@ -1527,7 +1526,7 @@ Items: {
 
 	MeleeBonus2: {
 		DisplayName: Melee Booster
-		Tooltip: ""
+		Tooltip: 15% increased melee damage
 	}
 
 	BigCrunch: {
@@ -1712,6 +1711,7 @@ Projectiles: {
 	SwordOfTheUniverseV7.DisplayName: Sword Of The Universe
 	SwordOfTheUniverseV4.DisplayName: Sword Of The Universe
 	InfluxWaverEnergy.DisplayName: Influx Waver Energy
+	ForcefieldShield.DisplayName: Forcefield Shield
 }
 
 Configs: {
@@ -1745,6 +1745,14 @@ Configs: {
 }
 
 DranArmor.SetBonus: 75% increased endurance
+GreenDamascusArmor.SetBonus:
+	'''
+	15% endurance, 
+	25% increased melee speed
+	7% increased melee critical chance
+	50% increased movement speed
+	maximum life increased by 20
+	'''
 
 NPCs: {
 	Nazgul.DisplayName: Nazgul
