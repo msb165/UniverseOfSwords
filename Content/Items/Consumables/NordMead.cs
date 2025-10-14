@@ -32,14 +32,5 @@ namespace UniverseOfSwords.Content.Items.Consumables
             Item.buffTime = 14000;
             Item.consumable = true;
         }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ItemID.Seed, 10)
-                .AddIngredient(ItemID.BottledHoney, 1)
-                .AddTile(TileID.Kegs)
-                .Register();
-        }
     }
 }
