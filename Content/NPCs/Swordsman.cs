@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Items.Consumables;
 using UniverseOfSwords.Content.Items.Weapons;
 
 namespace UniverseOfSwords.Content.NPCs
@@ -22,6 +24,12 @@ namespace UniverseOfSwords.Content.NPCs
             NPCID.Sets.AttackTime[Type] = 12;
             NPCID.Sets.AttackAverageChance[Type] = 1;
             NPCID.Sets.AttackType[Type] = 3;
+
+            NPC.Happiness
+                .SetBiomeAffection<ForestBiome>(AffectionLevel.Love)
+                .SetBiomeAffection<OceanBiome>(AffectionLevel.Hate)
+                .SetNPCAffection(NPCID.Merchant, AffectionLevel.Like)
+                .SetNPCAffection(NPCID.ArmsDealer, AffectionLevel.Like);
         }
 
         public override void SetDefaults()
@@ -42,7 +50,11 @@ namespace UniverseOfSwords.Content.NPCs
 
         public override List<string> SetNPCNameList()
         {
-            return base.SetNPCNameList();
+            return
+            [
+                "John",
+                "Brook",
+            ];
         }
 
         public override string GetChat()
@@ -63,6 +75,7 @@ namespace UniverseOfSwords.Content.NPCs
             NPCShop shop = new(Type);
             shop.Add(ModContent.ItemType<InnosWrath>(), Condition.DownedCultist)
                 .Add(ModContent.ItemType<MasterSword>(), Condition.DownedEyeOfCthulhu)
+                .Add(ModContent.ItemType<NordMead>(), Condition.DownedSkeletron)
                 .Add(ModContent.ItemType<BarbarianSword>())
                 .Register();
         }
@@ -84,10 +97,7 @@ namespace UniverseOfSwords.Content.NPCs
             knockback = 5f;
         }
 
-        public override bool CanTownNPCSpawn(int numTownNPCs)
-        {
-            return base.CanTownNPCSpawn(numTownNPCs);
-        }
+        public override bool CanTownNPCSpawn(int numTownNPCs) => NPC.downedBoss2;
 
 
         public override void DrawTownAttackSwing(ref Texture2D item, ref Rectangle itemFrame, ref int itemSize, ref float scale, ref Vector2 offset)
