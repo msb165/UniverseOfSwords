@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,7 +27,22 @@ namespace UniverseOfSwords.Common.GlobalItems
                     case ItemID.Meowmere:
                     case ItemID.PearlwoodSword:
                     case ItemID.ChlorophyteSaber:
+                    case ItemID.Seedler:
+                    case ItemID.ChristmasTreeSword:
+                    case ItemID.IceSickle:
+                    case ItemID.DeathSickle:
                         entity.scale = 1.5f;
+                        break;
+                    case ItemID.TitaniumSword:
+                    case ItemID.AdamantiteSword:
+                    case ItemID.PalladiumSword:
+                    case ItemID.OrichalcumSword:
+                    case ItemID.MythrilSword:
+                    case ItemID.CobaltSword:
+                    case ItemID.BloodButcherer:
+                    case ItemID.LightsBane:
+                    case ItemID.BeamSword:
+                        entity.scale = 1.25f;
                         break;
                     case ItemID.ScourgeoftheCorruptor:
                         entity.noUseGraphic = false;
@@ -49,8 +65,31 @@ namespace UniverseOfSwords.Common.GlobalItems
                         entity.scale = 1.5f;
                         break;
                     case ItemID.InfluxWaver:
+                        entity.scale = 1.25f;
                         entity.noMelee = true;
                         entity.shootsEveryUse = true;
+                        break;
+                }
+            }
+        }
+
+        public override void MeleeEffects(Item item, Player player, Rectangle hitbox)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableVanillaChanges)
+            {
+                switch (item.type)
+                {
+                    case ItemID.PalladiumSword:
+                        UniverseUtils.SpawnRotatedDust(player, DustID.Palladium, 1.5f, (int)(14 * item.scale), (int)(84 * item.scale), 200, Color.White with { A = 0 });
+                        break;
+                    case ItemID.TitaniumSword:
+                        UniverseUtils.SpawnRotatedDust(player, DustID.SnowSpray, start: (int)(14 * item.scale), end: (int)(84 * item.scale));
+                        break;
+                    case ItemID.AdamantiteSword:
+                        UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Red, start: (int)(15 * item.scale), end: (int)(90 * item.scale));
+                        break;
+                    case ItemID.Seedler:
+                        UniverseUtils.SpawnRotatedDust(player, DustID.JungleSpore, start: (int)(14 * item.scale), end: (int)(92 * item.scale));
                         break;
                 }
             }
@@ -151,7 +190,7 @@ namespace UniverseOfSwords.Common.GlobalItems
                         Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos, spawnVel, ProjectileID.FlowerPetal, damageDone, 0f, player.whoAmI);
                         break;
                     case ItemID.ChlorophyteSaber:
-                        Vector2 newVel = (target.Center - player.Center).SafeNormalize(Vector2.Zero) * 4f;
+                        Vector2 newVel = (target.Center - player.Center).SafeNormalize(Vector2.Zero) * 5f;
                         Projectile.NewProjectileDirect(target.GetSource_OnHit(target), player.Center - Vector2.UnitY * 8f + newVel * 3f, newVel.RotatedByRandom(MathHelper.ToRadians(80f)), ModContent.ProjectileType<ChlorophyteBolt>(), damageDone, 0f, player.whoAmI);
                         target.AddBuff(BuffID.Poisoned, 300);
                         break;
@@ -159,8 +198,9 @@ namespace UniverseOfSwords.Common.GlobalItems
                         target.AddBuff(BuffID.Poisoned, 300);
                         break;
                     case ItemID.EnchantedSword:
-                    case ItemID.Seedler:
+                    case ItemID.ChristmasTreeSword:
                     case ItemID.Meowmere:
+                    case ItemID.BeamSword:
                         Projectile.NewProjectileDirect(target.GetSource_OnHit(target), player.Center, Vector2.Normalize(target.Center - player.Center) * item.shootSpeed, item.shoot, item.damage, item.knockBack, player.whoAmI);
                         break;
                 }
@@ -178,6 +218,8 @@ namespace UniverseOfSwords.Common.GlobalItems
                     case ItemID.EnchantedSword:
                     case ItemID.Seedler:
                     case ItemID.Meowmere:
+                    case ItemID.ChristmasTreeSword:
+                    case ItemID.BeamSword:
                         return false;
                     case ItemID.InfluxWaver:
                         float adjustedItemScale = player.GetAdjustedItemScale(item);
@@ -219,26 +261,9 @@ namespace UniverseOfSwords.Common.GlobalItems
                     break;
                 case ProjectileID.InfluxWaver:
                     entity.tileCollide = false;
+                    entity.extraUpdates = 1;
                     break;
             }
-        }
-
-        public override bool PreAI(Projectile projectile)
-        {
-            return base.PreAI(projectile);
-        }
-
-        public override bool? Colliding(Projectile projectile, Rectangle projHitbox, Rectangle targetHitbox)
-        {
-
-            /*if (projectile.type == ProjectileID.MonkStaffT3)
-            {
-                float rotation = projectile.rotation - MathHelper.PiOver4 * (float)Math.Sign(projectile.velocity.X);
-                float _ = 0f;
-                float size = 80f;
-                return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), projectile.Center + rotation.ToRotationVector2(), projectile.Center + rotation.ToRotationVector2() * size, 23f * projectile.scale, ref _);
-            }*/
-            return base.Colliding(projectile, projHitbox, targetHitbox);
         }
 
         public override void AI(Projectile projectile)
@@ -252,10 +277,10 @@ namespace UniverseOfSwords.Common.GlobalItems
                 case ProjectileID.DeathSickle:
                     projectile.rotation += projectile.direction * 0.5f;
                     projectile.velocity *= 0.96f;
-                    projectile.SimpleFadeOut(ai: 0, maxTime: 30f);
+                    projectile.VampireKnivesAI(ai: 0, maxTime: 30f);
                     break;
                 case ProjectileID.IceSickle:
-                    projectile.SimpleFadeOut(ai: 0, maxTime: 30f);
+                    projectile.VampireKnivesAI(ai: 0, maxTime: 30f);
                     break;
                 case ProjectileID.EatersBite:
                     if (projectile.alpha <= 200)
@@ -281,9 +306,29 @@ namespace UniverseOfSwords.Common.GlobalItems
                     }
                     if (projectile.ai[0] > 0f)
                     {
-                        projectile.SimpleFadeOut(ai: 1, 30f);
+                        projectile.VampireKnivesAI(ai: 1, 30f);
                     }
                     projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver4;
+                    break;
+                case ProjectileID.NightsEdge:
+                case ProjectileID.TerraBlade2:
+                case ProjectileID.Excalibur:
+                case ProjectileID.TrueExcalibur:
+                    Player owner = Main.player[projectile.owner];
+                    if (projectile.owner == Main.myPlayer)
+                    {
+                        foreach (Projectile proj in Main.ActiveProjectiles)
+                        {
+                            if (proj.whoAmI != projectile.whoAmI && projectile.Colliding(projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= owner.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance && owner.ItemAnimationJustStarted)
+                            {
+                                SoundEngine.PlaySound(SoundID.Item150, projectile.Center);
+                                proj.velocity = -proj.oldVelocity;
+                                proj.friendly = true;
+                                proj.hostile = false;
+                                proj.reflected = true;
+                            }
+                        }
+                    }
                     break;
             }
         }
@@ -297,6 +342,37 @@ namespace UniverseOfSwords.Common.GlobalItems
                 }
             }
             return base.GetAlpha(projectile, lightColor);
+        }
+
+        public override void OnKill(Projectile projectile, int timeLeft)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableVanillaChanges)
+            {
+                if (projectile.type == ProjectileID.SwordBeam)
+                {
+                    projectile.Damage();
+                }
+            }
+            base.OnKill(projectile, timeLeft);
+        }
+
+        public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableVanillaChanges && Main.myPlayer == projectile.owner && target.HittableForOnHitRewards())
+            {
+                switch (projectile.type)
+                {
+                    case ProjectileID.NightsEdge:
+                    case ProjectileID.Excalibur:
+                    case ProjectileID.TrueExcalibur:
+                    case ProjectileID.TerraBlade2:
+                    case ProjectileID.TheHorsemansBlade:
+                    case ProjectileID.MonkStaffT1:
+                    case ProjectileID.MonkStaffT3:
+                        NPCLoader.OnHitByItem(target, Main.player[projectile.owner], Main.player[projectile.owner].HeldItem, hit, damageDone);
+                        break;
+                }
+            }
         }
 
         public override void PostAI(Projectile projectile)
