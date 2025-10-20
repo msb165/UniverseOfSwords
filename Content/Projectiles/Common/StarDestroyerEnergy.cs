@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Projectiles.Base;
 using UniverseOfSwords.Utilities;
@@ -37,7 +36,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                         spawnVel.Y = 20f;
                     }
                     spawnVel = Vector2.Normalize(spawnVel) * 10f + (Vector2.One * Main.rand.Next(-40, 41) * 0.02f);
-                    Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos, spawnVel, ModContent.ProjectileType<StarDestroyerProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectileDirect(target.GetSource_OnHit(target), spawnPos, spawnVel, ModContent.ProjectileType<StarDestroyerProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai1: target.Center.Y);
                 }
             }
         }
