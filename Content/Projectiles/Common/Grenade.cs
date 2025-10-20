@@ -27,8 +27,11 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.timeLeft = 180;
         }
 
+        public ref float TargetY => ref Projectile.ai[1];
+
         public override void AI()
         {
+            Projectile.tileCollide = Projectile.Center.Y >= TargetY;
             if (Projectile.velocity.Y == 0 && Projectile.velocity.X != 0f)
             {
                 Projectile.velocity.X *= 0.97f;
