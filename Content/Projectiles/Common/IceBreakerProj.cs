@@ -27,7 +27,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.aiStyle = -1;
             Projectile.timeLeft = 36000;
             Projectile.ignoreWater = true;
-            Projectile.tileCollide = false;
+            Projectile.tileCollide = true;
             Projectile.netImportant = true;
             Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.friendly = true;
@@ -48,7 +48,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 Timer2 = 190f;
             }
             Timer++;
-            if (Main.myPlayer == Projectile.owner && Player.controlUseTile && Timer >= 8f && Projectile.localAI[0] == 1f || (Main.myPlayer == Projectile.owner && Player.Distance(Projectile.Center) > 800f))
+            if (Main.myPlayer == Projectile.owner && Player.controlUseTile && Timer >= 16f || (Main.myPlayer == Projectile.owner && Player.Distance(Projectile.Center) > 800f))
             {
                 Projectile.ai[2] = 1f;
                 Projectile.netUpdate = true;
@@ -74,7 +74,8 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             }
             Projectile.tileCollide = false;
             Projectile.rotation += 0.4f * Projectile.direction;
-            Projectile.velocity = Projectile.Center.DirectionTo(Player.Center) * 8f;
+            Projectile.velocity = Projectile.Center.DirectionTo(Player.Center) * 8f + Player.velocity;
+
             if (Projectile.Hitbox.Intersects(Player.Hitbox))
             {
                 Projectile.Kill();
@@ -85,14 +86,19 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         {
             Projectile.rotation = MathHelper.PiOver2 + MathHelper.PiOver4;
             Projectile.velocity.Y = UniverseUtils.Easings.EaseInBack(Timer / 50f) * 50f;
-            // Prevents the projectile from getting stuck if there are solid tiles above the player.
-            if (Projectile.Center.Y >= Player.position.Y && Projectile.localAI[0] == 0f)
+            if (Projectile.velocity.Y > 24f)
             {
-                Projectile.localAI[0] = 1f;
+                Projectile.velocity.Y = 24f;
             }
-            Projectile.tileCollide = Projectile.localAI[0] == 1f;
+            // Prevents the projectile from getting stuck if there are solid tiles above the player.
             Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.SpectreStaff, 0, -8f, Scale: 2f);
             dust.noGravity = true;
+        }
+
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            fallThrough = Projectile.Bottom.Y < Player.Top.Y;
+            return true;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -102,7 +108,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 return false;
             }
 
-            if (Projectile.ai[1] == 0f)
+            if (Projectile.ai[1] == 0f && ((Projectile.Bottom.Y > Player.Top.Y && Projectile.tileCollide) || (Projectile.tileCollide && Collision.SolidTiles(Projectile.Bottom, 4, 4))))
             {
                 SoundEngine.PlaySound(SoundID.DD2_GhastlyGlaiveImpactGhost, Projectile.position);
                 SoundEngine.PlaySound(SoundID.Item37 with { Pitch = -0.25f }, Projectile.position);
@@ -115,8 +121,6 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 }
                 Projectile.ai[1] = 1f;
             }
-            Projectile.position += Projectile.velocity;
-            Projectile.velocity = Vector2.Zero;
             return false;
         }
 
@@ -129,7 +133,6 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
-            overPlayers.Add(index);
             behindNPCsAndTiles.Add(index);
         }
 
@@ -154,6 +157,8 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Vector2 glowPos = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
             Texture2D glowTexture = TextureAssets.Extra[ExtrasID.SharpTears].Value;
             Vector2 glowOrigin = glowTexture.Size() / 2f;
+
+
             float scaleAndColorMultiplier = Utils.GetLerpValue(15f, 30f, Timer2, clamped: true) * Utils.GetLerpValue(240f, 200f, Timer2, clamped: true) * (1f + 0.2f * (float)MathF.Cos(Main.GlobalTimeWrappedHourly % 30f * MathHelper.TwoPi * 3f)) * 0.8f;
             Vector2 star1Scale = new Vector2(0.5f, 3f) * scaleAndColorMultiplier;
             Vector2 star2Scale = new Vector2(0.5f, 2f) * scaleAndColorMultiplier;
