@@ -7,6 +7,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Common.GlobalItems;
+using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Projectiles.Held
@@ -70,7 +71,7 @@ namespace UniverseOfSwords.Content.Projectiles.Held
             }
 
             if (!Player.channel || Player.noItems || Player.CCed || Timer > 32f)
-            {                
+            {
                 Player.reuseDelay = 2;
             }
             Lighting.AddLight(Projectile.Center, Color.White.ToVector3());
@@ -123,8 +124,23 @@ namespace UniverseOfSwords.Content.Projectiles.Held
         {
             if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
             {
-                UniverseUtils.Spawn.VampireHeal(hit.Damage, target.Center, target, Player);
+                int healAmount = (int)(damageDone * 0.075f);
+                if (healAmount <= 0)
+                {
+                    healAmount = 1;
+                }
+                Player.Heal(healAmount);
                 NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
+
+                if (CurrentState is SwordState.Thrust && Projectile.ai[2] == 0f)
+                {
+                    for (int i = 1; i <= 3; i++)
+                    {
+                        Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center + Projectile.velocity, Vector2.Normalize(target.Center - Player.Center).RotatedBy(-MathHelper.PiOver2) * 12f * (1f + i / 3), ModContent.ProjectileType<DeusExcaliburBeam>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_OnHit(target), Projectile.Center + Projectile.velocity, Vector2.Normalize(target.Center - Player.Center).RotatedBy(MathHelper.PiOver2) * 12f * (1f + i / 3), ModContent.ProjectileType<DeusExcaliburBeam>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    }
+                    Projectile.ai[2] = 1f;
+                }
             }
         }
 
