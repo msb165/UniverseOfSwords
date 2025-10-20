@@ -56,32 +56,47 @@ Buffs: {
 Items: {
 	BlueDamascusChestplate: {
 		DisplayName: Blue Damascus Chestplate
-		Tooltip: ""
+		Tooltip:
+			'''
+			"Armor for durable warriors"
+			7% increased melee damage
+			10% increased movement speed
+			'''
 	}
 
 	BlueDamascusHelmet: {
 		DisplayName: Blue Damascus Helmet
-		Tooltip: ""
+		Tooltip:
+			'''
+			"Armor for durable warriors"
+			6% increased melee damage
+			6% increased melee critical chance
+			'''
 	}
 
 	BlueDamascusLeggings: {
 		DisplayName: Blue Damascus Leggings
-		Tooltip: ""
+		Tooltip:
+			'''
+			"Armor for durable warriors"
+			6% increased melee critical chance
+			5% increased movement speed
+			'''
 	}
 
 	DamascusBreastplate: {
 		DisplayName: Damascus Breastplate
-		Tooltip: ""
+		Tooltip: 4% increased melee damage
 	}
 
 	DamascusHelmet: {
 		DisplayName: Damascus Helmet
-		Tooltip: ""
+		Tooltip: 3% increased melee speed
 	}
 
 	DamascusLeggings: {
 		DisplayName: Damascus Leggings
-		Tooltip: ""
+		Tooltip: 6% increased movement speed
 	}
 
 	DranBody: {
@@ -136,32 +151,62 @@ Items: {
 
 	GreenDamascusChestplate: {
 		DisplayName: Green Damascus Chestplate
-		Tooltip: ""
+		Tooltip:
+			'''
+			Armor for fast warriors
+			15% increased melee damage
+			10% increased melee speed
+			'''
 	}
 
 	GreenDamascusHelmet: {
 		DisplayName: Green Damascus Helmet
-		Tooltip: ""
+		Tooltip:
+			'''
+			Armor for fast warriors
+			20% increased melee speed"
+			14% increased melee critical chance
+			'''
 	}
 
 	GreenDamascusLeggings: {
 		DisplayName: Green Damascus Leggings
-		Tooltip: ""
+		Tooltip:
+			'''
+			Armor for fast warriors
+			10% increased melee critical chance
+			35% increased movement speed
+			'''
 	}
 
 	RedDamascusChestplate: {
 		DisplayName: Red Damascus Chestplate
-		Tooltip: ""
+		Tooltip:
+			'''
+			Armor for agressive warriors
+			10% increased melee damage
+			10% increased melee critical chance
+			'''
 	}
 
 	RedDamascusHelmet: {
 		DisplayName: Red Damascus Helmet
-		Tooltip: ""
+		Tooltip:
+			'''
+			Armor for agressive warriors
+			10% increased melee damage
+			14% increased melee critical chance
+			'''
 	}
 
 	RedDamascusLeggings: {
 		DisplayName: Red Damascus Leggings
-		Tooltip: ""
+		Tooltip:
+			'''
+			Armor for agressive warriors
+			10% increased melee critical chance
+			10% increased melee damage
+			'''
 	}
 
 	DamascusHamaxe: {
@@ -176,12 +221,32 @@ Items: {
 
 	DranWings: {
 		DisplayName: Dran Wings
-		Tooltip: ""
+		Tooltip:
+			'''
+			10 seconds of flight time
+			High acceleration
+			Great speed
+			Allows ability to dash
+			20% increased movement speed
+			Increases maximum life by 250
+			20% increased damage
+			Grants gravitation effect
+			'''
 	}
 
 	DranWingsSecond: {
 		DisplayName: Dran Wings Second
-		Tooltip: ""
+		Tooltip:
+			'''
+			10 seconds of flight time
+			Ultimate acceleration
+			Great speed
+			Allows ability to dash
+			20% increased movement speed
+			Increases maximum life by 250
+			20% increased damage
+			Grants gravitation effect
+			'''
 	}
 
 	HaloOfHorrors: {
@@ -217,7 +282,7 @@ Items: {
 
 	LesserMeleePowerPotion: {
 		DisplayName: Lesser Melee Power Potion
-		Tooltip: ""
+		Tooltip: Increases melee stats by a small amount
 	}
 
 	LunarOrb: {
@@ -227,7 +292,7 @@ Items: {
 
 	MartianSaucerCore: {
 		DisplayName: Martian Saucer Core
-		Tooltip: ""
+		Tooltip: Pulses with space energy
 	}
 
 	NordMead: {
@@ -237,17 +302,12 @@ Items: {
 
 	Orichalcon: {
 		DisplayName: Orichalcon
-		Tooltip: ""
-	}
-
-	BlackOre: {
-		DisplayName: Black Ore
-		Tooltip: ""
+		Tooltip: Most powerful and rarest ore for making swords
 	}
 
 	DamascusBar: {
 		DisplayName: Damascus Bar
-		Tooltip: ""
+		Tooltip: '''"Material for creating powerful swords"'''
 	}
 
 	DamascusOre: {
@@ -257,7 +317,7 @@ Items: {
 
 	RevenantBag: {
 		DisplayName: Revenant Bag
-		Tooltip: ""
+		Tooltip: '''"Something terrible is hidden inside this bag"'''
 	}
 
 	Revenant: {
@@ -267,17 +327,17 @@ Items: {
 
 	ScarletFlareCore: {
 		DisplayName: Scarlet Flare Core
-		Tooltip: ""
+		Tooltip: '''"Core from depths of hell"'''
 	}
 
 	Skooma: {
 		DisplayName: Skooma
-		Tooltip: ""
+		Tooltip: Increases movement speed and jump height
 	}
 
 	SwordMatter: {
 		DisplayName: Sword Matter
-		Tooltip: ""
+		Tooltip: '''"Matter of all swords"'''
 	}
 
 	SwordShard: {
@@ -287,7 +347,7 @@ Items: {
 
 	UpgradeMatter: {
 		DisplayName: Upgrade Matter
-		Tooltip: ""
+		Tooltip: Matter of all upgrades
 	}
 
 	AllWoodSword: {
@@ -317,7 +377,7 @@ Items: {
 
 	AntiInvader: {
 		DisplayName: Anti Invader
-		Tooltip: ""
+		Tooltip: '''"I'll like to have chicken burger, fried chicken wings, two slices of your chicken pie, no make that three... What do you mean you can't supersize me?!"'''
 	}
 
 	Apocalypse: {
@@ -352,12 +412,12 @@ Items: {
 
 	Biter: {
 		DisplayName: Biter
-		Tooltip: ""
+		Tooltip: It's sharp!
 	}
 
 	BladesOfBalance: {
 		DisplayName: Blades Of Balance
-		Tooltip: ""
+		Tooltip: '''"Perfectly balanced, as all things should be."'''
 	}
 
 	BlizzardRage: {
@@ -397,7 +457,7 @@ Items: {
 
 	BoxOfGrenades: {
 		DisplayName: Box Of Grenades
-		Tooltip: ""
+		Tooltip: '''"Forget throwing grenades one at a time. Just throw a boxful at your enemies!"'''
 	}
 
 	Brisingr: {
@@ -412,7 +472,7 @@ Items: {
 
 	BuzzKillFutureMode: {
 		DisplayName: Buzz Kill Future Mode
-		Tooltip: ""
+		Tooltip: '''"Release the Gamma ray infused bees!"'''
 	}
 
 	CaesarSword: {
@@ -420,14 +480,9 @@ Items: {
 		Tooltip: ""
 	}
 
-	Caladbolg: {
-		DisplayName: Caladbolg
-		Tooltip: ""
-	}
-
 	CalculatorSword: {
 		DisplayName: Calculator Sword
-		Tooltip: <right> over an enemy to show their stats
+		Tooltip: <right> over an enemy to show its stats
 	}
 
 	ClaySword: {
@@ -547,7 +602,7 @@ Items: {
 
 	DeusExcalibur: {
 		DisplayName: Deus Excalibur
-		Tooltip: ""
+		Tooltip: '''"The Sword of (My) Life and (Your) Death"'''
 	}
 
 	DevilBlade: {
@@ -581,8 +636,8 @@ Items: {
 	}
 
 	DragonsDeath: {
-		DisplayName: Dragons Death
-		Tooltip: ""
+		DisplayName: Dragon's Death
+		Tooltip: '''"Great for impersonating Dragon hunters"'''
 	}
 
 	Dragrael: {
@@ -597,12 +652,12 @@ Items: {
 
 	EctoplasmicRipper: {
 		DisplayName: Ectoplasmic Ripper
-		Tooltip: ""
+		Tooltip: Steals mana points upon contact
 	}
 
 	EdgeLord: {
 		DisplayName: Edge Lord
-		Tooltip: ""
+		Tooltip: '''"Blood for the Blood God! Skulls for the skull throne! Milk for the Khorne flakes!"'''
 	}
 
 	ElBastardo: {
@@ -756,8 +811,8 @@ Items: {
 	}
 
 	HeisenbergsFlask: {
-		DisplayName: A Certain Chemist's Flask
-		Tooltip: '''"Hablan de un tal Heisenberg que ahora controla el mercado"'''
+		DisplayName: Chemist's Flask
+		Tooltip: '''"You know. You all know exactly who I am. Say my name."'''
 	}
 
 	HellfireArrowSword: {
@@ -1102,7 +1157,7 @@ Items: {
 
 	Saphira: {
 		DisplayName: Saphira
-		Tooltip: ""
+		Tooltip: '''"Sword with many shining sapphires attached to it"'''
 	}
 
 	SapphireSword: {
@@ -1212,12 +1267,12 @@ Items: {
 
 	StoneSword: {
 		DisplayName: Stone Sword
-		Tooltip: ""
+		Tooltip: '''"You Rock!"'''
 	}
 
 	SuperInflation: {
 		DisplayName: Super Inflation
-		Tooltip: ""
+		Tooltip: '''"Throw money at ALL your problems"'''
 	}
 
 	SweetCornSword: {
@@ -1232,7 +1287,7 @@ Items: {
 
 	SwordOfPower: {
 		DisplayName: Sword Of Power
-		Tooltip: ""
+		Tooltip: Needs to be repaired
 	}
 
 	SwordOfTheEmperor: {
@@ -1400,7 +1455,7 @@ Items: {
 	}
 
 	TrueTerrablade: {
-		DisplayName: True Terrablade
+		DisplayName: Terra Ensis
 		Tooltip: ""
 	}
 
@@ -1588,7 +1643,7 @@ Projectiles: {
 	Soul2.DisplayName: Soul
 	Soul3.DisplayName: Soul
 	Tier2CProjectile.DisplayName: Crimson
-	TrueTerrablade.DisplayName: True Terrablade
+	TrueTerrablade.DisplayName: Terra Ensis
 	Venom.DisplayName: Venom
 	VugarMutater.DisplayName: Vugar Mutater
 	Twirl.DisplayName: Twirl
@@ -1617,7 +1672,7 @@ Projectiles: {
 	ProbeLaser.DisplayName: Probe Laser
 	FlyingOnyx.DisplayName: Flying Onyx
 	BaseEnergySwing.DisplayName: Base Energy Swing
-	EdgeLordEnergy.DisplayName: Edge Lord Energy
+	EdgeLordEnergy.DisplayName: Edge Lord
 	EdgeSword.DisplayName: Edge Sword
 	MagnetSphereBall.DisplayName: Magnet Sphere Ball
 	SphereLaser.DisplayName: Sphere Laser
@@ -1712,6 +1767,9 @@ Projectiles: {
 	SwordOfTheUniverseV4.DisplayName: Sword Of The Universe
 	InfluxWaverEnergy.DisplayName: Influx Waver Energy
 	ForcefieldShield.DisplayName: Forcefield Shield
+	TrueTerrabladeEnergy.DisplayName: True Terrablade Energy
+	InfluxWaverClone.DisplayName: Influx Waver
+	DeusExcaliburBeam.DisplayName: Deus Excalibur
 }
 
 Configs: {
@@ -1753,12 +1811,28 @@ GreenDamascusArmor.SetBonus:
 	50% increased movement speed
 	maximum life increased by 20
 	'''
+RedDamascusArmor.SetBonus:
+	'''
+	5% endurance
+	10% increased melee damage
+	10% increased melee critical chance
+	Maximum life increased by 20
+	'''
 
 NPCs: {
 	Nazgul.DisplayName: Nazgul
 
 	Swordsman: {
 		DisplayName: Swordsman
+		Dialogue1: I got something that might interest you.
+		Dialogue2: I got this interesting drink that might help you in combat.
+		Dialogue3: Hey, I got a very, very special and powerful weapon for you.
+		Dialogue4: Come back here after you defeat the Old One's Army, Martians and Golem.
+		Dialogue5: Did you know? Every boss can drop an [i:UniverseOfSwords/UpgradeMatter].
+		Dialogue6: You should try crafting the [i:UniverseOfSwords/SwordOfTheMultiverse], it's really powerful.
+		Dialogue7: Seems like you have a [i:UniverseOfSwords/SwordOfTheMultiverse], congratulations for you journey.
+		Dialogue8: Did you know? You can also get [i:UniverseOfSwords/SwordMatter] from Boss Bags and Fishing Crates.
+		Dialogue9: Did you know? Bosses drop more [i:UniverseOfSwords/SwordMatter] than Common Enemies.
 
 		TownNPCMood: {
 			Content: I am content.
@@ -1767,8 +1841,12 @@ NPCs: {
 			LoveSpace: I love having so much space.
 			DislikeCrowded: I dislike how crowded I am.
 			HateCrowded: I hate how crowded I am.
-			LikeNPC_Princess: I like {NPCName}.
-			Princess_LovesNPC: I like {NPCName}.
+			LoveBiome: I love {BiomeName}.
+			HateBiome: I hate {BiomeName}.
+			LikeNPC: "{NPCName} is cool."
 		}
 	}
 }
+
+Misc.ReflectionChance: "[c/AC1CEE:projectile reflection chance]"
+Conditions.DownedInvasionT3: After defeating Old One's Army (Tier 3)
