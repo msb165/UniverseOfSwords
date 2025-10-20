@@ -30,6 +30,24 @@ namespace UniverseOfSwords.Utilities
                 }
                 return result;
             }
+
+            public static void FindNPCAndApplySpeed(Projectile proj, float multiplier, float maxDistance = 200f, float velocity = 30f)
+            {
+                int attackTarget = -1;
+                NPC npc = FindTargetWithinRange(proj, maxDistance);
+                if (npc != null)
+                {
+                    attackTarget = npc.whoAmI;
+                    proj.netUpdate = true;
+                }
+
+                if (attackTarget != -1 && Main.npc[attackTarget].active)
+                {
+                    proj.timeLeft = 2;
+                    Vector2 speed = Vector2.Normalize(Main.npc[attackTarget].Center - proj.Center);
+                    proj.velocity = (proj.velocity * velocity + speed * multiplier) / (velocity + 1f);
+                }
+            }
         }
 
         public struct Spawn
