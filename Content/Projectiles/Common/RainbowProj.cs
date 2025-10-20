@@ -26,7 +26,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.friendly = true;
             Projectile.aiStyle = -1;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 17;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.extraUpdates = 2;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 300;
