@@ -11,7 +11,7 @@ namespace UniverseOfSwords.Common.GlobalNPCs
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
             bool isMelee = item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed;
-            bool canHitTarget = !NPCID.Sets.CountsAsCritter[npc.type] && !npc.immortal && npc.lifeMax > 5 && player.CanHitNPCWithMeleeHit(npc.whoAmI);
+            bool canHitTarget = npc.HittableForOnHitRewards() && player.CanHitNPCWithMeleeHit(npc.whoAmI);
             if (isMelee && canHitTarget && player.whoAmI == Main.myPlayer && player.GetModPlayer<UniversePlayer>().meleeCD == 0 && Main.rand.NextBool(4) && Main.hardMode) 
             {
                 player.GetModPlayer<UniversePlayer>().meleeCD = 30;
@@ -19,6 +19,10 @@ namespace UniverseOfSwords.Common.GlobalNPCs
                 if (NPC.downedPlantBoss)
                 {
                     bonusList.Add(ModContent.ItemType<YellowHeart>());
+                }
+                if (NPC.downedGolemBoss)
+                {
+                    bonusList.Remove(ItemID.Heart);
                 }
                 int bonusType = Utils.SelectRandom(Main.rand, bonusList.ToArray());
                 int fireBonus = Item.NewItem(item.GetSource_OnHit(npc), (int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, bonusType);
