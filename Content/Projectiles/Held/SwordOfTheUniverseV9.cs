@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Buffs;
 using UniverseOfSwords.Content.Projectiles.Base;
@@ -15,6 +14,8 @@ namespace UniverseOfSwords.Content.Projectiles.Held
         public override float SwordLength => 270f;
 
         public override ref float SwingDirection => ref Projectile.ai[1];
+
+        public override float BaseScale => 0.5f;
 
         public override void AI()
         {
