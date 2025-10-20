@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -31,7 +30,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.extraUpdates = 2;
             Projectile.timeLeft = 10 * Projectile.MaxUpdates;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.idStaticNPCHitCooldown = 18;
+            Projectile.localNPCHitCooldown = 20;
             Projectile.noEnchantmentVisuals = true;
         }
 
