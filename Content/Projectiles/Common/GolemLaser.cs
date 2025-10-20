@@ -1,15 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Utilities;
 using UniverseOfSwords.Utilities.Projectiles;
 
 namespace UniverseOfSwords.Content.Projectiles.Common
@@ -30,24 +24,31 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = 1;
             Projectile.ignoreWater = true;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 18;
+            //Projectile.usesLocalNPCImmunity = true;
+            //Projectile.localNPCHitCooldown = 18;
         }
 
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.VampireKnivesAI(ai: 0, 3f);
+            Projectile.VampireKnivesAI(ai: 0, 6f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             target.AddBuff(BuffID.Ichor, 300);
+            target.AddBuff(BuffID.OnFire3, 300);
         }
 
         public override void OnKill(int timeLeft)
         {
             Projectile.Damage();
+            for (int i = 0; i < 20; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.IchorTorch, Scale: 1.5f);
+                dust.velocity *= 1.5f;
+                dust.noGravity = true;
+            }
         }
 
         public override bool PreDraw(ref Color lightColor)
