@@ -3,7 +3,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using UniverseOfSwords.Content.Dusts;
 
 namespace UniverseOfSwords.Content.Tiles

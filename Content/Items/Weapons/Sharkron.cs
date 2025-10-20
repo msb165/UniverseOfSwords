@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -42,7 +41,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
             }
             return false;
         }
-
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {

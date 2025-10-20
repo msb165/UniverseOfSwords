@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Buffs;
 using UniverseOfSwords.Content.Projectiles.Base;

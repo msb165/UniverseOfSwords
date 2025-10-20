@@ -7,7 +7,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Utilities;
 using UniverseOfSwords.Utilities.Projectiles;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Projectiles.Common
 {

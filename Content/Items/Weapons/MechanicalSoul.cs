@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -8,7 +6,6 @@ using Terraria.ModLoader;
 using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -30,11 +27,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 20;
             Item.useAnimation = 20;
-            Item.damage = 80;
+            Item.damage = 77;
             Item.knockBack = 8f;
             Item.shootSpeed = 3.25f;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(gold: 25);
+            Item.value = Item.sellPrice(gold: 18);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.rare = ItemRarityID.Pink;
@@ -60,31 +57,36 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             if (player.altFunctionUse == 2)
             {
-                Item.useTime = 120;
-                Item.useAnimation = 20;
-                Item.knockBack = 8f;
-                Item.crit = 6;
-                Item.damage = 120;
                 Item.shoot = ModContent.ProjectileType<Projectiles.Common.MechanicalSoul>();
             }
             else
             {
-                Item.useTime = 20;
-                Item.useAnimation = 20;
-                Item.knockBack = 4f;
-                Item.crit = 0;
-                Item.damage = 80;
                 Item.shoot = ModContent.ProjectileType<Soul1>();
             }
             return true;
+        }
+
+        public override void ModifyWeaponCrit(Player player, ref float crit)
+        {
+            base.ModifyWeaponCrit(player, ref crit);
+        }
+
+
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                damage *= 2;
+            }
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (player.altFunctionUse == 2)
             {
-                Vector2 velocity = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
-                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + velocity * 4f, velocity, Item.shoot, (int)(Item.damage * 1.25f), Item.knockBack, player.whoAmI);
+                Vector2 velocity = (target.Center - player.Center).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
+                Vector2 spawnPos = player.Center + velocity.RotatedByRandom(MathHelper.PiOver4) * 4f;
+                Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, velocity, Item.shoot, (int)(Item.damage * 2f), Item.knockBack, player.whoAmI);
             }
         }
 

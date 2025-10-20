@@ -1,17 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Dusts;
-using UniverseOfSwords.Content.Items.Weapons;
 using UniverseOfSwords.Content.Projectiles.Common;
 
 namespace UniverseOfSwords.Content.Projectiles.Held

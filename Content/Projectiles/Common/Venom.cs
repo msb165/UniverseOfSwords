@@ -1,11 +1,8 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Dusts;
 using UniverseOfSwords.Utilities;
 using UniverseOfSwords.Utilities.Projectiles;
 

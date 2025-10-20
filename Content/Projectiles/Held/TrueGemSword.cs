@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Items.Weapons;
 using UniverseOfSwords.Content.Projectiles.Base;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;

@@ -1,9 +1,7 @@
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Materials;
-using UniverseOfSwords.Content.Projectiles.Held;
 
 namespace UniverseOfSwords.Content.Items.Weapons      //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly
 {

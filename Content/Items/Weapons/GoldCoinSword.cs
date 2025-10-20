@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,11 +11,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class GoldCoinSword : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // Tooltip.SetDefault("Shoots gold coins");
-        }
-
         public override void SetDefaults()
         {
             Item.width = 36;

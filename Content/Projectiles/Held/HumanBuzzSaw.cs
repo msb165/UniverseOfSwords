@@ -1,13 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Common.GlobalItems;
-using UniverseOfSwords.Content.Items.Weapons;
 using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Projectiles.Held     //We need this to basically indicate the folder where it is to be read from, so you the texture will load correctly

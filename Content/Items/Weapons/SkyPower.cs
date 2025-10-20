@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Newtonsoft.Json.Linq;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;

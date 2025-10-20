@@ -1,10 +1,8 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Projectiles.Held;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
