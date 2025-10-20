@@ -4,6 +4,7 @@ using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Common.GlobalItems;
@@ -91,15 +92,22 @@ namespace UniverseOfSwords.Content.Projectiles.Held
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.Damage();
             if (UniverseUtils.IsAValidTarget(target) && Projectile.CanHitWithMeleeWeapon(target) && Main.myPlayer == Projectile.owner)
             {
                 NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
+                Vector2 positionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox);
+                ParticleOrchestraSettings orchestraSettings = default;
+                orchestraSettings.PositionInWorld = positionInWorld;
+                ParticleOrchestraSettings settings = orchestraSettings;
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.NightsEdge, settings, Projectile.owner);
+                ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.TrueExcalibur, settings, Projectile.owner);
             }
         }
 
         public void SetPlayerValues()
         {
-            Player.ChangeDir(Projectile.direction);
+            //Player.ChangeDir(Projectile.direction);
             Player.SetDummyItemTime(2);
             Player.heldProj = Projectile.whoAmI;
             Player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2 - MathHelper.PiOver4);
@@ -109,7 +117,7 @@ namespace UniverseOfSwords.Content.Projectiles.Held
         {
             float _ = 0f;
             float rotation = Projectile.rotation - MathHelper.PiOver4;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + rotation.ToRotationVector2() * 92f * Projectile.scale, 4f, ref _);
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Player.Center, Player.Center + rotation.ToRotationVector2() * 92f * Projectile.scale, 4f, ref _);
         }
 
 
@@ -118,15 +126,8 @@ namespace UniverseOfSwords.Content.Projectiles.Held
             Texture2D texture = TextureAssets.Projectile[Type].Value;
             Vector2 origin = new(0f, texture.Height);
             SpriteEffects spriteEffects = Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.None;
-            Color trailColor = Color.White with { A = 80 };
 
-            for (int i = 0; i < Projectile.oldPos.Length; i++)
-            {
-                trailColor *= 0.95f;
-                //Main.spriteBatch.Draw(texture, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, trailColor * 0.2f, Projectile.oldRot[i], origin, Projectile.scale, spriteEffects, 0f);
-            }
-
-            Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0f);
+            Main.spriteBatch.Draw(texture, Player.Center - Main.screenPosition, null, Color.White, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0f);
             return false;
         }
     }
