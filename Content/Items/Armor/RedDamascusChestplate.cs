@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Placeable;
 
@@ -13,8 +14,8 @@ namespace UniverseOfSwords.Content.Items.Armor
             base.SetStaticDefaults();
             // DisplayName.SetDefault("Red Damascus Chestplate");
             /* Tooltip.SetDefault("'Armor for agressive warriors'"
-			    + "\n10% increased melee damage"
-				+ "\n10% increased melee critical chance"); */
+                + "\n10% increased melee damage"
+                + "\n10% increased melee critical chance"); */
         }
 
         public override void SetDefaults()
@@ -30,16 +31,17 @@ namespace UniverseOfSwords.Content.Items.Armor
 
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Grants Titan potion effect, 10% increased melee damage, 10% increased melee critical chance, maximum life increased by 20";
-            player.GetDamage(DamageClass.Melee) += 0.10f;
-            player.AddBuff(BuffID.Titan, 360);
+            //player.setBonus = "5% endurance, 10% increased melee damage, 10% increased melee critical chance, maximum life increased by 20";
+            player.setBonus = (string)Language.GetOrRegister("Mods.UniverseOfSwords.RedDamascusArmor.SetBonus");
+            player.GetDamage(DamageClass.Melee) += 0.1f;
+            player.endurance += 0.05f;
             player.GetCritChance(DamageClass.Melee) += 10;
             player.statLifeMax2 += 20;
         }
 
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Melee) += 0.10f;
+            player.GetDamage(DamageClass.Melee) += 0.1f;
             player.GetCritChance(DamageClass.Melee) += 10;
         }
 
@@ -52,8 +54,8 @@ namespace UniverseOfSwords.Content.Items.Armor
             recipe.AddIngredient(ItemID.SoulofSight, 15);
             recipe.AddIngredient(ItemID.SoulofFright, 15);
             recipe.AddIngredient(ItemID.WrathPotion, 15);
-            recipe.AddIngredient(ItemID.HallowedPlateMail, 1);
-            recipe.AddIngredient(ItemID.HallowedBar, 16);
+            recipe.AddIngredient(ItemID.HallowedPlateMail);
+            recipe.AddIngredient(ItemID.HallowedBar, 15);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

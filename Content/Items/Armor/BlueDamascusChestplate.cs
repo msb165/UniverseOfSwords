@@ -28,13 +28,13 @@ namespace UniverseOfSwords.Content.Items.Armor
 		
 		public override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            return head.type == Mod.Find<ModItem>("BlueDamascusHelmet").Type && legs.type == Mod.Find<ModItem>("BlueDamascusLeggings").Type;
+            return head.type == ModContent.ItemType<BlueDamascusHelmet>() && legs.type == ModContent.ItemType<BlueDamascusLeggings>();
         }
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "10% endurance, 7% increased melee critical chance, increases maximum life by 60";
-			player.endurance += 0.10f;
+			player.setBonus = "14% endurance, 7% increased melee critical chance, maximum life increased by 60";
+			player.endurance += 0.14f;
 			player.GetCritChance(DamageClass.Melee) += 7;
 			player.statLifeMax2 += 60;
 		}

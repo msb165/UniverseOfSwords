@@ -13,8 +13,8 @@ namespace UniverseOfSwords.Content.Items.Armor
             base.SetStaticDefaults();
             // DisplayName.SetDefault("Green Damascus Helmet");
             /* Tooltip.SetDefault("'Armor for fast warriors'"
-			    + "\n20% increased melee speed"
-			    + "\n14% increased melee critical chance"); */
+                + "\n20% increased melee speed"
+                + "\n14% increased melee critical chance"); */
         }
 
         public override void SetDefaults()
@@ -23,7 +23,7 @@ namespace UniverseOfSwords.Content.Items.Armor
             Item.height = 18;
             Item.value = Item.buyPrice(gold: 7);
             Item.rare = ItemRarityID.Green;
-            Item.defense = 20;
+            Item.defense = 24;
         }
 
         public override void UpdateEquip(Player player)

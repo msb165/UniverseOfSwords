@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Placeable;
 
@@ -33,14 +34,16 @@ namespace UniverseOfSwords.Content.Items.Armor
 		
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "25% increased melee speed, 7% increased melee critical chance, 50% increased movement speed, increases maximum life by 20";
+			//player.setBonus = "15% endurance, 25% increased melee speed, 7% increased melee critical chance, 50% increased movement speed, increases maximum life by 20";
+			player.setBonus = (string)Language.GetOrRegister("Mods.UniverseOfSwords.GreenDamascusArmor.SetBonus");
 			player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
 			player.GetCritChance(DamageClass.Melee) += 7;
 			player.moveSpeed += 0.40f;
 			player.statLifeMax2 += 20;
-		}
+            player.endurance += 0.15f;
+        }
 
-		public override void UpdateEquip(Player player)
+        public override void UpdateEquip(Player player)
 		{
 			player.GetAttackSpeed(DamageClass.Melee) += 0.10f;
 			player.GetDamage(DamageClass.Melee) += 0.15f;

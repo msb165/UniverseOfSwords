@@ -23,7 +23,7 @@ namespace UniverseOfSwords.Content.Items.Armor
 			Item.height = 18;
 			Item.value = Item.buyPrice(gold: 7);
 			Item.rare = ItemRarityID.Orange;
-			Item.defense = 10;
+			Item.defense = 13;
 		}
 
 		public override void UpdateEquip(Player player)
@@ -41,8 +41,7 @@ namespace UniverseOfSwords.Content.Items.Armor
 			recipe.AddIngredient(ItemID.SoulofSight, 15);
 			recipe.AddIngredient(ItemID.SoulofFright, 15);
 			recipe.AddIngredient(ItemID.WrathPotion, 15);
-			recipe.AddIngredient(ItemID.HallowedGreaves, 1);
-            recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 5);
+			recipe.AddIngredient(ItemID.HallowedGreaves);
             recipe.AddTile(TileID.MythrilAnvil);			
 			recipe.Register();
 		}

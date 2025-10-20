@@ -23,13 +23,13 @@ namespace UniverseOfSwords.Content.Items.Armor
 			Item.height = 18;
 			Item.value = Item.buyPrice(gold: 7);
 			Item.rare = ItemRarityID.Cyan;
-			Item.defense = 30;
+			Item.defense = 23;
 		}
 
 		public override void UpdateEquip(Player player)
 		{
 			player.GetAttackSpeed(DamageClass.Melee) += 0.06f;
-			player.GetCritChance(DamageClass.Melee) += 6;
+			player.GetCritChance(DamageClass.Melee) += 5;
 		}
 
 		public override void AddRecipes()

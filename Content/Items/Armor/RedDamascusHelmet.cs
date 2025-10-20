@@ -13,8 +13,8 @@ namespace UniverseOfSwords.Content.Items.Armor
             base.SetStaticDefaults();
             // DisplayName.SetDefault("Red Damascus Helmet");
             /* Tooltip.SetDefault("'Armor for agressive warriors'"
-			    + "\n10% increased melee damage"
-			    + "\n14% increased melee critical chance"); */
+                + "\n10% increased melee damage"
+                + "\n14% increased melee critical chance"); */
         }
 
         public override void SetDefaults()
@@ -29,22 +29,19 @@ namespace UniverseOfSwords.Content.Items.Armor
         public override void UpdateEquip(Player player)
         {
             player.GetDamage(DamageClass.Melee) += 0.1f;
-            player.GetDamage(DamageClass.MeleeNoSpeed) += 0.1f;
             player.GetCritChance(DamageClass.Melee) += 14;
-            player.GetCritChance(DamageClass.MeleeNoSpeed) += 14;
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<DamascusBar>(), 15);
-            recipe.AddIngredient(null, "DamascusHelmet", 1);
+            recipe.AddIngredient(ModContent.ItemType<DamascusHelmet>());
             recipe.AddIngredient(ItemID.SoulofMight, 15);
             recipe.AddIngredient(ItemID.SoulofSight, 15);
             recipe.AddIngredient(ItemID.SoulofFright, 15);
             recipe.AddIngredient(ItemID.WrathPotion, 15);
             recipe.AddIngredient(ItemID.HallowedMask, 1);
-            recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 5);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
