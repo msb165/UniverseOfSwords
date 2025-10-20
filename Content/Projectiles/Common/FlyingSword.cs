@@ -1,16 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Weapons;
-using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Projectiles.Common
 {
@@ -35,7 +29,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         public ref float Timer => ref Projectile.ai[0];
         public override void AI()
         {
-            Timer += 0.1f;
+            Timer += MathHelper.Clamp(0.1f * Player.GetTotalAttackSpeed(DamageClass.Melee), 0f, 0.5f);
             Projectile.rotation = (Player.Center - Projectile.Center).ToRotation() - MathHelper.PiOver4;
             if (Main.myPlayer == Projectile.owner)
             {
