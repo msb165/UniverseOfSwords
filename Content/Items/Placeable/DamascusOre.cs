@@ -1,4 +1,5 @@
 using Terraria.ID;
+using Terraria;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Tiles;
 
@@ -18,12 +19,12 @@ namespace UniverseOfSwords.Content.Items.Placeable
             Item.useTime = 15; // Speed before reuse
             Item.useAnimation = 15; // Animation Speed
             Item.useStyle = ItemUseStyleID.Swing; // 1 = Broadsword 
-            Item.value = 500; // 10 | 00 | 00 | 00 : Platinum | Gold | Silver | Bronze
+            Item.value = Item.sellPrice(silver: 5);
             Item.rare = ItemRarityID.Green; // Item Tier
             Item.autoReuse = true; // Do you want to torture people with clicking? Set to false
             Item.consumable = true; // Will consume the item when placed.
             Item.createTile = ModContent.TileType<DamascusOreTile>();
-            Item.maxStack = 999; // The maximum number you can have of this item.
+            Item.maxStack = Item.CommonMaxStack; // The maximum number you can have of this item.
         }
     }
 }

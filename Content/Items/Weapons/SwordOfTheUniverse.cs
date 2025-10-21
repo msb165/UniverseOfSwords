@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,7 +8,6 @@ using UniverseOfSwords.Common;
 using UniverseOfSwords.Common.GlobalItems;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -22,7 +18,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             // DisplayName.SetDefault("Sword of the Universe");
             /* Tooltip.SetDefault("'This sword doesn't swing. It lifts the Universe towards the blade'"
 			    + "\nHas changeable forms"); */
-            ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.33f;
         }
 
         public override void SetDefaults()
@@ -73,7 +69,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             }
         }
 
-        public override bool AltFunctionUse(Player player) => true;
+        public override bool AltFunctionUse(Player player) => false;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

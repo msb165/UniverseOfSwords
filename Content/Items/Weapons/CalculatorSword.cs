@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Common;
-using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
@@ -70,23 +69,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 int dust = Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.WhiteTorch, 0f, 0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
             }
-        }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddIngredient(ItemID.CopperBar, 10);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 20);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
-
-            recipe = CreateRecipe();
-            recipe.AddRecipeGroup("IronBar", 5);
-            recipe.AddIngredient(ItemID.TinBar, 10);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 20);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
         }
     }
 }

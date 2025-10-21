@@ -1,14 +1,11 @@
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
-using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -35,6 +32,20 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 8);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -96f), new Vector2(3f * player.direction, 4f));
+            }
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
@@ -62,8 +73,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 .AddIngredient(ItemID.ZombieElfBanner)
                 .AddIngredient(ItemID.BlizzardStaff)
                 .AddIngredient(ModContent.ItemType<BlizzardRage>())
-                .AddIngredient(ModContent.ItemType<Orichalcon>(), 2)
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
+                .AddIngredient(ModContent.ItemType<Orichalcon>(), 3)
+                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

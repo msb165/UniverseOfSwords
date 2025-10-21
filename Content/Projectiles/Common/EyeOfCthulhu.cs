@@ -152,7 +152,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         {
             Projectile.velocity *= 0.98f;
             TargetIndexTimer++;
-            if (TargetIndexTimer >= 30f)
+            if (TargetIndexTimer >= 40f)
             {
                 CurrentState = AIState.Idle;
                 TargetIndexTimer = 0f;

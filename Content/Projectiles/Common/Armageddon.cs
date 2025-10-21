@@ -33,6 +33,10 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void AI()
         {
+            if (Projectile.velocity.Length() > 6f)
+            {
+                Projectile.velocity *= 0.94f;
+            }
             if (Main.rand.NextBool(2))
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Flare);
@@ -40,8 +44,83 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust.scale = 2f;
             }
             Projectile.rotation += 0.3f * Projectile.direction;
-            Projectile.SimpleFadeOut(ai: 0, 20f);
+            KeepProjectileCloseToPlayer();
+            Projectile.VampireKnivesAI(ai: 0, 20f);
         }
+
+        public void KeepProjectileCloseToPlayer()
+        {
+            float maxDistance = 250f;
+            Vector2 distance = Main.player[Projectile.owner].Center - Projectile.Center;
+            if (distance.Length() > maxDistance)
+            {
+                float num5 = distance.Length() - maxDistance;
+                Vector2 vector2 = distance;
+                distance.Normalize();
+                distance *= maxDistance;
+                Projectile.position = Main.player[Projectile.owner].Center - distance;
+                Projectile.position -= Projectile.Size / 2;
+                float velLength = Projectile.velocity.Length();
+                Projectile.velocity.Normalize();
+                if (num5 > velLength - 1f)
+                {
+                    num5 = velLength - 1f;
+                }
+                Projectile.velocity *= velLength - num5;
+                velLength = Projectile.velocity.Length();
+                Vector2 projCenter = Projectile.Center;
+                Vector2 ownerCenter = Main.player[Projectile.owner].Center;
+                if (projCenter.Y < ownerCenter.Y)
+                {
+                    vector2.Y = Math.Abs(vector2.Y);
+                }
+                else if (projCenter.Y > ownerCenter.Y)
+                {
+                    vector2.Y = -Math.Abs(vector2.Y);
+                }
+                if (projCenter.X < ownerCenter.X)
+                {
+                    vector2.X = Math.Abs(vector2.X);
+                }
+                else if (projCenter.X > ownerCenter.X)
+                {
+                    vector2.X = -Math.Abs(vector2.X);
+                }
+                vector2.Normalize();
+                vector2 *= Projectile.velocity.Length();
+                if (Math.Abs(Projectile.velocity.X) > Math.Abs(Projectile.velocity.Y))
+                {
+                    Vector2 vector5 = Projectile.velocity;
+                    vector5.Y += vector2.Y;
+                    vector5.Normalize();
+                    vector5 *= Projectile.velocity.Length();
+                    if ((double)Math.Abs(vector2.X) < 0.1 || (double)Math.Abs(vector2.Y) < 0.1)
+                    {
+                        Projectile.velocity = vector5;
+                    }
+                    else
+                    {
+                        Projectile.velocity = (vector5 + Projectile.velocity * 20f) / 30f;
+                    }
+                }
+                else
+                {
+                    Vector2 velocity = Projectile.velocity;
+                    velocity.X += vector2.X;
+                    velocity.Normalize();
+                    velocity *= Projectile.velocity.Length();
+                    if ((double)Math.Abs(vector2.X) < 0.2 || (double)Math.Abs(vector2.Y) < 0.2)
+                    {
+                        Projectile.velocity = velocity;
+                    }
+                    else
+                    {
+                        Projectile.velocity = (velocity + Projectile.velocity * 20f) / 30f;
+                    }
+                }
+            }
+        }
+
 
         public override void OnKill(int timeLeft)
         {

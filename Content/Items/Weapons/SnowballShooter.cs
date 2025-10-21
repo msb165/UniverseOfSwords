@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -6,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -36,11 +36,15 @@ namespace UniverseOfSwords.Content.Items.Weapons
             {
                 Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(45f)) * Main.rand.NextFloat(1f, 1.25f), ModContent.ProjectileType<Snowball>(), damage, knockback, player.whoAmI);
             }
-            if (Main.rand.NextBool(8))
-            {
-                Projectile.NewProjectile(source, position, velocity.RotatedByRandom(MathHelper.ToRadians(15f)) * 0.125f, ModContent.ProjectileType<Rocket>(), damage, knockback, player.whoAmI);
-            }
             return false;
+        }
+
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center, (target.Center - player.Center).RotatedByRandom(MathHelper.ToRadians(15f)) * 0.125f, ModContent.ProjectileType<Rocket>(), damageDone, hit.Knockback, player.whoAmI);
+            }
         }
 
         public override void AddRecipes()
@@ -48,7 +52,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ItemID.SnowmanCannon)
                 .AddIngredient(ModContent.ItemType<Orichalcon>())
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 200)
+                .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

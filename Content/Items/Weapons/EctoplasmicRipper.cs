@@ -22,10 +22,10 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 6.0F;
+            Item.knockBack = 6f;
             Item.value = Item.sellPrice(gold: 15);
             Item.rare = ItemRarityID.Cyan;
-            Item.scale = 1.0F;
+            Item.scale = 1f;
             Item.UseSound = SoundID.Item103;
             Item.autoReuse = true;
             Item.useTurn = true;

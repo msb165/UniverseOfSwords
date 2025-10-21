@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -49,7 +48,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             if (Main.rand.NextBool(16))
             {
                 Vector2 dustVel = Vector2.UnitX.RotatedByRandom(MathHelper.PiOver2).RotatedBy(Projectile.velocity.ToRotation());
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.FireworkFountain_Blue, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 150, default, 1.2f);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Cyan, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 150, default, 1.2f);
                 dust.noGravity = true;
                 dust.velocity = dustVel * 0.66f;
                 dust.position = Projectile.Center + dustVel * 12f;
@@ -66,11 +65,11 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item10 with { Volume = 0.5f }, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10 with { Volume = 1f }, Projectile.position);
             Projectile.Resize(48, 48);
             for (int i = 0; i < 10; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.FireworkFountain_Blue, Alpha: 150, Scale: 0.9f);
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Cyan, Alpha: 150, Scale: 2.5f);
                 dust.noGravity = true;
                 dust.velocity *= 2f;
             }

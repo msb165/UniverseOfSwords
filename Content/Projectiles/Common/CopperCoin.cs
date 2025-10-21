@@ -28,6 +28,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.timeLeft = 600;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.extraUpdates = 1;
+            Projectile.noEnchantmentVisuals = true;
         }
 
         public override void AI()
@@ -39,7 +40,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             dust.velocity *= 0.3f;
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-            Projectile.SimpleFadeOut(ai: 0, 25f);
+            Projectile.VampireKnivesAI(ai: 0, 25f);
         }
 
         public override void OnKill(int timeLeft)

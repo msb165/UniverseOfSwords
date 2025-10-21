@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -21,7 +20,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             Item.width = 58;
             Item.height = 66;
-            Item.scale = 1f;
+            Item.scale = 1.125f;
             Item.rare = ItemRarityID.Purple;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 15;
@@ -49,17 +48,12 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 Item.useAnimation = 40;
                 Item.damage = 100;
                 Item.shoot = ModContent.ProjectileType<MaelstormTornado>();
-                Item.shootSpeed = 2f;
                 Item.shootsEveryUse = false;
             }
             else
             {
                 Item.useStyle = ItemUseStyleID.Swing;
-                Item.useTime = 15;
-                Item.useAnimation = 15;
-                Item.damage = 200;
                 Item.shoot = ModContent.ProjectileType<MaelstormStar>();
-                Item.shootSpeed = 20f;
                 Item.shootsEveryUse = true;
             }
             return base.CanUseItem(player);
@@ -73,8 +67,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
             if (player.altFunctionUse == 2)
             {
-                Projectile.NewProjectile(source, player.Center, Vector2.UnitX * player.direction * velocity.Length(), ModContent.ProjectileType<MaelstormTornado>(), damage, knockback, player.whoAmI);
-                Projectile.NewProjectile(source, player.Center, -Vector2.UnitX * player.direction * velocity.Length(), ModContent.ProjectileType<MaelstormTornado>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, Vector2.UnitX * player.direction * 2f, ModContent.ProjectileType<MaelstormTornado>(), damage, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, player.Center, -Vector2.UnitX * player.direction * 2f, ModContent.ProjectileType<MaelstormTornado>(), damage, knockback, player.whoAmI);
             }
 
             return false;

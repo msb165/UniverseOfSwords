@@ -1,8 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Materials;
@@ -50,7 +48,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 .AddIngredient(ItemID.DripplerBanner)
                 .AddIngredient(ItemID.BloodZombieBanner)
                 .AddIngredient(ModContent.ItemType<Orichalcon>())
-                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 15)
+                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 25)
                 .AddIngredient(ItemID.BrokenHeroSword)
                 .AddTile(TileID.CrystalBall)
                 .Register();

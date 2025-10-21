@@ -5,7 +5,6 @@ using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Dusts;
 using UniverseOfSwords.Utilities;
 using UniverseOfSwords.Utilities.Projectiles;
 
@@ -27,12 +26,13 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.Size = new(24);
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.penetrate = 1;
-            Projectile.extraUpdates = 0;
+            Projectile.penetrate = -1;
+            Projectile.extraUpdates = 1;
             Projectile.DamageType = DamageClass.Melee;
             Projectile.ignoreWater = true;
-            //Projectile.tileCollide = false;
             Projectile.noEnchantmentVisuals = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 7;
         }
 
         public override void AI()
@@ -45,25 +45,25 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Zombie103, Projectile.position);
-            Projectile.Resize(260, 260);
+            Projectile.Resize(70, 70);
             for (int i = 0; i < 4; i++)
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0f, 0f, 100, default, 1.5f);
             }
-            for (int j = 0; j < 15; j++)
+            for (int j = 0; j < 7; j++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 0, default, 2.5f);
-                dust.position = Projectile.Center - Main.rand.NextVector2Circular(200f, 200f);
+                dust.position = Projectile.Center - Main.rand.NextVector2Circular(80f, 80f);
                 dust.noGravity = true;
                 Dust dust2 = dust;
                 dust2.velocity *= 3f;
                 dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Clentaminator_Green, 0f, 0f, 100, default, 1.5f);
                 dust2 = dust;
-                dust2.position = Projectile.Center - Main.rand.NextVector2CircularEdge(200f, 200f);
+                dust2.position = Projectile.Center - Main.rand.NextVector2CircularEdge(80f, 80f);
                 dust2.velocity *= 2f;
                 dust.noGravity = true;
             }
-            Projectile.Damage();
+            //Projectile.Damage();
         }
 
         public override bool PreDraw(ref Color lightColor)

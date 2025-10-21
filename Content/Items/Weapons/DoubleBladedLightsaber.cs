@@ -1,4 +1,3 @@
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -49,7 +48,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 .AddIngredient(ItemID.SoulofSight, 12)
                 .AddIngredient(ItemID.SoulofMight, 12)
                 .AddIngredient(ModContent.ItemType<HumanBuzzSaw>())
-                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 5)
+                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 15)
                 .AddIngredient(ItemID.CrystalShard, 50)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

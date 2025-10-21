@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,19 +10,24 @@ namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class AncientKatana : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.75f;
+        }
+
         public override void SetDefaults()
         {
-            Item.width = 64;
-            Item.height = 68;
+            Item.width = 32;
+            Item.height = 32;
             Item.rare = ItemRarityID.LightPurple;
             Item.scale = 1.5f;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 9;
-            Item.useAnimation = 9;
+            Item.useTime = 10;
+            Item.useAnimation = 10;
             Item.damage = 70;
             Item.knockBack = 5f;
             Item.UseSound = SoundID.Item1;
-            Item.value = 600000;
+            Item.value = Item.sellPrice(gold: 5);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
@@ -61,13 +65,12 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 250)
-                .AddIngredient(ModContent.ItemType<Orichalcon>())
+                .AddIngredient(ModContent.ItemType<Orichalcon>(), 5)
                 .AddIngredient(ItemID.SoulofFright, 15)
                 .AddIngredient(ItemID.SoulofMight, 10)
                 .AddIngredient(ItemID.SoulofLight, 10)
                 .AddIngredient(ItemID.ChlorophyteBar, 20)
-                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 5)
+                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 50)
                 .AddIngredient(ItemID.Katana)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

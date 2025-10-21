@@ -81,7 +81,7 @@ namespace UniverseOfSwords.Content.Projectiles.Base
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance)
+                    if (proj.whoAmI != Projectile.whoAmI && Projectile.Colliding(Projectile.Hitbox, proj.Hitbox) && !proj.reflected && proj.hostile && Main.rand.Next(1, 100) <= Player.HeldItem.GetGlobalItem<ReflectionChance>().reflectChance && Player.ItemAnimationJustStarted)
                     {
                         SoundEngine.PlaySound(SoundID.Item150, Projectile.Center);
                         proj.velocity = -proj.oldVelocity;
@@ -91,6 +91,14 @@ namespace UniverseOfSwords.Content.Projectiles.Base
                     }
                 }
             }
+        }
+
+        public override void CutTiles()
+        {
+            Vector2 start = (Projectile.rotation - MathHelper.PiOver4).ToRotationVector2() * 60f * Projectile.scale;
+            Vector2 end = (Projectile.rotation + MathHelper.PiOver4).ToRotationVector2() * 60f * Projectile.scale;
+            float width = 60f * Projectile.scale;
+            Utils.PlotTileLine(Projectile.Center + start, Projectile.Center + end, width, DelegateMethods.CutTiles);
         }
 
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

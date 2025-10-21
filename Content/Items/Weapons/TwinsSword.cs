@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -19,7 +18,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             Item.width = 64;
             Item.height = 64;
-            Item.scale = 1.125f;
+            Item.scale = 1.25f;
             Item.rare = ItemRarityID.LightPurple;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 40;
@@ -41,8 +40,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             if (Main.rand.NextBool(2))
             {
-                UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Green, start: (int)(14 * Item.scale), end: (int)(84 * Item.scale));
-                UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Red, start: (int)(14 * Item.scale), end: (int)(84 * Item.scale));
+                UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Green, start: (int)(14 * Item.scale), end: (int)(91 * Item.scale));
+                UniverseUtils.SpawnRotatedDust(player, DustID.Clentaminator_Red, start: (int)(14 * Item.scale), end: (int)(91 * Item.scale));
             }
         }
 

@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Utilities.Projectiles;
 
 namespace UniverseOfSwords.Content.Projectiles.Common
 {
@@ -19,12 +20,12 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         public override void SetDefaults()
         {
             Projectile.Size = new(8);
-            Projectile.scale = 1f;
+            Projectile.scale = 1.25f;
             Projectile.aiStyle = -1;             //The ai style of the projectile, please reference the source code of Terraria
             Projectile.friendly = true;         //Can the projectile deal damage to enemies?
             Projectile.penetrate = -1;           //How many monsters the projectile can penetrate. (OnTileCollide below also decrements penetrate for bounces as well)
             Projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
-            Projectile.extraUpdates = 5;            //Set to above 0 if you want the projectile to update multiple time in a frame
+            Projectile.extraUpdates = 4;            //Set to above 0 if you want the projectile to update multiple time in a frame
             Projectile.timeLeft = 800;
         }
 
@@ -38,14 +39,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 Projectile.velocity *= 0.98f;
             }
 
-            if (Timer >= 30f)
-            {
-                Projectile.alpha += 10;
-                if (Projectile.alpha >= 255)
-                {
-                    Projectile.active = false;
-                }
-            }
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 30f);
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.spriteDirection = Projectile.direction;

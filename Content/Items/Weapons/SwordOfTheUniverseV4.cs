@@ -18,6 +18,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             // DisplayName.SetDefault("Sword of the Universe");
             /* Tooltip.SetDefault("'This sword doesn't swing. It lifts the Universe towards the blade'"
 			    + "\nHas changeable forms"); */
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.33f;
         }
 
         public override void SetDefaults()

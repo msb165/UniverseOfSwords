@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,6 +18,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             // DisplayName.SetDefault("Sword of the Universe");
             /* Tooltip.SetDefault("'This sword doesn't swing. It lifts the Universe towards the blade'"
                 + "\nHas changeable forms"); */
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.33f;
         }
 
         public override void SetDefaults()
@@ -35,7 +34,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.damage = 275;
             Item.knockBack = 10f;
             Item.UseSound = SoundID.Item1 with { Pitch = -0.5f };
-            Item.value = Item.sellPrice(platinum: 10);
+            Item.value = Item.sellPrice(platinum: 3);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
@@ -105,12 +104,12 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             target.AddBuff(ModContent.BuffType<SuperVenom>(), 360);
             target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 if (UniverseUtils.IsAValidTarget(target))
                 {
                     Vector2 spawnPos = Main.rand.NextVector2Circular(200f, 200f);
-                    Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - spawnPos, Vector2.Normalize(spawnPos), ModContent.ProjectileType<RedBeamV3>(), damageDone, hit.Knockback, player.whoAmI);
+                    Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - spawnPos, Vector2.Normalize(spawnPos), ModContent.ProjectileType<RedBeamV3>(), Item.damage * 10, hit.Knockback, player.whoAmI);
                 }
             }
         }

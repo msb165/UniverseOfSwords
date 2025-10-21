@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -19,12 +18,12 @@ namespace UniverseOfSwords.Content.Items.Weapons
 			Item.scale = 1.25f;
             Item.rare = ItemRarityID.Lime;            
             Item.useStyle = ItemUseStyleID.Swing;             
-            Item.useTime = 20;
-            Item.useAnimation = 20;           
+            Item.useTime = 17;
+            Item.useAnimation = 17;           
             Item.damage = 77; 
-            Item.knockBack = 7f;
+            Item.knockBack = 5f;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(silver: 50);
+            Item.value = Item.sellPrice(gold: 10, silver: 10);
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
             Item.shoot = ModContent.ProjectileType<AlphaExcaliburEnergy>();
@@ -62,9 +61,9 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 .AddIngredient(ItemID.SoulofMight, 10)
                 .AddIngredient(ItemID.SoulofSight, 10)
                 .AddIngredient(ItemID.HallowedBar, 10)
-                .AddIngredient(ItemID.DarkShard)
+                .AddIngredient(ItemID.DarkShard, 3)
                 .AddIngredient(ModContent.ItemType<Orichalcon>())
-                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 5)
+                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 25)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
 	    }

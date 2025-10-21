@@ -4,17 +4,11 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Materials;
-using UniverseOfSwords.Content.Projectiles.Held;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class BladesOfBalance : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-		    // DisplayName.SetDefault("Blades of Balance");
-        }
-
         public override void SetDefaults()
         {
             Item.damage = 51;
@@ -23,7 +17,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 7f;
+            Item.knockBack = 5f;
             Item.value = Item.sellPrice(gold: 5);
             Item.rare = ItemRarityID.LightPurple;
 			Item.scale = 1.25f;

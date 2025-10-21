@@ -30,13 +30,16 @@ namespace UniverseOfSwords.Common.GlobalNPCs
 
             if (npc.lifeMax > 5 && !npc.immortal && !NPCID.Sets.CountsAsCritter[npc.type])
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 4, 2, 15));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 6, 2, 15));
             }
 
             if (npc.boss)
             {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 2, 5, 30));
-                npcLoot.Add(ItemDropRule.ByCondition(hardMode, ModContent.ItemType<UpgradeMatter>(), 10, 1, 6));
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 3, 5, 30));
+                if (Main.hardMode)
+                {
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<UpgradeMatter>(), 6, 2, 10));
+                }
             }
 
             if (Array.IndexOf([NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail], npc.type) > -1)
@@ -77,7 +80,7 @@ namespace UniverseOfSwords.Common.GlobalNPCs
                     break;
                 case NPCID.Golem:
                     npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<Golem>()));
-                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<SwordShard>(), 5, 1, 6));
+                    npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<SwordShard>(), 1, 2, 12));
                     npcLoot.Add(ItemDropRule.ByCondition(isNotExpert, ModContent.ItemType<SolBlade>(), 100));
                     break;
                 case NPCID.CultistBoss:
@@ -105,7 +108,7 @@ namespace UniverseOfSwords.Common.GlobalNPCs
                     break;
                 case NPCID.RedDevil:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DevilBlade>(), 10));
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ScarletFlareCore>(), 4));
+                    npcLoot.Add(ItemDropRule.ByCondition(new DownedGolem(), ModContent.ItemType<ScarletFlareCore>(), 10));
                     break;
                 case NPCID.GreekSkeleton:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CaesarSword>(), 6));
@@ -158,7 +161,7 @@ namespace UniverseOfSwords.Common.GlobalNPCs
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WraithBlade>(), 4));
                     break;
                 case NPCID.DarkCaster:
-                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WraithBlade>(), 5));
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<WaterBoltSword>(), 5));
                     break;
                 case NPCID.MossHornet:
                 case NPCID.Arapaima:
@@ -188,6 +191,9 @@ namespace UniverseOfSwords.Common.GlobalNPCs
                     break;
                 case NPCID.IchorSticker:
                     npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IchorBlade>(), 25));
+                    break;
+                case NPCID.MartianSaucerCore:
+                    npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<MartianSaucerCore>(), 3));
                     break;
             }
         }

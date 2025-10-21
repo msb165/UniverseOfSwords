@@ -1,12 +1,10 @@
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Common;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -44,12 +42,12 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.FireworksLauncher, 1);
-            recipe.AddIngredient(ItemID.AmmoBox, 1);
-            recipe.AddIngredient(ItemID.WoodenCrate, 1);
+            recipe.AddIngredient(ItemID.FireworksLauncher);
+            recipe.AddIngredient(ItemID.AmmoBox);
+            recipe.AddIngredient(ItemID.WoodenCrate);
             recipe.AddIngredient(ItemID.FireworksBox, 99);
-            recipe.AddIngredient(null, "GrenadeBlade", 1);
-            recipe.AddIngredient(null, "UpgradeMatter", 10);
+            recipe.AddIngredient(ModContent.ItemType<GrenadeBlade>());
+            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 200);
             recipe.AddIngredient(ItemID.Grenade, 2000);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();

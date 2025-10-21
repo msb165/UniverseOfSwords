@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.GameContent.Drawing;
+using Terraria.ID;
 using UniverseOfSwords.Content.Projectiles.Base;
 using UniverseOfSwords.Utilities;
 
@@ -28,10 +23,13 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            target.AddBuff(BuffID.Oiled, 300);
             if (UniverseUtils.IsAValidTarget(target))
             {
-                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Red, Projectile.owner, damageDone, 200, 0.5f);
-                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Red, Projectile.owner, damageDone, 200, 0.5f);
+                for (int i = 0; i < 3; i++)
+                {
+                    UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Red, Projectile.owner, Projectile.damage, 200, 0.5f);
+                }
             }
         }
     }

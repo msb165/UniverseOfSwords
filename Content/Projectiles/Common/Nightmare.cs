@@ -36,7 +36,6 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.scale = 0.5f;
         }
 
-        public int attackTarget = -1;
         float velocityLength = 0f;
 
         public override void AI()
@@ -72,27 +71,10 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
             if (Projectile.ai[0] >= 1f)
             {
-                Projectile.SimpleFadeOut(ai: 0, 60f);
+                Projectile.VampireKnivesAI(ai: 0, 60f);
             }
-            FindNPCAndApplySpeed(velocityLength);
+            UniverseUtils.Misc.FindNPCAndApplySpeed(Projectile, velocityLength);
             FindFrame();
-        }
-
-        public void FindNPCAndApplySpeed(float multiplier)
-        {
-            NPC npc = UniverseUtils.Misc.FindTargetWithinRange(Projectile, 200f);
-            if (npc != null)
-            {
-                attackTarget = npc.whoAmI;
-                Projectile.netUpdate = true;
-            }
-
-            if (attackTarget != -1 && Main.npc[attackTarget].active)
-            {
-                Projectile.timeLeft = 2;
-                Vector2 speed = Vector2.Normalize(Main.npc[attackTarget].Center - Projectile.Center);
-                Projectile.velocity = (Projectile.velocity * 30f + speed * multiplier) / 31f;
-            }
         }
 
         public void FindFrame()

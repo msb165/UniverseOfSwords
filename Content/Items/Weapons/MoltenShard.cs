@@ -1,10 +1,8 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Common;
-using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
@@ -30,7 +28,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<Projectiles.Common.MoltenShard>();
             Item.shootSpeed = 3.5f;
             Item.UseSound = SoundID.Item20;
-            Item.value = Item.sellPrice(gold: 5);
+            Item.value = Item.sellPrice(gold: 1);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;

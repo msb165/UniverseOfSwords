@@ -1,7 +1,5 @@
-﻿using FullSerializer.Internal;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -32,6 +30,8 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.timeLeft = 90 * Projectile.MaxUpdates;
             Projectile.tileCollide = false;
             Projectile.noEnchantmentVisuals = true;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 0;
         }
 
         public int attackTarget = -1;
@@ -77,6 +77,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust2.noGravity = true;
                 dust2.velocity *= 1.2f;
             }
+            Projectile.Damage();
         }
 
         public override bool PreDraw(ref Color lightColor)

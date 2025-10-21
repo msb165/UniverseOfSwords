@@ -17,6 +17,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             // DisplayName.SetDefault("Sword of the Universe");
             /* Tooltip.SetDefault("'This sword doesn't swing. It lifts the Universe towards the blade'"
                 + "\nHas changeable forms"); */
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.33f;
         }
 
         public override void SetDefaults()
@@ -73,35 +74,41 @@ namespace UniverseOfSwords.Content.Items.Weapons
             }
             target.AddBuff(ModContent.BuffType<TrueSlow>(), 360);
             target.AddBuff(ModContent.BuffType<SuperVenom>(), 360);
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 Vector2 spawnPos = player.Center + Main.rand.NextVector2Circular(300f, 300f);
                 Vector2 newVel = (target.Center - spawnPos).SafeNormalize(Vector2.Zero) * 8f;
-                Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, newVel, ModContent.ProjectileType<RainbowProj>(), hit.Damage, hit.Knockback, player.whoAmI);
+                Projectile.NewProjectile(target.GetSource_OnHit(target), spawnPos, newVel, ModContent.ProjectileType<RainbowProj>(), hit.Damage * 2, hit.Knockback, player.whoAmI);
             }
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<TrueHorrormageddon>())
-                .AddIngredient(ModContent.ItemType<PrismSword>())
-                .AddIngredient(ModContent.ItemType<EdgeLord>())
-                .AddIngredient(ModContent.ItemType<SuperInflation>())
-                .AddIngredient(ModContent.ItemType<GlacialCracker>())
-                .AddIngredient(ItemID.Arkhalis)
-                .AddTile(TileID.LunarCraftingStation)
-                .Register();
-
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<TrueHorrormageddon>())
-                .AddIngredient(ModContent.ItemType<PrismSword>())
-                .AddIngredient(ModContent.ItemType<EdgeLord>())
-                .AddIngredient(ModContent.ItemType<SuperInflation>())
-                .AddIngredient(ModContent.ItemType<GlacialCracker>())
-                .AddIngredient(ItemID.Terragrim)
-                .AddTile(TileID.LunarCraftingStation)
-                .Register();
+            Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ModContent.ItemType<TrueHorrormageddon>());
+            recipe.AddIngredient(ModContent.ItemType<PrismSword>());
+            recipe.AddIngredient(ModContent.ItemType<EdgeLord>());
+            recipe.AddIngredient(ModContent.ItemType<SuperInflation>());
+            recipe.AddIngredient(ModContent.ItemType<GlacialCracker>());
+            if (thorium is not null)
+            {
+                recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 20);
+                recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 20);
+                recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 20);
+            }
+            recipe.AddIngredient(ItemID.Arkhalis);
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
+            Recipe recipe2 = CreateRecipe();
+            recipe2.AddIngredient(ModContent.ItemType<TrueHorrormageddon>());
+            recipe2.AddIngredient(ModContent.ItemType<PrismSword>());
+            recipe2.AddIngredient(ModContent.ItemType<EdgeLord>());
+            recipe2.AddIngredient(ModContent.ItemType<SuperInflation>());
+            recipe2.AddIngredient(ModContent.ItemType<GlacialCracker>());
+            recipe2.AddIngredient(ItemID.Terragrim);
+            recipe2.AddTile(TileID.LunarCraftingStation);
+            recipe2.Register();
 
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<SwordOfTheUniverse>())

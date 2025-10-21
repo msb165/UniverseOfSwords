@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -27,7 +26,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.damage = 26; 
             Item.knockBack = 6.5f;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(silver: 20);			
+            Item.value = Item.sellPrice(silver: 80);			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
 	    }

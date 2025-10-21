@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -20,11 +19,11 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void SetDefaults()
         {
-            Projectile.Size = new(20);
+            Projectile.Size = new(8);
             Projectile.scale = 1.5f;
             Projectile.aiStyle = -1;
             Projectile.friendly = true;
-            Projectile.penetrate = -1;
+            Projectile.penetrate = 1;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
             Projectile.timeLeft = 100;
@@ -58,7 +57,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust3.noGravity = true;
                 dust3.scale = 1.5f;
             }
-            FindFrame();
+            //FindFrame();
         }
 
         public void FindFrame()

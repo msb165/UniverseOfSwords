@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -19,9 +18,9 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 9;
             Item.useAnimation = 9;
             Item.damage = 55;
-            Item.knockBack = 6.0F;
+            Item.knockBack = 6f;
             Item.UseSound = SoundID.Item1;
-            Item.value = 500900;
+            Item.value = Item.sellPrice(gold: 9, silver: 5);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -34,8 +33,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.BrokenHeroSword, 1);
-            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 1);
+            recipe.AddIngredient(ItemID.BrokenHeroSword);
+            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 5);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

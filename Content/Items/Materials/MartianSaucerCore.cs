@@ -1,4 +1,3 @@
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +8,6 @@ namespace UniverseOfSwords.Content.Items.Materials
 	{
 		public override void SetStaticDefaults()
 		{
-            Item.ResearchUnlockCount = 25;
             // Tooltip.SetDefault("Pulses with space energy");
         }
 

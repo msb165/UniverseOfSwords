@@ -39,7 +39,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 Vector2 targetPos = target.Center;
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 spawnPos = Player.Center + new Vector2(Main.rand.Next(-200, 201), -600f);
+                    Vector2 spawnPos = Player.Center + new Vector2(-Main.rand.Next(0, 401) * Player.direction, -600f);
                     spawnPos.Y -= 100 * i;
                     Vector2 spawnVel = targetPos - spawnPos;
                     if (spawnVel.Y < 0f)
@@ -50,7 +50,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                     {
                         spawnVel.Y = 20f;
                     }
-                    spawnVel = Vector2.Normalize(spawnVel) * 16f + (Vector2.One * Main.rand.Next(-40, 41) * 0.02f);
+                    spawnVel = Vector2.Normalize(spawnVel) * 16f + (Vector2.UnitY * Main.rand.Next(-40, 41) * 0.02f);
                     Projectile.NewProjectile(Projectile.GetSource_FromAI(), spawnPos, spawnVel, Player.HeldItem.shoot, Projectile.damage, Projectile.knockBack, Projectile.owner, 0f);
                 }
             }

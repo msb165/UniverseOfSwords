@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,7 +19,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 25;
             Item.useAnimation = 25;
-            Item.damage = 17;
+            Item.damage = 20;
             Item.knockBack = 5f;
             Item.shoot = ModContent.ProjectileType<Tier2CProjectile>();
             Item.shootSpeed = 3f;

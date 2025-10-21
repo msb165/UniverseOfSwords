@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -24,12 +23,12 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 39;
             Item.useAnimation = 13;
-            Item.damage = 214;
+            Item.damage = 90;
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item1;
             Item.shoot = ModContent.ProjectileType<Projectiles.Common.VugarMutater>();
             Item.shootSpeed = 6f;
-            Item.value = Item.sellPrice(gold: 8);
+            Item.value = Item.buyPrice(gold: 8);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -38,18 +37,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             Projectile.NewProjectile(source, position + velocity, velocity, type, damage, knockback, player.whoAmI);
             return false;
-        }
-
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.TrueNightsEdge, 1);
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 150);
-            recipe.AddIngredient(null, "UpgradeMatter", 2);
-            recipe.AddIngredient(ItemID.TerraBlade, 1);
-            recipe.AddIngredient(ItemID.IceTorch, 50);
-            recipe.AddTile(TileID.LunarCraftingStation);
-            recipe.Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

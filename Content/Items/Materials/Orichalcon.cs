@@ -1,4 +1,3 @@
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,6 +10,7 @@ namespace UniverseOfSwords.Content.Items.Materials
         {
             // DisplayName.SetDefault("Orihalcon");
             // Tooltip.SetDefault("Most powerful and rarest ore for making swords");
+            Item.ResearchUnlockCount = 25;
         }
 
         public override void SetDefaults()

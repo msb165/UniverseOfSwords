@@ -2,10 +2,8 @@
 using Terraria;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
-using Terraria.ModLoader;
 using UniverseOfSwords.Content.Projectiles.Base;
 using UniverseOfSwords.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Projectiles.Common
 {
@@ -31,8 +29,8 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 ParticleOrchestrator.RequestParticleSpawn(clientOnly: false, ParticleOrchestraType.StardustPunch, settings, Projectile.owner);
 
                 Vector2 v = Main.rand.NextVector2CircularEdge(200f, 200f);
-                Vector2 vector = v.SafeNormalize(Vector2.UnitY) * 21f;
-                Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center - vector * 20f, vector, ProjectileID.InfluxWaver, Projectile.damage, 0f, Projectile.owner);
+                Vector2 vector = v.SafeNormalize(Vector2.UnitY) * 6f;
+                Projectile.NewProjectile(Projectile.GetSource_OnHit(target), target.Center - vector * 20f, vector * 4f, ProjectileID.InfluxWaver, Projectile.damage, 0f, Projectile.owner);
             }
         }
     }

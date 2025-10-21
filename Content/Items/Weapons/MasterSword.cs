@@ -1,9 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -18,17 +18,31 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             Item.width = 64;
             Item.height = 64;
-            Item.scale = 1f;
+            Item.scale = 1.25f;
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 23;
-            Item.useAnimation = 25;
+            Item.useTime = 22;
+            Item.useAnimation = 22;
             Item.damage = 25;
-            Item.knockBack = 4.1F;
+            Item.knockBack = 5f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 45);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -60f), Vector2.UnitY * 6f);
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)

@@ -24,7 +24,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
         {
             Projectile.velocity.Y = MathHelper.Clamp(Projectile.velocity.Y, 0f, 16f);
             Projectile.velocity.Y = Projectile.velocity.Y < 4f ? Projectile.velocity.Y += 2f : Projectile.velocity.Y += 4f;
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 13);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 13);
             Vector2 projPos = new(Projectile.Center.X - Projectile.width / 2, Projectile.position.Y + Projectile.height - 200);
             for (int i = 0; i < 1; i++)
             {

@@ -4,8 +4,8 @@ using Terraria.DataStructures;
 using Terraria.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons.VanillaAlternatives
 {
@@ -19,39 +19,52 @@ namespace UniverseOfSwords.Content.Items.Weapons.VanillaAlternatives
             Item.noMelee = false;
             Item.noUseGraphic = false;
             Item.scale = 1.5f;
+            Item.holdStyle = 0;
         }
+
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(64f * player.direction, -96f), new Vector2(3f * player.direction, 4f));
+            }
+        }
+
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int indicatedType = (player.itemAnimationMax - player.itemAnimation) / player.itemTime;
-            Vector2 newVel = velocity;
+            int time = (player.itemAnimationMax - player.itemAnimation) / player.itemTime;
             int swordType = FinalFractalHelper.GetRandomProfileIndex();
-            if (indicatedType == 0)
+            if (time == 0)
             {
                 swordType = ItemID.Zenith;
             }
             Vector2 targetPos = Main.MouseWorld;
             player.LimitPointToPlayerReachableArea(ref targetPos);
             Vector2 targetVel = targetPos - player.MountedCenter;
-            if (indicatedType == 1 || indicatedType == 2)
+            if (time == 1 || time == 2)
             {
-                int npcTargetIndex;
-                bool zenithTarget = GetZenithTarget(targetPos, 300f, out npcTargetIndex);
+                bool zenithTarget = GetZenithTarget(targetPos, 300f, out int npcTargetIndex);
                 if (zenithTarget)
                 {
                     targetVel = Main.npc[npcTargetIndex].Center - player.MountedCenter;
                 }
-                bool flag6 = indicatedType == 2;
-                if (indicatedType == 1 && !zenithTarget)
+                bool flag = time == 2;
+                if (time == 1 && !zenithTarget)
                 {
-                    flag6 = true;
+                    flag = true;
                 }
-                if (flag6)
+                if (flag)
                 {
                     targetVel += Main.rand.NextVector2Circular(150f, 150f);
                 }
             }
-            newVel = Vector2.Normalize(targetVel) * 100f;
+            Vector2 newVel = Vector2.Normalize(targetVel) * 100f;
             Projectile.NewProjectile(source, position, newVel, type, damage, knockback, player.whoAmI, Main.rand.Next(-50, 51), swordType);
             return false;
         }

@@ -57,7 +57,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
             if (Projectile.ai[0] >= 1f)
             {
-                Projectile.SimpleFadeOut(ai: 0, 23f);
+                Projectile.VampireKnivesAI(ai: 0, 23f);
             }
             FindNPCAndApplySpeed(velocityLength);
             FindFrame();
@@ -89,6 +89,11 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                     Projectile.frame = 0;
                 }
             }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Poisoned, 300);
         }
 
         public override void OnKill(int timeLeft)

@@ -22,7 +22,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.damage = 9;
-            Item.knockBack = 3f;
+            Item.knockBack = 4f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 20);
             Item.autoReuse = true;

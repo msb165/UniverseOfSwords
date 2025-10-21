@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +23,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 40;
             Item.useAnimation = 40;           
-            Item.damage = 190;
+            Item.damage = 150;
             Item.knockBack = 7f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(gold: 1, silver: 45);			
@@ -53,7 +52,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            target.AddBuff(ModContent.BuffType<TrueSlow>(), 200);
+            target.AddBuff(ModContent.BuffType<TrueSlow>(), 30);
             target.AddBuff(BuffID.Poisoned, 200);
         }
     }

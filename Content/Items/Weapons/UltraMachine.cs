@@ -1,10 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Content.Items.Placeable;
 using UniverseOfSwords.Content.Projectiles.Common;
 
 namespace UniverseOfSwords.Content.Items.Weapons
@@ -42,7 +42,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 
-
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             /*Projectile.NewProjectile(source, position, velocity, ProjectileID.LaserMachinegunLaser, damage, knockback, player.whoAmI);
@@ -71,19 +70,19 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 100);
-            recipe.AddIngredient(null, "DamascusBar", 20);
-            recipe.AddIngredient(ItemID.SkeletronPrimeTrophy, 1);
-            recipe.AddIngredient(ItemID.DestroyerTrophy, 1);
-            recipe.AddIngredient(ItemID.RetinazerTrophy, 1);
-            recipe.AddIngredient(ItemID.SpazmatismTrophy, 1);
+            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 200);
+            recipe.AddIngredient(ModContent.ItemType<DamascusBar>(), 20);
+            recipe.AddIngredient(ItemID.SkeletronPrimeTrophy);
+            recipe.AddIngredient(ItemID.DestroyerTrophy);
+            recipe.AddIngredient(ItemID.RetinazerTrophy);
+            recipe.AddIngredient(ItemID.SpazmatismTrophy);
             recipe.AddIngredient(ItemID.SpectreBar, 20);
-            recipe.AddIngredient(null, "PrimeSword", 1);
-            recipe.AddIngredient(null, "DestroyerSword", 1);
-            recipe.AddIngredient(null, "TwinsSword", 1);
-            recipe.AddIngredient(null, "MartianSaucerCore", 1);
+            recipe.AddIngredient(ModContent.ItemType<PrimeSword>());
+            recipe.AddIngredient(ModContent.ItemType<DestroyerSword>());
+            recipe.AddIngredient(ModContent.ItemType<TwinsSword>());
+            recipe.AddIngredient(ModContent.ItemType<MartianSaucerCore>());
             recipe.AddIngredient(ItemID.ShroomiteBar, 10);
-            recipe.AddIngredient(ItemID.LihzahrdPowerCell, 5);
+            recipe.AddIngredient(ModContent.ItemType<SwordShard>(), 20);
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }

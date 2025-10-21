@@ -1,10 +1,10 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Placeable;
 using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -24,19 +24,22 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 25;
             Item.useAnimation = 25;
-            Item.damage = 20;
-            Item.knockBack = 8f;
+            Item.damage = 30;
+            Item.knockBack = 6f;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.value = Item.sellPrice(silver: 40);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Vector2 newpos = target.Center + new Vector2(Main.rand.Next(-100, 100), -200f);
-            Vector2 newVel = Vector2.Normalize(target.Center - newpos) * 10f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), newpos, newVel, ModContent.ProjectileType<Grenade>(), Item.damage, Item.knockBack, player.whoAmI);
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                Vector2 newPos = target.Center + new Vector2(Main.rand.Next(-100, 100), -200f);
+                Vector2 newVel = Vector2.Normalize(target.Center - newPos) * 10f;
+                Projectile.NewProjectile(target.GetSource_OnHit(target), newPos, newVel, ModContent.ProjectileType<Grenade>(), Item.damage, Item.knockBack, player.whoAmI, ai1: target.Center.Y);
+            }
         }
 
         public override void AddRecipes()

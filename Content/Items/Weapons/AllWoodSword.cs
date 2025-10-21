@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,9 +24,9 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;           
             Item.damage = 12; 
-            Item.knockBack = 1f;
+            Item.knockBack = 2f;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(silver: 6, copper: 88);
+            Item.value = Item.sellPrice(silver: 5, copper: 88);
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;

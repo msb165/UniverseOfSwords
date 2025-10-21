@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,11 +18,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.damage = 15;
-            Item.knockBack = 3.5F;
+            Item.knockBack = 3.5f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 12);
             Item.DamageType = DamageClass.Melee;
-            Item.holdStyle = 999;
+            Item.holdStyle = 0;
         }
 
         public override bool? UseItem(Player player)
@@ -34,15 +33,17 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override Color? GetAlpha(Color lightColor) => Color.White with { A = 0 };
 
+        public override void HoldItem(Player player)
+        {
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
-                int direction = (Main.MouseWorld.X > player.Center.X).ToDirectionInt();
-                Vector2 itemRotation = (Main.MouseWorld - player.Center);
-                player.ChangeDir(direction);
                 Lighting.AddLight(player.itemLocation, Color.SkyBlue.ToVector3());
-                UniverseUtils.CustomHoldStyle(player, itemRotation, Vector2.Zero);
+                UniverseUtils.CustomHoldStyle(player, new Vector2(16, -32f), Vector2.Zero);
             }
         }
     }

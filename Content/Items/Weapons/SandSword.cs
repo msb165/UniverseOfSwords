@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -11,8 +10,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void SetDefaults()
         { 
             Item.width = 36;
-            Item.height = 36; 
-			Item.scale = 1.0F;
+            Item.height = 36;
+            Item.scale = 1.1f;
             Item.rare = ItemRarityID.White;            
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 30;

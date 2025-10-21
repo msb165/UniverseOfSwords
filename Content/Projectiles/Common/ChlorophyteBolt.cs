@@ -83,7 +83,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             {
                 Dust dust = Dust.NewDustPerfect(Projectile.Center, ModContent.DustType<Chloroflames>());
                 dust.scale *= 2f;
-                dust.velocity = -(Projectile.oldVelocity / 2f).RotatedByRandom(MathHelper.ToRadians(5f)) * Main.rand.NextFloat(0.5f, 1.2f);
+                dust.velocity = -(Projectile.oldVelocity / 2f).RotatedByRandom(MathHelper.ToRadians(5f)) * Main.rand.NextFloat(0.5f, 1.5f);
                 dust.noGravity = true;
             }
         }

@@ -14,7 +14,7 @@ namespace UniverseOfSwords.Content.Projectiles.Base
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Type] = 60;
+            ProjectileID.Sets.TrailCacheLength[Type] = 120;
             ProjectileID.Sets.TrailingMode[Type] = 2;
         }
 

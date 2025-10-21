@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Mono.Cecil;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -20,7 +17,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.Size = new(110);
+            Item.Size = new(40);
             Item.scale = 1.125f;
             Item.rare = ItemRarityID.Purple;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -31,7 +28,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.UseSound = SoundID.Item71;
             Item.shoot = ModContent.ProjectileType<Nightmare>();
             Item.shootSpeed = 5f;
-            Item.value = Item.sellPrice(gold: 30);
+            Item.value = Item.sellPrice(gold: 15);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -60,10 +57,13 @@ namespace UniverseOfSwords.Content.Items.Weapons
             {
                 return;
             }
-            Vector2 newPos = Main.rand.NextVector2CircularEdge(199f, 199f);
-            Vector2 newVel = (target.Center - newPos).SafeNormalize(Vector2.UnitY) * 10f;
-            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - newPos, newVel * Main.rand.NextFloat(1f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
-            Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - newPos, newVel * Main.rand.NextFloat(1f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+            for (int i = 0; i < 2; i++)
+            {
+                Vector2 newPos = Main.rand.NextVector2CircularEdge(199f, 199f);
+                Vector2 spawnPos = target.Center - newPos;
+                Vector2 newVel = (target.Center - spawnPos).SafeNormalize(Vector2.UnitY) * 7f;
+                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - newPos, newVel * Main.rand.NextFloat(1f, 1.25f), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+            }
             Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center, Vector2.Zero, ModContent.ProjectileType<NightmareBlast>(), damageDone, Item.knockBack / 2, player.whoAmI, target.whoAmI);
             target.AddBuff(BuffID.ShadowFlame, 800);
             target.AddBuff(BuffID.Venom, 800);

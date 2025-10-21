@@ -1,9 +1,9 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Common;
 
 namespace UniverseOfSwords.Content.Items.Weapons
@@ -18,8 +18,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 128;
-            Item.height = 128;
+            Item.width = 64;
+            Item.height = 64;
             Item.scale = 1f;
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -30,7 +30,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<GoldenCoin>();
             Item.shootSpeed = 3.5f;
             Item.UseSound = SoundID.Item1;
-            Item.value = 999999;
+            Item.value = 0;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -42,8 +42,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
             recipe.AddIngredient(null, "CopperCoinSword", 1);
             recipe.AddIngredient(null, "SilverCoinSword", 1);
             recipe.AddIngredient(null, "GoldCoinSword", 1);
-            recipe.AddIngredient(null, "UpgradeMatter", 2);
-            recipe.AddIngredient(ItemID.LunarOre, 1);
+            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 300);
+            recipe.AddIngredient(ItemID.LunarOre);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
         }

@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -20,11 +19,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 86;
-            Item.height = 86;
+            Item.width = 43;
+            Item.height = 43;
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 20;
+            Item.useTime = 30;
             Item.useAnimation = 20;
             Item.damage = 80;
             Item.knockBack = 8f;
@@ -66,11 +65,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            int numberProjectiles = 1 + Main.rand.Next(5); // 4 or 5 shots
+            int numberProjectiles = 1 + Main.rand.Next(4); // 4 or 5 shots
             for (int i = 0; i < numberProjectiles; i++)
             {
                 Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(40f));
-                Projectile.NewProjectile(source, position + perturbedSpeed * 4f, perturbedSpeed * Main.rand.NextFloat(0.8f, 1.25f), type, damage / 3, knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position + perturbedSpeed * 4f, perturbedSpeed * Main.rand.NextFloat(0.8f, 1.25f), type, damage / numberProjectiles, knockback, player.whoAmI);
             }
             return false;
         }

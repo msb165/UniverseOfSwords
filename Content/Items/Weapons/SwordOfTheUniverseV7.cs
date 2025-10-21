@@ -1,13 +1,13 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Buffs;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Common.GlobalItems;
 using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -18,6 +18,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             // DisplayName.SetDefault("Sword of the Universe");
             /* Tooltip.SetDefault("'This sword doesn't swing. It lifts the Universe towards the blade'"
 			    + "\nHas changeable forms"); */
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.33f;
         }
 
         public override void SetDefaults()
@@ -43,6 +44,20 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.noMelee = true;
             Item.channel = true;
             Item.noUseGraphic = true;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.noUseGraphic = player.ItemAnimationActive;
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
 
         public override bool MeleePrefix() => true;

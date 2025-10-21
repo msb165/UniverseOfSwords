@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -8,7 +6,6 @@ using Terraria.ModLoader;
 using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -26,8 +23,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.scale = 1.5f;
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 20;
-            Item.useAnimation = 20;
+            Item.useTime = 18;
+            Item.useAnimation = 18;
             Item.damage = 95;
             Item.knockBack = 8f;
             Item.UseSound = SoundID.Item1;
@@ -64,13 +61,21 @@ namespace UniverseOfSwords.Content.Items.Weapons
             {
                 return;
             }
-            for (int j = 0; j < 3; j++)
+            target.AddBuff(BuffID.Oiled, 300);
+            /*            for (int j = 0; j < 3; j++)
+                        {
+                            Vector2 spawnPos = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitY) * 40f;
+                            float offset = j * (3f - 1f) / 2f;
+                            Vector2 spawnOffset = spawnPos.RotatedBy(offset * MathHelper.TwoPi / 3f);
+                            Vector2 spawnVel = Vector2.Normalize(Main.MouseWorld - player.Center - spawnOffset);
+                            Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + spawnOffset - Vector2.UnitY * 12f, spawnVel * Item.shootSpeed, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+                        }*/
+
+            for (int j = 0; j < 4; j++)
             {
-                Vector2 spawnPos = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitY) * 40f;
-                float offset = j * (3f - 1f) / 2f;
-                Vector2 spawnOffset = spawnPos.RotatedBy(offset * MathHelper.TwoPi / 3f);
-                Vector2 spawnVel = Vector2.Normalize(Main.MouseWorld - player.Center - spawnOffset);
-                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + spawnOffset - Vector2.UnitY * 12f, spawnVel * Item.shootSpeed, Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
+                Vector2 spawnPos = player.Center - Vector2.UnitY * 12f;
+                Vector2 newVel = (target.Center - spawnPos).SafeNormalize(Vector2.UnitY) * Item.shootSpeed;
+                Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - Vector2.UnitY * 12f, newVel.RotatedByRandom(MathHelper.ToRadians(25f)), Item.shoot, Item.damage, Item.knockBack, player.whoAmI);
             }
         }
     }

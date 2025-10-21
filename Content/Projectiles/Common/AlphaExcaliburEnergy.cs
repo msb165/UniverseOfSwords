@@ -1,7 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.GameContent.Drawing;
 using UniverseOfSwords.Content.Projectiles.Base;
@@ -26,6 +23,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.Damage();
             base.OnHitNPC(target, hit, damageDone);
 
             Vector2 positionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox);

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -23,7 +22,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.shoot = ModContent.ProjectileType<WateryBolt>();
             Item.shootSpeed = 2.5f;
             Item.UseSound = SoundID.Item1;
-            Item.value = Item.sellPrice(gold: 4, silver: 85);
+            Item.value = Item.sellPrice(silver: 35);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }

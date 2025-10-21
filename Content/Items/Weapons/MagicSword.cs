@@ -1,10 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
 
@@ -19,17 +16,17 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.width = 64;
-            Item.height = 64;
+            Item.width = 48;
+            Item.height = 48;
             Item.scale = 1.125f;
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 20;
             Item.damage = 27;
-            Item.knockBack = 8.55f;
+            Item.knockBack = 4f;
             Item.UseSound = SoundID.Item109 with { Volume = 0.3f };
-            Item.value = Item.sellPrice(gold: 2);
+            Item.value = Item.buyPrice(gold: 2);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
@@ -42,18 +39,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
             }
             Vector2 newVel = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero) * 12f;
             Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center + newVel, newVel, ModContent.ProjectileType<SuperBeam>(), (int)(damageDone * 1.75), hit.Knockback, player.whoAmI);
-        }
-
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ItemID.Starfury)
-                .AddIngredient(ModContent.ItemType<MasterSword>())
-                .AddIngredient(ItemID.HellstoneBar, 15)
-                .AddIngredient(ItemID.MagicMissile)
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 150)
-                .AddTile(TileID.Anvils)
-                .Register();
         }
     }
 }

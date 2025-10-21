@@ -1,10 +1,8 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Content.Items.Materials;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -20,28 +18,24 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 34;
             Item.useAnimation = 17;
             Item.damage = 15;
-            Item.knockBack = 5.0F;
+            Item.knockBack = 5f;
             Item.shoot = ProjectileID.Bee;
-            Item.shootSpeed = 1f;
+            Item.shootSpeed = 2f;
             Item.UseSound = SoundID.Item1;
             Item.value = 38500;
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
         }
 
-        public override void AddRecipes()
-        {
-            Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 100);
-            recipe.AddIngredient(ModContent.ItemType<TheStinger>(), 1);
-            recipe.AddIngredient(ItemID.BeeGun, 1);
-            recipe.AddTile(TileID.Anvils);
-            recipe.Register();
-        }
-
         public override void UseStyle(Player player, Rectangle heldItemFrame)
         {
             player.itemLocation.Y -= 1f * player.gravDir;
+        }
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            Projectile.NewProjectile(source, position, velocity, player.beeType(), player.beeDamage(damage / 3), player.beeKB(0f), player.whoAmI);
+            return Main.rand.NextBool(3);
         }
     }
 }

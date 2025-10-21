@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,11 +25,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.damage = 66;
-            Item.knockBack = 8.0F;
+            Item.knockBack = 5f;
             Item.shoot = ModContent.ProjectileType<Frozen>();
             Item.shootSpeed = 4f;
             Item.UseSound = SoundID.Item28;
-            Item.value = Item.sellPrice(gold: 15);
+            Item.value = Item.sellPrice(gold: 2, silver: 20);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
@@ -66,6 +65,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             position += velocity * 8f - Vector2.UnitY * 24f;
+            knockback /= 2;
         }
 
         public override void AddRecipes()

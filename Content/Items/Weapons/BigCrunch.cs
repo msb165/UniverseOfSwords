@@ -18,9 +18,9 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.rare = ItemRarityID.Red;
             Item.crit = 25;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 25;
-            Item.useAnimation = 25;
-            Item.damage = 190;
+            Item.useTime = 23;
+            Item.useAnimation = 23;
+            Item.damage = 200;
             Item.knockBack = 4f;
             Item.UseSound = SoundID.Item109 with { Volume = 0.3f };
             Item.value = Item.sellPrice(platinum: 1);

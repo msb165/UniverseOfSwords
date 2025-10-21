@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -82,7 +81,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             target.AddBuff(BuffID.OnFire, 500);
             if (UniverseUtils.IsAValidTarget(target))
             {
-                UniverseUtils.Spawn.VampireHeal(damageDone, target.Center, target, player);
+                player.Heal(3);
             }
         }
     }

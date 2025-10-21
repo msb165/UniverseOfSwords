@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UniverseOfSwords.Utilities;
 using UniverseOfSwords.Utilities.Projectiles;
 
 namespace UniverseOfSwords.Content.Projectiles.Common
@@ -33,7 +32,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust.noGravity = true;
                 dust.velocity *= 0.6f;
             }
-            Projectile.SimpleFadeOut(ai: 0, maxTime: 30f);
+            Projectile.VampireKnivesAI(ai: 0, maxTime: 30f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

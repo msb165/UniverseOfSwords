@@ -4,7 +4,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Materials;
-using UniverseOfSwords.Content.Projectiles.Held;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -18,15 +17,15 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 200;
+            Item.damage = 180;
             Item.crit = 10;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
             Item.width = 88;
             Item.height = 88;
             Item.useTime = 10;
             Item.useAnimation = 10;
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.knockBack = 12f;
+            Item.knockBack = 8f;
             Item.value = Item.sellPrice(platinum: 1);
             Item.rare = ItemRarityID.Purple;
             Item.scale = 1.25f;
@@ -54,11 +53,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ModContent.ItemType<CrystalExcalibur>(), 1)
-            .AddIngredient(ModContent.ItemType<LunarOrb>(), 1)
+            .AddIngredient(ModContent.ItemType<CrystalExcalibur>())
+            .AddIngredient(ModContent.ItemType<LunarOrb>())
             .AddIngredient(ModContent.ItemType<Orichalcon>(), 5)
-            .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 10)
-            .AddTile(TileID.MythrilAnvil)
+            .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 250)
+            .AddTile(TileID.LunarCraftingStation)
             .Register();
         }
     }

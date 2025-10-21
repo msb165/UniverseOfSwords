@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -14,17 +13,17 @@ namespace UniverseOfSwords.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.Size = new(64);
+            Item.Size = new(32);
             Item.rare = ItemRarityID.LightPurple;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 30;
+            Item.useTime = 40;
             Item.useAnimation = 30;
             Item.knockBack = 5.6F;
             Item.damage = 48;
             Item.shoot = ModContent.ProjectileType<PoisonFang>();
-            Item.shootSpeed = 3.5f;
+            Item.shootSpeed = 3f;
             Item.UseSound = SoundID.Item43;
-            Item.value = 100000;
+            Item.value = Item.sellPrice(silver: 30);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
@@ -45,13 +44,12 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            float piOverTen = MathHelper.ToRadians(3f);
+            float piOverTen = MathHelper.ToRadians(6f);
             for (int i = 0; i < 3; i++)
             {
                 float offset = i - (3f - 1f) / 2f;
-                Projectile.NewProjectileDirect(source, position + velocity, velocity.RotatedBy(piOverTen * offset), type, damage / 5, knockback, player.whoAmI);
+                Projectile.NewProjectileDirect(source, position + velocity, velocity.RotatedBy(piOverTen * offset), type, damage / 3, knockback, player.whoAmI);
             }
-
             return false;
         }
 

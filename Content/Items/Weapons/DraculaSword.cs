@@ -1,7 +1,5 @@
 using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Common;
@@ -12,6 +10,10 @@ namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class DraculaSword : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.BonusAttackSpeedMultiplier[Type] = 0.75f;
+        }
         public override void SetDefaults()
         {
             Item.width = 64;
@@ -19,9 +21,9 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.scale = 1.25f;
             Item.rare = ItemRarityID.Lime;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useTime = 30;
-            Item.useAnimation = 15;
-            Item.damage = 43;
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.damage = 68;
             Item.knockBack = 6f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(gold: 5);
@@ -53,7 +55,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             for (int i = 0; i < 3; i++)
             {
                 Vector2 spawnVel = (Vector2.UnitY * 16f).RotatedBy(i * MathHelper.TwoPi / 3f);
-                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnVel * 10f, spawnVel, ModContent.ProjectileType<DraculaProj>(), Item.damage, 4f, player.whoAmI);
+                Projectile.NewProjectile(target.GetSource_OnHit(target), target.Center - spawnVel * 10f, spawnVel, ModContent.ProjectileType<DraculaProj>(), Item.damage, 4f, player.whoAmI, ai1: target.whoAmI, ai2: 1f);
             }
         }
     }

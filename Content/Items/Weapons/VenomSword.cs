@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -22,7 +21,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.knockBack = 4f;
             Item.damage = 63;
             Item.shoot = ModContent.ProjectileType<VenomFang>();
-            Item.shootSpeed = 15f;
+            Item.shootSpeed = 3f;
             Item.UseSound = SoundID.Item43;
             Item.value = Item.sellPrice(gold: 2);
             Item.autoReuse = true;
@@ -32,12 +31,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3 + Main.rand.Next(4); // 3, 4, or 5 shots
-            float rotation = MathHelper.ToRadians(10f);
-            position += Vector2.Normalize(velocity) * 5f;
+            float rotation = MathHelper.ToRadians(numberProjectiles * 2);
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 0.2f; // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                float offset = i - (numberProjectiles - 1f) / 2f;
+                Projectile.NewProjectileDirect(source, position + velocity, velocity.RotatedBy(rotation * offset), type, damage / 5, knockback, player.whoAmI, ai1: 1f);
             }
             return false;
         }
@@ -49,7 +47,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<PoisonSword>())
                 .AddIngredient(ItemID.PoisonStaff)
-                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 5)
+                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
