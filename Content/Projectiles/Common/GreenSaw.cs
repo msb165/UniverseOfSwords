@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using Terraria;
 using Terraria.GameContent;
@@ -134,7 +133,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             if (UniverseUtils.IsAValidTarget(target) && Main.myPlayer == Projectile.owner)
             {
                 target.immune[Projectile.owner] = 1;
-                UniverseUtils.Spawn.SummonGenericSlash(target.Center, Color.Green, Projectile.owner, Projectile.damage, lerpToWhite: 0.5f);
+                UniverseUtils.Spawn.SummonGenericSlash(target.Center, new Color(0, 200, 150), Projectile.owner, Projectile.damage, drawAlpha: 230, lerpToWhite: 0.6f);
             }
             target.AddBuff(ModContent.BuffType<SuperVenom>(), 300);
         }
