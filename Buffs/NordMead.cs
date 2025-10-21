@@ -17,7 +17,7 @@ namespace UniverseOfSwords.Buffs
             player.GetCritChance(DamageClass.Melee) += 5;
             player.GetDamage(DamageClass.Melee) += 0.15f;
             player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
-            player.endurance += 0.5f;
+            player.endurance += 0.1f;
             player.statDefense -= 8;
             player.AddBuff(BuffID.Tipsy, 400);
         }
