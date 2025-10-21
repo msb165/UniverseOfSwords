@@ -11,6 +11,7 @@ namespace UniverseOfSwords.Content.Items.Placeable
         {
             // DisplayName.SetDefault("Damascus Bar");
             // Tooltip.SetDefault("'Material for creating powerful swords'");
+            Item.ResearchUnlockCount = 25;
         }
 
         public override void SetDefaults()
