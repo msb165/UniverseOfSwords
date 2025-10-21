@@ -1,13 +1,8 @@
 using Microsoft.Xna.Framework;
-using Mono.Cecil;
-using System;
-using System.Formats.Asn1;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Items.Materials;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
