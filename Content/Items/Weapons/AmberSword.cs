@@ -19,17 +19,14 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 30;
             Item.useAnimation = 30;
             Item.damage = 9;
-            Item.knockBack = 3.8f;
+            Item.knockBack = 4f;
             Item.UseSound = SoundID.Item1;
             Item.value = Item.sellPrice(silver: 30);
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
         }
 
-        public override void HoldItem(Player player)
-        {
-            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
-        }
+        public override void HoldItem(Player player) => Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {
