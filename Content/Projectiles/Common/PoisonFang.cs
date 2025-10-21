@@ -30,8 +30,15 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             Projectile.noEnchantmentVisuals = true;
         }
 
+        public ref float Timer => ref Projectile.ai[0];
+        Player Player => Main.player[Projectile.owner];
+
         public override void AI()
         {
+            if (Projectile.velocity.Length() > 3f)
+            {
+                Projectile.velocity *= 0.94f;
+            }
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             if ((Projectile.alpha -= 50) < 0)
             {

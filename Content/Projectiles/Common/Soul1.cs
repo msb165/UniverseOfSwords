@@ -1,8 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Content.Dusts;
@@ -35,6 +32,11 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void AI()
         {
+            if (Projectile.velocity.Length() > 3.5f)
+            {
+                Projectile.velocity *= 0.94f;
+            }
+
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.VampireKnivesAI(ai: 0, 30f);
 
