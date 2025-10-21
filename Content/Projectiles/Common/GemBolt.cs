@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -70,8 +65,8 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             {
                 Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dustType, Projectile.velocity.X, Projectile.velocity.Y, 50, default, 1.25f);
                 dust.noGravity = true;
-                Dust dust2 = dust;
-                dust2.velocity *= 0.3f;
+                dust.position = Projectile.Center - Projectile.velocity / 3f * i;
+                dust.velocity *= 0.3f;
             }
             if (Projectile.ai[1] == 0f)
             {
