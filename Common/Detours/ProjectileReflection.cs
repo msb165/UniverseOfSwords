@@ -22,14 +22,19 @@ namespace UniverseOfSwords.Common.Detours
         public static void AddProjectileReflection(On_Player.orig_ItemCheck_OwnerOnlyCode orig, Player self, ref Player.ItemCheckContext context, Item sItem, int weaponDamage, Rectangle heldItemFrame)
         {
             orig(self, ref context, sItem, weaponDamage, heldItemFrame);
+            var globalItem = sItem.TryGetGlobalItem(out ReflectionChance result);
+            if (!globalItem)
+            {
+                return;
+            }
             if (self.ItemAnimationActive)
             {
                 foreach (Projectile proj in Main.ActiveProjectiles)
                 {
-                    if (Main.myPlayer == self.whoAmI && !noAttack && !itemRec.IsEmpty && itemRec.Intersects(proj.Hitbox))
+                    if (Main.myPlayer == self.whoAmI && !noAttack && !itemRec.IsEmpty && itemRec.Intersects(proj.Hitbox) && self.ItemAnimationJustStarted)
                     {
                         bool canBeReflected = !proj.reflected && proj.hostile;
-                        if (!(Main.rand.Next(1, 101) <= sItem.GetGlobalItem<ReflectionChance>().reflectChance) || !canBeReflected)
+                        if (!(Main.rand.Next(1, 101) <= result.reflectChance) || !canBeReflected)
                         {
                             return;
                         }
