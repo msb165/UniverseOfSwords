@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace UniverseOfSwords.Common.GlobalItems
@@ -14,7 +15,7 @@ namespace UniverseOfSwords.Common.GlobalItems
         {
             if ((entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed) && entity.useStyle == ItemUseStyleID.Swing && entity.axe <= 0 && entity.pick <= 0 && reflectChance == 0)
             {
-                reflectChance = 2;
+                reflectChance = 4;
             }
 
             switch (entity.type)
@@ -22,13 +23,10 @@ namespace UniverseOfSwords.Common.GlobalItems
                 case ItemID.PlatinumBroadsword or ItemID.GoldBroadsword:
                     reflectChance = 3;
                     break;
-                case ItemID.PalladiumSword or ItemID.CobaltSword or ItemID.TitaniumSword or ItemID.AdamantiteSword:
-                    reflectChance = 4;
-                    break;
                 case ItemID.Cutlass:
                     reflectChance = 5;
                     break;
-                case ItemID.FetidBaghnakhs:
+                case ItemID.FetidBaghnakhs or ItemID.BladedGlove:
                     reflectChance = 10;
                     break;
             }
@@ -36,9 +34,9 @@ namespace UniverseOfSwords.Common.GlobalItems
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            if ((item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed) && item.useStyle == ItemUseStyleID.Swing)
+            if ((item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed) && item.useStyle == ItemUseStyleID.Swing && item.axe <= 0 && item.pick <= 0 && reflectChance > 0)
             {
-                string coloredText = "[c/AC1CEE:p][c/9C0CDE:a][c/8C0CBE:r][c/7C0CAE:r][c/6C0C9E:y] [c/AC1CEE:c][c/9C0CDE:h][c/8C0CBE:a][c/7C0CAE:n][c/6C0C9E:c][c/6C0C9E:e]";
+                string coloredText = Language.GetTextValue("Mods.UniverseOfSwords.Misc.ReflectionChance");
                 TooltipLine reflectionChance = new(Mod, "ReflectChance", $"[c/BC2CFE:{reflectChance}%] {coloredText}");
                 tooltips.Add(reflectionChance);
             }
