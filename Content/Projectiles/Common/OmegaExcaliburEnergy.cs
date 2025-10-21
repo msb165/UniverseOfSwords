@@ -23,6 +23,8 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Projectile.Damage();
+
             base.OnHitNPC(target, hit, damageDone);
 
             Vector2 positionInWorld = Main.rand.NextVector2FromRectangle(target.Hitbox);
