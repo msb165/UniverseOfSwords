@@ -15,8 +15,14 @@ namespace UniverseOfSwords.Common.GlobalItems
             Conditions.IsHardmode hardmode = new();
             if (ItemID.Sets.BossBag[item.type] || ItemID.Sets.IsFishingCrate[item.type] || ItemID.Sets.IsFishingCrateHardmode[item.type])
             {
-                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 10, 1, 3));
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordMatter>(), 10, 1, 5));
             }
+
+            if (ItemID.Sets.BossBag[item.type] && !Main.hardMode)
+            {
+                itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<UpgradeMatter>(), 6, 2, 10));
+            }
+
             switch (item.type)
             {
                 case ItemID.EyeOfCthulhuBossBag:
@@ -27,6 +33,9 @@ namespace UniverseOfSwords.Common.GlobalItems
                     break;
                 case ItemID.EaterOfWorldsBossBag:
                     itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheEater>()));
+                    break;
+                case ItemID.BrainOfCthulhuBossBag:
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<TheBrain>()));
                     break;
                 case ItemID.SkeletronBossBag:
                     itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordOfPower>()));
@@ -41,7 +50,7 @@ namespace UniverseOfSwords.Common.GlobalItems
                     itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<DestroyerSword>()));
                     break;
                 case ItemID.GolemBossBag:
-                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordShard>(), 5, 1, 6));
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordShard>(), 1, 2, 12));
                     itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<Golem>()));
                     itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<SolBlade>(), 100));
                     break;
