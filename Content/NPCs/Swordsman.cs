@@ -1,13 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Terraria;
-using Terraria.GameContent;
+using Terraria.GameContent.Events;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 using UniverseOfSwords.Content.Items.Consumables;
+using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Items.Weapons;
 
 namespace UniverseOfSwords.Content.NPCs
@@ -57,16 +59,51 @@ namespace UniverseOfSwords.Content.NPCs
             ];
         }
 
+        public override void SetChatButtons(ref string button, ref string button2)
+        {
+            button = Language.GetTextValue("LegacyInterface.28");
+        }
+
         public override string GetChat()
         {
-            return base.GetChat();
+            WeightedRandom<string> chat = new();
+            chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue1"));
+            if (NPC.downedBoss3)
+            {
+                chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue2"));
+            }
+            if (DD2Event.DownedInvasionT3 && NPC.downedGolemBoss && NPC.downedMartians)
+            {
+                chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue3"));
+            }
+            else if (Main.hardMode)
+            {
+                chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue4"));
+            }
+            chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue5"));
+            if (NPC.downedMoonlord && !Main.LocalPlayer.HasItem(ModContent.ItemType<SwordOfTheMultiverse>()))
+            {
+                chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue6"));
+            }
+            else if (NPC.downedMoonlord)
+            {
+                chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue7"));
+            }
+            chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue8"));
+            chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue9"));
+            string newChat = (string)chat;
+            if (newChat == Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue5"))
+            {
+                Main.npcChatCornerItem = ModContent.ItemType<UpgradeMatter>();
+            }
+            return newChat;
         }
 
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
             if (firstButton)
             {
-                shopName = "shop";
+                shopName = "Shop";
             }
         }
 
@@ -76,7 +113,11 @@ namespace UniverseOfSwords.Content.NPCs
             shop.Add(ModContent.ItemType<InnosWrath>(), Condition.DownedCultist)
                 .Add(ModContent.ItemType<MasterSword>(), Condition.DownedEyeOfCthulhu)
                 .Add(ModContent.ItemType<NordMead>(), Condition.DownedSkeletron)
+                .Add(ModContent.ItemType<MagicSword>(), Condition.DownedSkeletron)
+                .Add(ModContent.ItemType<VugarMutater>(), Condition.DownedPlantera)
                 .Add(ModContent.ItemType<BarbarianSword>())
+                .Add(ModContent.ItemType<CalculatorSword>())
+                .Add(ModContent.ItemType<TrueTerrablade>(), Condition.DownedGolem, Condition.DownedMartians, new("Mods.UniverseOfSwords.Conditions.DownedInvasionT3", () => DD2Event.DownedInvasionT3))
                 .Register();
         }
 
