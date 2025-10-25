@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Utilities;
 using UniverseOfSwords.Utilities.Projectiles;
@@ -42,6 +43,9 @@ namespace UniverseOfSwords.Content.Projectiles.Common
                 dust.noGravity = true;
             }
         }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => target.AddBuff(BuffID.CursedInferno, 300);
+
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

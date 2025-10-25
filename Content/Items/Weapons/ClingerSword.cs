@@ -51,6 +51,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
             }
         }
 
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone) => target.AddBuff(BuffID.CursedInferno, 300);
+
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Projectile.NewProjectile(source, player.Center - Vector2.UnitY * 78, Vector2.UnitX * Item.shootSpeed * player.direction, type, damage, knockback, player.whoAmI);
