@@ -43,24 +43,7 @@ namespace UniverseOfSwords.Content.Projectiles.Common
 
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.VampireKnivesAI(ai: 0, 30f);
-            FindNPCAndApplySpeed(velocityLength);
-        }
-
-        public void FindNPCAndApplySpeed(float multiplier)
-        {
-            NPC npc = UniverseUtils.Misc.FindTargetWithinRange(Projectile, 200f);
-            if (npc != null)
-            {
-                attackTarget = npc.whoAmI;
-                Projectile.netUpdate = true;
-            }
-
-            if (attackTarget != -1 && Main.npc[attackTarget].active)
-            {
-                Projectile.timeLeft = 2;
-                Vector2 speed = Vector2.Normalize(Main.npc[attackTarget].Center - Projectile.Center);
-                Projectile.velocity = (Projectile.velocity * 8f + speed * multiplier) / 9f;
-            }
+            UniverseUtils.Misc.FindNPCAndApplySpeed(Projectile, velocityLength, velocity: 8f);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
