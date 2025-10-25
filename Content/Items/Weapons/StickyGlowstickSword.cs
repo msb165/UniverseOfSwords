@@ -43,7 +43,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
             {
                 Lighting.AddLight(player.itemLocation, Color.SkyBlue.ToVector3());
-                UniverseUtils.CustomHoldStyle(player, new Vector2(16, -32f), Vector2.Zero);
+                UniverseUtils.CustomHoldStyle(player, new Vector2(-16f, 32f), Vector2.Zero);
             }
         }
     }

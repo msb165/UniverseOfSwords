@@ -34,9 +34,16 @@ namespace UniverseOfSwords.Content.Items.Armor
 		
 		public override void AddRecipes()
 		{
-			Recipe recipe = CreateRecipe();
-			recipe.AddIngredient(ItemID.LunarBar, 20);
-			recipe.AddIngredient(ItemID.BossMaskBetsy, 1);
+            Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.LunarBar, 20);
+            if (thorium is not null)
+            {
+                recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
+            }
+            recipe.AddIngredient(ItemID.BossMaskBetsy, 1);
             recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
             recipe.AddIngredient(null, "HaloOfHorrors", 1);
 			recipe.AddIngredient(null, "SwordShard", 5);

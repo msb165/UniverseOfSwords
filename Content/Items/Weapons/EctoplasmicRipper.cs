@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -29,6 +31,17 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.UseSound = SoundID.Item103;
             Item.autoReuse = true;
             Item.useTurn = true;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player) => Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
@@ -45,16 +58,19 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Ectoplasm, 15);
             recipe.AddIngredient(ItemID.SpectreBar, 10);
-            recipe.AddIngredient(null, "DeathSword", 1);
+            recipe.AddIngredient(ModContent.ItemType<DeathSword>());
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            int healingAmt = hit.Damage / 8;
-            player.statMana += healingAmt;
-            player.ManaEffect(healingAmt);
+            if (UniverseUtils.IsAValidTarget(target))
+            {
+                int healingAmt = hit.Damage / 8;
+                player.statMana += healingAmt;
+                player.ManaEffect(healingAmt);
+            }
         }
     }
 }

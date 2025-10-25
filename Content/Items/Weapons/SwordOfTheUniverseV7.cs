@@ -32,7 +32,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useTime = 15;
             Item.useAnimation = 15;
             Item.damage = 275;
-            Item.knockBack = 10f;
+            Item.knockBack = 8f;
             Item.UseSound = SoundID.Item1 with { Pitch = -0.5f };
             Item.shoot = ModContent.ProjectileType<SOTUV6Projectile>();
             Item.shootSpeed = 5f;

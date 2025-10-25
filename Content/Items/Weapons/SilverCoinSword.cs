@@ -30,10 +30,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.holdStyle = 0;
         }
 
-        public override void HoldItem(Player player)
-        {
-            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
-        }
+        public override void HoldItem(Player player) => Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
 
         public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {

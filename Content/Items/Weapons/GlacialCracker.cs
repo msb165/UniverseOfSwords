@@ -2,7 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -28,6 +30,17 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.value = Item.sellPrice(gold: 50);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player) => Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame)
@@ -38,14 +51,13 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IceBlade, 1)
                 .AddIngredient(ItemID.Amarok, 1)
-                .AddIngredient(ItemID.Frostbrand, 2)
                 .AddIngredient(ItemID.NorthPole, 1)
                 .AddIngredient(ItemID.FrostCore, 10)
                 .AddIngredient(ItemID.IceFeather, 2)
                 .AddIngredient(ModContent.ItemType<SwordShard>(), 5)
                 .AddIngredient(ItemID.IceBlock, 1000)
+                .AddIngredient(ModContent.ItemType<IceBreaker>())
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

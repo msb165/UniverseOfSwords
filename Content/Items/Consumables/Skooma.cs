@@ -16,26 +16,26 @@ namespace UniverseOfSwords.Content.Items.Consumables
         public override void SetDefaults()
         {
             Item.UseSound = SoundID.Item3;                
-            Item.useStyle = ItemUseStyleID.DrinkLiquid;                 //this is how the item is holded when used
+            Item.useStyle = ItemUseStyleID.DrinkLiquid;         
             Item.useTurn = true;
             Item.useAnimation = 17;
             Item.useTime = 17;
-            Item.maxStack = 30;                 //this is where you set the max stack of item
-            Item.consumable = true;           //this make that the item is consumable when used
+            Item.maxStack = Item.CommonMaxStack;             
+            Item.consumable = true;         
             Item.width = 22;
             Item.height = 40;
             Item.value = Item.sellPrice(gold: 2);
             Item.rare = ItemRarityID.Purple;
-            Item.buffType = ModContent.BuffType<Buffs.Skooma>();    //this is where you put your Buff name
-            Item.buffTime = 8000;    //this is the buff duration        20000 = 6 min
+            Item.buffType = ModContent.BuffType<Buffs.Skooma>();   
+            Item.buffTime = 8000;    
         }
 
         public override void AddRecipes()
         {
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(ItemID.PurpleMucos, 1);
+            recipe.AddIngredient(ItemID.PurpleMucos);
             recipe.AddIngredient(ItemID.CandyCorn, 10);
-            recipe.AddIngredient(ItemID.Moonglow, 1);
+            recipe.AddIngredient(ItemID.Moonglow);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
         }

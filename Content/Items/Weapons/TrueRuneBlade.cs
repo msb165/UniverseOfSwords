@@ -3,7 +3,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -36,6 +38,30 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.DamageType = DamageClass.MeleeNoSpeed;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.noUseGraphic = player.ItemAnimationActive;
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY);
+            }
+        }
+
+        public override bool MeleePrefix() => true;
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            swingDirection *= -1;
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai1: swingDirection);
+            return false;
         }
 
         public override void AddRecipes()
@@ -52,15 +78,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 .AddIngredient(ItemID.BrokenHeroSword)
                 .AddTile(TileID.CrystalBall)
                 .Register();
-        }
-
-        public override bool MeleePrefix() => true;
-
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            swingDirection *= -1;
-            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai1: swingDirection);
-            return false;
         }
     }
 }

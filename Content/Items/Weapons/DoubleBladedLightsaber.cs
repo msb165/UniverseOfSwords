@@ -1,8 +1,11 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Held;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons     
 {
@@ -18,19 +21,34 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
 			Item.damage = 65;
             Item.DamageType = DamageClass.MeleeNoSpeed;   
-            Item.width = 140;  
-            Item.height = 140;  
+            Item.width = 70;  
+            Item.height = 70;  
 			Item.scale = 1f;
             Item.useTime = 10; 
             Item.useAnimation = 10;    
             Item.channel = true;
-            Item.useStyle = ItemUseStyleID.Shoot;    
+            Item.useStyle = ItemUseStyleID.Swing;    
             Item.knockBack = 8f; 
             Item.value = Item.sellPrice(gold: 4);
             Item.rare = ItemRarityID.Lime;                      
             Item.shoot = ModContent.ProjectileType<DoubleBladedLightsaberProjectile>();  
             Item.noUseGraphic = true; 
 			Item.noMelee = true;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.noUseGraphic = player.ItemAnimationActive;
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
 
         public override bool MeleePrefix() => true;

@@ -23,7 +23,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.scale = 1f;
             Item.rare = ItemRarityID.Red;
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.knockBack = 10f;
+            Item.knockBack = 3f;
             Item.useTime = 12;
             Item.useAnimation = 12;
             Item.damage = 240;
@@ -37,12 +37,19 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void AddRecipes()
         {
+            Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
             Recipe recipe = CreateRecipe();
-            recipe.AddIngredient(null, "Inflation", 1);
-            recipe.AddIngredient(null, "CopperCoinSword", 1);
-            recipe.AddIngredient(null, "SilverCoinSword", 1);
-            recipe.AddIngredient(null, "GoldCoinSword", 1);
-            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 300);
+            recipe.AddIngredient(ModContent.ItemType<Inflation>());
+            recipe.AddIngredient(ModContent.ItemType<CopperCoinSword>());
+            recipe.AddIngredient(ModContent.ItemType<SilverCoinSword>());
+            recipe.AddIngredient(ModContent.ItemType<GoldCoinSword>());
+            if (thorium is not null)
+            {
+                recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
+            }
+            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 250);
             recipe.AddIngredient(ItemID.LunarOre);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();

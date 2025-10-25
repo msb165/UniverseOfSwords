@@ -3,7 +3,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Items.Materials;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -20,11 +22,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.damage = 180;
             Item.crit = 10;
             Item.DamageType = DamageClass.MeleeNoSpeed;
-            Item.width = 88;
-            Item.height = 88;
+            Item.width = 40;
+            Item.height = 40;
             Item.useTime = 10;
             Item.useAnimation = 10;
-            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.useStyle = ItemUseStyleID.Swing;
             Item.knockBack = 8f;
             Item.value = Item.sellPrice(platinum: 1);
             Item.rare = ItemRarityID.Purple;
@@ -35,7 +37,23 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.noMelee = true;
             Item.shootSpeed = 1f;
             Item.shoot = ModContent.ProjectileType<Projectiles.Held.DeusExcalibur>();
+            Item.holdStyle = 0;
         }
+
+        public override void HoldItem(Player player)
+        {
+            Item.noUseGraphic = player.ItemAnimationActive;
+            Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY);
+            }
+        }
+
 
         public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < 1;
 

@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Utilities;
 
@@ -11,8 +12,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.width = 48;
-            Item.height = 48;
+            Item.Size = new(48);
             Item.scale = 1.25f;
             Item.rare = ItemRarityID.Yellow;
             Item.useStyle = ItemUseStyleID.Swing;
@@ -21,9 +21,20 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.damage = 65;
             Item.knockBack = 7f;
             Item.UseSound = SoundID.Item1;
-            Item.value = 360500;
+            Item.value = Item.sellPrice(gold: 2, silver: 60);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player) => Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;
@@ -40,9 +51,9 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<PumpkinSword>(), 1)
-                .AddIngredient(ItemID.JackOLanternLauncher, 1)
-                .AddIngredient(null, "Orichalcon", 1)
+                .AddIngredient(ModContent.ItemType<PumpkinSword>())
+                .AddIngredient(ItemID.JackOLanternLauncher)
+                .AddIngredient(ModContent.ItemType<Orichalcon>())
                 .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Common.GlobalItems;
 using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Common;
@@ -37,6 +38,17 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.noMelee = true;
             Item.shootsEveryUse = true;
             Item.GetGlobalItem<ReflectionChance>().reflectChance = 8;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player) => Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
 
         public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation = player.Center;

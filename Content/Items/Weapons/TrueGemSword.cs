@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
 using static Terraria.ModLoader.ModContent;
@@ -31,6 +32,21 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.channel = true;
             Item.noMelee = true;
             Item.noUseGraphic = true;
+            Item.holdStyle = 0;
+        }
+
+        public override void HoldItem(Player player)
+        {
+            Item.noUseGraphic = player.ItemAnimationActive;
+            Item.holdStyle = GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+        }
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
+        {
+            if (GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 6f);
+            }
         }
 
         public override bool MeleePrefix() => true;

@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Buffs;
 using UniverseOfSwords.Common;
+using UniverseOfSwords.Common.GlobalItems;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
 
@@ -27,6 +28,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
             Item.holdStyle = 0;
+            Item.GetGlobalItem<ReflectionChance>().reflectChance = 10;
         }
 
         public override void UseItemFrame(Player player)
@@ -56,8 +58,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
             if (player.ownedProjectileCounts[ModContent.ProjectileType<FlyingSword>()] == 0)
             {
-                Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero, ModContent.ProjectileType<FlyingSword>(), Item.damage * 2, 4f, player.whoAmI, ai0: MathHelper.Pi);
-                Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero, ModContent.ProjectileType<FlyingSword>(), Item.damage * 2, 4f, player.whoAmI, ai0: MathHelper.TwoPi);
+                Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero, ModContent.ProjectileType<FlyingSword>(), (int)(Item.damage * 1.5f), 4f, player.whoAmI, ai0: MathHelper.Pi);
+                Projectile.NewProjectile(Projectile.GetSource_None(), player.Center, Vector2.Zero, ModContent.ProjectileType<FlyingSword>(), (int)(Item.damage * 1.5f), 4f, player.whoAmI, ai0: MathHelper.TwoPi);
             }
         }
 

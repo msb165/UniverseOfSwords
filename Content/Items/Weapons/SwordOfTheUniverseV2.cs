@@ -100,6 +100,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             recipe.AddIngredient(ItemID.Arkhalis);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
+
             Recipe recipe2 = CreateRecipe();
             recipe2.AddIngredient(ModContent.ItemType<TrueHorrormageddon>());
             recipe2.AddIngredient(ModContent.ItemType<PrismSword>());

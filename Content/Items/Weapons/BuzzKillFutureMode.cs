@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using UniverseOfSwords.Common;
+using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Projectiles.Common;
 using UniverseOfSwords.Utilities;
 
@@ -27,11 +28,11 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 30;
             Item.useAnimation = 30;
-            Item.damage = 50;
-            Item.knockBack = 1.0F;
+            Item.damage = 100;
+            Item.knockBack = 1f;
             Item.UseSound = SoundID.Item1;
             Item.shoot = ProjectileID.Beenade;
-            Item.shootSpeed = 9;
+            Item.shootSpeed = 9f;
             Item.value = Item.sellPrice(gold: 10);
             Item.autoReuse = true;
             Item.DamageType = DamageClass.Melee;
@@ -79,10 +80,10 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(null, "LunarOrb", 1)
+                .AddIngredient(ModContent.ItemType<LunarOrb>())
                 .AddIngredient(ItemID.HiveBackpack, 1)
-                .AddIngredient(ItemID.LunarBar, 20)
-                .AddIngredient(null, "BuzzKill", 1)
+                .AddIngredient(ModContent.ItemType<BuzzKill>())
+                .AddIngredient(ItemID.LunarBar, 15)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }

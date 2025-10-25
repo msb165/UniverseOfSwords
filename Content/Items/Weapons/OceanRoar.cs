@@ -3,7 +3,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Common;
 using UniverseOfSwords.Content.Projectiles.Common;
+using UniverseOfSwords.Utilities;
 
 namespace UniverseOfSwords.Content.Items.Weapons
 {
@@ -11,8 +13,8 @@ namespace UniverseOfSwords.Content.Items.Weapons
     {
         public override void SetDefaults()
         {
-            Item.width = 48;
-            Item.height = 50;
+            Item.width = 30;
+            Item.height = 30;
             Item.rare = ItemRarityID.Orange;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTime = 50;
@@ -24,13 +26,20 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.value = Item.sellPrice(silver: 25);
             Item.autoReuse = false;
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = 0;
         }
 
-        public override void UseStyle(Player player, Rectangle heldItemFrame)
+        public override void HoldItem(Player player) => Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
+
+        public override void HoldStyle(Player player, Rectangle heldItemFrame)
         {
-            player.itemLocation.Y -= 1f * player.gravDir;
-
+            if (ModContent.GetInstance<UniverseConfig>().enableHoldStyle)
+            {
+                UniverseUtils.CustomHoldStyle(player, new Vector2(48f * player.direction, -64f), Vector2.UnitY * 4f);
+            }
         }
+
+        public override void UseStyle(Player player, Rectangle heldItemFrame) => player.itemLocation.Y -= 1f * player.gravDir;
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

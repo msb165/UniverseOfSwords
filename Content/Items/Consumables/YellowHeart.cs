@@ -26,7 +26,7 @@ namespace UniverseOfSwords.Content.Items.Consumables
         {
             SoundEngine.PlaySound(SoundID.Grab);
             player.Heal(60);
-            player.AddBuff(BuffID.Honey, 320);
+            player.AddBuff(BuffID.Honey, 380);
             return false;
         }
     }
