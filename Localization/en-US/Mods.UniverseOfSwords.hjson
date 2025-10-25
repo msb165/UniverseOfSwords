@@ -322,7 +322,7 @@ Items: {
 
 	Revenant: {
 		DisplayName: Revenant
-		Tooltip: ""
+		Tooltip: '''"Point this sword to the sky and unleash spirits of the dead"'''
 	}
 
 	ScarletFlareCore: {
@@ -1656,9 +1656,9 @@ Projectiles: {
 	SuperSolutionSpreader.DisplayName: Super Solution Spreader
 	FlyingMusket.DisplayName: Flying Musket
 	Ichor.DisplayName: Ichor
-	StarProj.DisplayName: Star Proj
+	StarProj.DisplayName: Star
 	ClingerWall.DisplayName: Clinger Wall
-	RevenantProj.DisplayName: Revenant Proj
+	RevenantProj.DisplayName: Revenant
 	ScarletFlareGreatsword.DisplayName: Scarlet Flare Greatsword
 	PrismSword.DisplayName: Prism Sword
 	ScarletFire.DisplayName: Scarlet Fire
@@ -1666,7 +1666,7 @@ Projectiles: {
 	PaladinSword.DisplayName: Paladin Sword
 	FlyingHammer.DisplayName: Flying Hammer
 	FlyingSword.DisplayName: Flying Sword
-	DeathProj.DisplayName: Death Proj
+	DeathProj.DisplayName: Death
 	EyeOfCthulhu.DisplayName: Eye Of Cthulhu
 	MachineProbe.DisplayName: Machine Probe
 	ProbeLaser.DisplayName: Probe Laser
@@ -1844,6 +1844,8 @@ NPCs: {
 			LoveBiome: I love {BiomeName}.
 			HateBiome: I hate {BiomeName}.
 			LikeNPC: "{NPCName} is cool."
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
 		}
 	}
 }
