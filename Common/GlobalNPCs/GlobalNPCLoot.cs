@@ -16,7 +16,7 @@ namespace UniverseOfSwords.Common.GlobalNPCs
 
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
-            if (Main.rand.NextBool(5))
+            if (Main.rand.NextBool(8))
             {
                 shop[nextSlot] = ModContent.ItemType<Skooma>();
                 nextSlot++;
