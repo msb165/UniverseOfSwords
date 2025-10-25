@@ -17,7 +17,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void SetDefaults()
         {
-            Item.damage = 80;
+            Item.damage = 90;
             Item.DamageType = DamageClass.Melee;
             Item.rare = ItemRarityID.Red;
             Item.width = 34;
