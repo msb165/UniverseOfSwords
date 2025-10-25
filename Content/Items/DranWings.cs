@@ -62,7 +62,14 @@ namespace UniverseOfSwords.Content.Items
         
         public override void AddRecipes()
         {
+            Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
             Recipe recipe = CreateRecipe();
+            if (thorium is not null)
+            {
+                recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
+            }
             recipe.AddIngredient(ItemID.DD2PetDragon, 1);
             recipe.AddIngredient(ItemID.SoulofFlight, 40);
             recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
