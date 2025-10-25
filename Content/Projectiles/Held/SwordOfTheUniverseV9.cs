@@ -15,7 +15,7 @@ namespace UniverseOfSwords.Content.Projectiles.Held
 
         public override ref float SwingDirection => ref Projectile.ai[1];
 
-        public override float BaseScale => 0.5f;
+        public override float BaseScale => 0.75f;
 
         public override void AI()
         {
