@@ -131,6 +131,7 @@ namespace UniverseOfSwords.Content.Projectiles.Held
                 }
                 Player.Heal(healAmount);
                 NPCLoader.OnHitByItem(target, Player, Player.HeldItem, hit, damageDone);
+                target.AddBuff(BuffID.BetsysCurse, 300);
 
                 if (CurrentState is SwordState.Thrust && Projectile.ai[2] == 0f)
                 {
