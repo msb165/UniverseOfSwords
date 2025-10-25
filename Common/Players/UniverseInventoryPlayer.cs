@@ -18,9 +18,9 @@ namespace UniverseOfSwords.Common.Players
 
         public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
         {
-            if (ModContent.GetInstance<UniverseConfig>().starterSwords)
+            if (!ModContent.GetInstance<UniverseConfig>().starterSwords)
             {
-                return [];
+                return base.AddStartingItems(mediumCoreDeath);
             }
             return [
             new Item(Utils.SelectRandom(Main.rand,
