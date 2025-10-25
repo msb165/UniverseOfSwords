@@ -46,8 +46,8 @@ namespace UniverseOfSwords.Content.Projectiles.Common
             {
                 Vector2 newVel = Vector2.Normalize(Projectile.velocity).RotatedBy(MathHelper.PiOver2 * Projectile.direction);
                 Vector2 newVel2 = Vector2.Normalize(Projectile.velocity).RotatedBy(-MathHelper.PiOver2 * Projectile.direction);
-                Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, (newVel * 8f).RotatedBy(Projectile.rotation), Player.beeType(), Player.beeDamage(Projectile.damage), Player.beeKB(0f), Projectile.owner);
-                Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, (newVel2 * 8f).RotatedBy(Projectile.rotation), Player.beeType(), Player.beeDamage(Projectile.damage), Player.beeKB(0f), Projectile.owner);
+                Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, (newVel * 8f).RotatedBy(Projectile.rotation), ProjectileID.GiantBee, Player.beeDamage(Projectile.damage), Player.beeKB(0f), Projectile.owner);
+                Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, (newVel2 * 8f).RotatedBy(Projectile.rotation), ProjectileID.GiantBee, Player.beeDamage(Projectile.damage), Player.beeKB(0f), Projectile.owner);
             }
             for (int j = 0; j < 3; j++)
             {
