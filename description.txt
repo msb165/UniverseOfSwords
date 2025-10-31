@@ -1,0 +1,38 @@
+Universe Of Swords is a mod with the main goal of introducing new swords and mechanics to the game and improving overall the melee class experience.
+
+-> Credits
+
+- Code
+
+Gnome
+Kosky
+Eldrazi
+
+- Sprites
+
+Gnome
+Kosky
+HORRIOR
+mutater
+ПYX
+Supreme King of cats
+
+-> Content
+
+This mod currently features:
+- 100+ swords
+- 1 new Town NPC
+- 2 new mechanics
+
+-> Mechanics
+
+This mod introduces new mechanics for the melee class, such as:
+
+-> Projectile Reflection
+
+While attacking, every sword now has a small chance of reflecting hostile projectiles.
+
+-> Bonus drops
+
+A mechanic similar to the Nebula armor's set bonus. On Hardmode, for every time the player hits an enemy, there's a chance of dropping hearts or other boosters (melee damage or speed).
+
