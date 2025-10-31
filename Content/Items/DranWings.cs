@@ -62,6 +62,7 @@ namespace UniverseOfSwords.Content.Items
         
         public override void AddRecipes()
         {
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
             Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
             Recipe recipe = CreateRecipe();
             if (thorium is not null)
@@ -69,6 +70,10 @@ namespace UniverseOfSwords.Content.Items
                 recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 5);
                 recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
                 recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
+            }
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("AshesofAnnihilation"), 4);
             }
             recipe.AddIngredient(ItemID.DD2PetDragon, 1);
             recipe.AddIngredient(ItemID.SoulofFlight, 40);

@@ -35,14 +35,10 @@ namespace UniverseOfSwords.Content.Items.Armor
 		public override void AddRecipes()
 		{
             Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
+
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.LunarBar, 20);
-            if (thorium is not null)
-            {
-                recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 5);
-                recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
-                recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
-            }
             recipe.AddIngredient(ItemID.BossMaskBetsy, 1);
             recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
             recipe.AddIngredient(null, "HaloOfHorrors", 1);
@@ -50,7 +46,18 @@ namespace UniverseOfSwords.Content.Items.Armor
 			recipe.AddIngredient(null, "BlueDamascusHelmet", 1);
 			recipe.AddIngredient(null, "GreenDamascusHelmet", 1);
 			recipe.AddIngredient(null, "RedDamascusHelmet", 1);
-			recipe.AddTile(TileID.LunarCraftingStation);
+            if (thorium is not null)
+            {
+                recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
+                recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
+            }
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("ExoPrism"), 5);
+                recipe.AddIngredient(calamity.Find<ModItem>("AshesofAnnihilation"), 5);
+            }
+            recipe.AddTile(TileID.LunarCraftingStation);
 			recipe.Register();
 		}
 		

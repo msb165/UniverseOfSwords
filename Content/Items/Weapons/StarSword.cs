@@ -38,7 +38,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-            Item.noUseGraphic = player.ItemAnimationActive;
             Item.holdStyle = ModContent.GetInstance<UniverseConfig>().enableHoldStyle ? 999 : 0;
         }
 

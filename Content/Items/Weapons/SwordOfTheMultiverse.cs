@@ -79,18 +79,24 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverse>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV2>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV3>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV4>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV5>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV6>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV7>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV8>())
-                .AddIngredient(ModContent.ItemType<SwordOfTheUniverseV9>())
-                .AddTile(TileID.LunarCraftingStation)
-                .Register();
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverse>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV2>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV3>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV4>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV5>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV6>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV7>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV8>());
+            recipe.AddIngredient(ModContent.ItemType<SwordOfTheUniverseV9>());
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("ExoPrism"), 10);
+                recipe.AddIngredient(calamity.Find<ModItem>("AshesofAnnihilation"), 15);
+            }
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

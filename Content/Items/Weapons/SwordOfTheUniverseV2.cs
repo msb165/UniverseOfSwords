@@ -85,19 +85,24 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<TrueHorrormageddon>());
             recipe.AddIngredient(ModContent.ItemType<PrismSword>());
             recipe.AddIngredient(ModContent.ItemType<EdgeLord>());
             recipe.AddIngredient(ModContent.ItemType<SuperInflation>());
             recipe.AddIngredient(ModContent.ItemType<GlacialCracker>());
+            recipe.AddIngredient(ItemID.Arkhalis);
             if (thorium is not null)
             {
                 recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 20);
                 recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 20);
                 recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 20);
             }
-            recipe.AddIngredient(ItemID.Arkhalis);
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("Necroplasm"), 10);
+            }
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
 

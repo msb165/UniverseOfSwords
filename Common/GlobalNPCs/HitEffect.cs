@@ -10,7 +10,12 @@ namespace UniverseOfSwords.Common.GlobalNPCs
     {
         public override void OnHitByItem(NPC npc, Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
             bool isMelee = item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed;
+            if (calamity is not null)
+            {
+                isMelee = item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed || item.DamageType == calamity.Find<DamageClass>("TrueMeleeDamageClass");
+            }
             bool canHitTarget = npc.HittableForOnHitRewards() && player.CanHitNPCWithMeleeHit(npc.whoAmI);
             if (isMelee && canHitTarget && player.whoAmI == Main.myPlayer && player.GetModPlayer<UniversePlayer>().meleeCD == 0 && Main.rand.NextBool(4) && Main.hardMode) 
             {

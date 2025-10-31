@@ -13,7 +13,13 @@ namespace UniverseOfSwords.Common.GlobalItems
 
         public override void SetDefaults(Item entity)
         {
-            if ((entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed) && entity.useStyle == ItemUseStyleID.Swing && entity.axe <= 0 && entity.pick <= 0 && reflectChance == 0)
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
+            bool isMelee = (entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed);
+            if (calamity is not null)
+            {
+                isMelee = entity.DamageType == DamageClass.Melee || entity.DamageType == DamageClass.MeleeNoSpeed || entity.DamageType == calamity.Find<DamageClass>("TrueMeleeDamageClass");
+            }
+            if (isMelee && entity.useStyle == ItemUseStyleID.Swing && entity.axe <= 0 && entity.pick <= 0 && reflectChance == 0)
             {
                 reflectChance = 4;
             }

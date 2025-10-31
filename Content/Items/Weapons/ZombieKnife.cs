@@ -16,17 +16,18 @@ namespace UniverseOfSwords.Content.Items.Weapons
         {
             Item.width = 32;
             Item.height = 32;			
-			Item.scale = 1.6F;
+			Item.scale = 1.6f;
             Item.rare = ItemRarityID.Orange;           
             Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 15;
             Item.useAnimation = 15;           
             Item.damage = 7;
-            Item.knockBack = 4.0F;
+            Item.knockBack = 4f;
             Item.UseSound = SoundID.Item1;
             Item.value = 7800;			
             Item.autoReuse = true; 
             Item.DamageType = DamageClass.Melee;
+            Item.holdStyle = ItemHoldStyleID.HoldUp;
 	    }
 	   
        	public override void UseStyle(Player player, Rectangle heldItemFrame)

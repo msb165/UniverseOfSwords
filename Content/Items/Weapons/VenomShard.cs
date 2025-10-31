@@ -66,7 +66,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<MoltenShard>(), 1)
+                .AddIngredient(ModContent.ItemType<MoltenShard>())
                 .AddIngredient(ItemID.SpiderFang, 10)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

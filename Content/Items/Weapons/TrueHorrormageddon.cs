@@ -67,16 +67,21 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<Horrormageddon>())
-                .AddIngredient(ModContent.ItemType<GnomBlade>())
-                .AddIngredient(ItemID.BrokenHeroSword, 10)
-                .AddIngredient(ModContent.ItemType<UpgradeMatter>(), 25)
-                .AddIngredient(ModContent.ItemType<BlackBar>(), 25)
-                .AddIngredient(ModContent.ItemType<LunarOrb>(), 3)
-                .AddIngredient(ItemID.LunarBar, 80)
-                .AddTile(TileID.DemonAltar)
-                .Register();
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ModContent.ItemType<Horrormageddon>());
+            recipe.AddIngredient(ModContent.ItemType<GnomBlade>());
+            recipe.AddIngredient(ItemID.BrokenHeroSword, 10);
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("DarkPlasma"), 5);
+            }
+            recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 25);
+            recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 25);
+            recipe.AddIngredient(ModContent.ItemType<LunarOrb>(), 3);
+            recipe.AddIngredient(ItemID.LunarBar, 80);
+            recipe.AddTile(TileID.DemonAltar);
+            recipe.Register();
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

@@ -12,11 +12,6 @@ namespace UniverseOfSwords.Content.Items.Weapons
 {
     public class FixedSwordOfPower : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            // Tooltip.SetDefault("Inflicts Midas debuff on enemies");
-        }
-
         public override void SetDefaults()
         {
             Item.Size = new(64);
@@ -62,12 +57,17 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<SwordOfPower>())
-                .AddIngredient(ItemID.Bone, 25)
-                .AddIngredient(ModContent.ItemType<SwordMatter>(), 100)
-                .AddTile(TileID.Anvils)
-                .Register();
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ModContent.ItemType<SwordOfPower>());
+            recipe.AddIngredient(ItemID.Bone, 25);
+            recipe.AddIngredient(ModContent.ItemType<SwordMatter>(), 100);
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("PurifiedGel"), 5);
+            }
+            recipe.AddTile(TileID.Anvils);
+            recipe.Register();
         }
     }
 }

@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UniverseOfSwords.Content.Items.Accessories;
 using UniverseOfSwords.Content.Items.Materials;
 using UniverseOfSwords.Content.Items.Placeable;
 
@@ -65,6 +66,7 @@ namespace UniverseOfSwords.Content.Items
 
         public override void AddRecipes()
         {
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
             Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
             Recipe recipe = CreateRecipe();
             if (thorium is not null)
@@ -73,13 +75,17 @@ namespace UniverseOfSwords.Content.Items
                 recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
                 recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
             }
-            recipe.AddIngredient(ItemID.DD2PetDragon, 1);
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("ExoPrism"), 4);
+            }
+            recipe.AddIngredient(ItemID.DD2PetDragon);
             recipe.AddIngredient(ItemID.SoulofFlight, 40);
             recipe.AddIngredient(ModContent.ItemType<BlackBar>(), 15);
             recipe.AddIngredient(ModContent.ItemType<LunarOrb>(), 6);
-            recipe.AddIngredient(null, "HaloOfHorrors", 1);
-            recipe.AddIngredient(ItemID.WingsSolar, 1);
-            recipe.AddIngredient(ItemID.WingsStardust, 1);
+            recipe.AddIngredient(ModContent.ItemType<HaloOfHorrors>());
+            recipe.AddIngredient(ItemID.WingsSolar);
+            recipe.AddIngredient(ItemID.WingsStardust);
             recipe.AddTile(TileID.LunarCraftingStation);
             recipe.Register();
         }

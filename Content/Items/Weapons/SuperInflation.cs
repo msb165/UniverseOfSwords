@@ -38,6 +38,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
         public override void AddRecipes()
         {
             Mod thorium = UniverseOfSwords.Instance.ThoriumMod;
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ModContent.ItemType<Inflation>());
             recipe.AddIngredient(ModContent.ItemType<CopperCoinSword>());
@@ -48,6 +49,10 @@ namespace UniverseOfSwords.Content.Items.Weapons
                 recipe.AddIngredient(thorium.Find<ModItem>("InfernoEssence"), 5);
                 recipe.AddIngredient(thorium.Find<ModItem>("DeathEssence"), 5);
                 recipe.AddIngredient(thorium.Find<ModItem>("OceanEssence"), 5);
+            }
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("Necroplasm"), 5);
             }
             recipe.AddIngredient(ModContent.ItemType<UpgradeMatter>(), 250);
             recipe.AddIngredient(ItemID.LunarOre);

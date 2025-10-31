@@ -65,6 +65,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
             if (!UniverseUtils.IsAValidTarget(target))
             {
                 return;
@@ -74,16 +75,25 @@ namespace UniverseOfSwords.Content.Items.Weapons
             {
                 Projectile.NewProjectile(target.GetSource_OnHit(target), player.Center - Vector2.UnitY * 64f + newVel, newVel, ModContent.ProjectileType<GreenSaw>(), Item.damage * 2, Item.knockBack, player.whoAmI);
             }
-            target.AddBuff(ModContent.BuffType<TrueSlow>(), 1000);
+            if (calamity is null)
+            {
+                target.AddBuff(ModContent.BuffType<TrueSlow>(), 1000);
+            }
             target.AddBuff(ModContent.BuffType<SuperVenom>(), 1000);
         }
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.LunarBar, 15)
-                .AddTile(TileID.LunarCraftingStation)
-                .Register();
+            Mod calamity = UniverseOfSwords.Instance.CalamityMod;
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.LunarBar, 15);
+            if (calamity is not null)
+            {
+                recipe.AddIngredient(calamity.Find<ModItem>("TwistingNether"), 2);
+                recipe.AddIngredient(calamity.Find<ModItem>("InfectedArmorPlating"), 5);
+            }
+            recipe.AddTile(TileID.LunarCraftingStation);
+            recipe.Register();
         }
     }
 }

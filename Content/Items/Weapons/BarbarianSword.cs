@@ -20,7 +20,7 @@ namespace UniverseOfSwords.Content.Items.Weapons
             Item.height = 58; 
 			Item.scale = 1.125f;
             Item.rare = ItemRarityID.Blue;            
-            Item.useStyle = ItemUseStyleID.HoldUp;             
+            Item.useStyle = ItemUseStyleID.Swing;             
             Item.useTime = 24;
             Item.useAnimation = 24;           
             Item.damage = 20; 
