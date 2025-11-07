@@ -79,8 +79,8 @@ namespace UniverseOfSwords.Content.NPCs
             else if (Main.hardMode)
             {
                 chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue4"));
+                chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue5"));
             }
-            chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue5"));
             if (NPC.downedMoonlord && !Main.LocalPlayer.HasItem(ModContent.ItemType<SwordOfTheMultiverse>()))
             {
                 chat.Add(Language.GetTextValue("Mods.UniverseOfSwords.NPCs.Swordsman.Dialogue6"));
