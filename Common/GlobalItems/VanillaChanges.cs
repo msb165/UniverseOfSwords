@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -93,6 +94,15 @@ namespace UniverseOfSwords.Common.GlobalItems
                         break;
                 }
             }
+        }
+
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (item.useStyle == ItemUseStyleID.Swing && (item.DamageType == DamageClass.Melee || item.DamageType == DamageClass.MeleeNoSpeed))
+            {
+                player.ChangeDir(MathF.Sign((Main.MouseWorld - player.RotatedRelativePoint(player.MountedCenter)).X));
+            }
+            return null;
         }
 
         public override void UseStyle(Item item, Player player, Rectangle heldItemFrame)
